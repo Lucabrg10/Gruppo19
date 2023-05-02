@@ -23,6 +23,24 @@ import java.awt.Cursor;
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JButton okButton;
+	private JSlider slider;
+
+	public JSlider getSlider() {
+		return slider;
+	}
+
+	public void setSlider(JSlider slider) {
+		this.slider = slider;
+	}
+
+	public JButton getOkButton() {
+		return okButton;
+	}
+
+	public void setOkButton(JButton okButton) {
+		this.okButton = okButton;
+	}
 
 	/**
 	 * Launch the application.
@@ -47,26 +65,26 @@ public class Login extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 33, 414, 47);
 		contentPanel.add(panel);
-		
+
 		JLabel lbLogin = new JLabel("Benvenuti su My Shelfie.");
 		lbLogin.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		panel.add(lbLogin);
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setBounds(39, 130, 321, 47);
 		contentPanel.add(splitPane);
-		
-		JLabel lblNewLabel = new JLabel("<html>Indicare il numero"+"<br>"+"di giocatori:<html>");
+
+		JLabel lblNewLabel = new JLabel("<html>Indicare il numero" + "<br>" + "di giocatori:<html>");
 		lblNewLabel.setBorder(null);
 		lblNewLabel.setDisplayedMnemonicIndex(0);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		splitPane.setLeftComponent(lblNewLabel);
-		
-		final JSlider slider = new JSlider();
+
+		slider = new JSlider();
 		slider.setMajorTickSpacing(1);
 		slider.setPaintLabels(true);
 		slider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -76,33 +94,22 @@ public class Login extends JDialog {
 		slider.setMaximum(4);
 		slider.setValue(2);
 		splitPane.setRightComponent(slider);
+
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-				okButton.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-						int numOfPlayer= slider.getValue();
-						//System.out.println(numOfPlayer);
-						MainFrame frame = new MainFrame(numOfPlayer);
-						frame.setVisible(true);
-						dispose();
-						
-					}
-				});
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			okButton = new JButton("OK");
+			okButton.setActionCommand("OK");
+			buttonPane.add(okButton);
+			getRootPane().setDefaultButton(okButton);
+			
 		}
+		{
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.setActionCommand("Cancel");
+			buttonPane.add(cancelButton);
+		}
+
 	}
 }
