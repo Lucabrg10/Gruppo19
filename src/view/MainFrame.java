@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
@@ -19,11 +20,28 @@ public class MainFrame extends JFrame {
 	
 	private JPanel contentPane;
 	private JTable tableBoard;
+	JOptionPane jOptionPane = new JOptionPane();
+	
+	public JOptionPane getjOptionPane() {
+		return jOptionPane;
+	}
+
+	public void setjOptionPane(JOptionPane jOptionPane) {
+		this.jOptionPane = jOptionPane;
+	}
+
+	public JTable getTableBoard() {
+		return tableBoard;
+	}
+
+	public void setTableBoard(JTable tableBoard) {
+		this.tableBoard = tableBoard;
+	}
 
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -35,11 +53,12 @@ public class MainFrame extends JFrame {
 			}
 		});
 	}
-*/
+
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame(int numberOfPlayers) {
+	public MainFrame() {
+		
 		
 		setTitle("My Shelfie");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,22 +72,7 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		tableBoard = new JTable();
-		tableBoard.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
-			}
-		));
+		
 		tableBoard.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tableBoard.setBounds(75, 55, 278, 144);
 		contentPane.add(tableBoard);
