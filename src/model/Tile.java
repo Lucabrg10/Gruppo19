@@ -8,5 +8,5 @@ public enum Tile{
 	GREEN,
 	PINK,
 	WHITE,
-	NULL;
+	EMPTY;
 }
