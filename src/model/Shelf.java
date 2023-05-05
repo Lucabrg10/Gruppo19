@@ -3,28 +3,30 @@ package model;
 public class Shelf {
 	private final int columns=5;
 	private final int rows=6;
-	private int [][] shelf= new int[columns][rows];
-	private int player;
+	private Tile [][] shelf= new Tile[columns][rows];
+	private int numOfPlayers;
 	
 	
-	public Shelf(int player) {
-		this.player=player; //player number
+	public Shelf(int numOfPlayers) {
+		this.numOfPlayers=numOfPlayers; //player number
 	}
 	
 	//Set all shelf cell to null
-	public void reset() {
+	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 		      for(int j = 0; j < shelf[i].length; ++j) {
-		        shelf[i][j]=-1;
+		        shelf[i][j]=Tile.EMPTY;
 		      }
 		    }
 	}
 	
 	public void print() {
+		System.out.println("Shelf Print");
 		for (int i = 0; i < shelf.length; ++i) {
 		      for(int j = 0; j < shelf[i].length; ++j) {
-		        System.out.println(shelf[i][j]);
+		        System.out.print(" | " + shelf[i][j]+" | ");
 		      }
+		      System.out.println("\n");
 		    }
 	}
 	
@@ -39,14 +41,14 @@ public class Shelf {
 		int notFree=0;
 		boolean control=false;
 		for (int i=0; i<shelf[columnSelection].length; i++) {
-			if(shelf[i]==null) {
+				if(shelf[columnSelection][i]==Tile.EMPTY) {
 				notFree=i-1;
 			} 
 			else {
 				control=true;
 				return control;
 			}
-		}
+			}
 		if (numberOfCards>(columns-notFree)) {
 			control=true;
 		}
@@ -56,15 +58,16 @@ public class Shelf {
 	/**
 	 * Aggiunge la carta alla colonna
 	 * @param columnSelection 	Colonna selezionata
-	 * @param card				Tipo di carta da inserire
+	 * @param Tile				Tipo di carta da inserire
 	 */
-	/*public void addCard(int columnSelection, Tile card) {
+	public void addCard(int columnSelection, Tile card) {
 		for (int i=0; i<shelf[columnSelection].length; i++) {
-			if(shelf[i]==null) {
-				shelf[i]=card;
-			}
+				if(shelf[columnSelection][i]==Tile.EMPTY) {
+				shelf[columnSelection][i]=card;
+				break;
+				}
 		}
 	}
-	*/
+	
 		
 }

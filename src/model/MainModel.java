@@ -3,12 +3,11 @@ package model;
 public class MainModel {
 
 	public static void main(String[] args) {
-		Shelf shelfPlayer1=new Shelf(1);
-		
 		int numOfPlayers = 4;
-		Board board = new Board(numOfPlayers);
-		
-		board.printBoard();
+		Shelf shelfPlayer1=new Shelf(numOfPlayers);
+		shelfPlayer1.initialize();
+		/*Board board = new Board(numOfPlayers);
+		board.printBoard();*/
 	}
 
 }
