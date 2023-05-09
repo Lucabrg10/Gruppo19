@@ -21,6 +21,9 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+import javax.swing.JTextPane;
 
 public class MainFrame extends JFrame {
 
@@ -37,22 +40,6 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
 	 * Create the frame.
 	 */
 	public MainFrame() {
@@ -64,11 +51,34 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		this.tableBoard = new JTable();
 		getContentPane().add(contentPane, BorderLayout.CENTER);
+		Dimension dim = new Dimension(500,500);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-
-	
 		contentPane.add(tableBoard);
+		tableBoard.setPreferredScrollableViewportSize(tableBoard.getPreferredSize());
+		tableBoard.setFillsViewportHeight(true);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnShelf = new JButton("Vedi Shelf");
+		panel.add(btnShelf);
+		
+		JButton btnPersonalGoal = new JButton("Vedi obiettivo personale");
+		panel.add(btnPersonalGoal);
+		
+		JButton btnCommonGoal = new JButton("Vedi obiettivi comuni");
+		panel.add(btnCommonGoal);
+		
+		JButton btnChooseTiles = new JButton("Pesca");
+		panel.add(btnChooseTiles);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.NORTH);
+		
+		JTextPane textTurnOf = new JTextPane();
+		panel_1.add(textTurnOf);
 		//Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		//setSize(size);
 	}
