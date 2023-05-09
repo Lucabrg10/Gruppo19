@@ -15,7 +15,7 @@ public class Shelf {
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 		      for(int j = 0; j < shelf[i].length; ++j) {
-		        shelf[i][j]=Tile.EMPTY;
+		        shelf[i][j]=null;
 		      }
 		    }
 	}
@@ -41,7 +41,7 @@ public class Shelf {
 		int notFree=0;
 		boolean control=false;
 		for (int i=0; i<shelf[columnSelection].length; i++) {
-				if(shelf[columnSelection][i]==Tile.EMPTY) {
+				if(shelf[columnSelection][i]==null) {
 				notFree=i-1;
 			} 
 			else {
@@ -62,7 +62,7 @@ public class Shelf {
 	 */
 	public void addCard(int columnSelection, Tile card) {
 		for (int i=0; i<shelf[columnSelection].length; i++) {
-				if(shelf[columnSelection][i]==Tile.EMPTY) {
+				if(shelf[columnSelection][i]==null) {
 				shelf[columnSelection][i]=card;
 				break;
 				}
