@@ -6,8 +6,9 @@ public class MainModel {
 		int numOfPlayers = 4;
 		Shelf shelfPlayer1=new Shelf(numOfPlayers);
 		shelfPlayer1.initialize();
-		/*Board board = new Board(numOfPlayers);
-		board.printBoard();*/
+		
+		Board board = new Board(numOfPlayers);
+		board.printBoard();
 	}
 
 }

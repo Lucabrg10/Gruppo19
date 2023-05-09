@@ -3,7 +3,7 @@ package model;
 public class Shelf {
 	private final int columns=5;
 	private final int rows=6;
-	private Tile [][] shelf= new Tile[columns][rows];
+	private TileType [][] shelf= new TileType[columns][rows];
 	private int numOfPlayers;
 	
 	
@@ -15,7 +15,7 @@ public class Shelf {
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 		      for(int j = 0; j < shelf[i].length; ++j) {
-		        shelf[i][j]=Tile.EMPTY;
+		        shelf[i][j]=TileType.EMPTY;
 		      }
 		    }
 	}
@@ -41,7 +41,7 @@ public class Shelf {
 		int notFree=0;
 		boolean control=false;
 		for (int i=0; i<shelf[columnSelection].length; i++) {
-				if(shelf[columnSelection][i]==Tile.EMPTY) {
+				if(shelf[columnSelection][i]==TileType.EMPTY) {
 				notFree=i-1;
 			} 
 			else {
@@ -58,11 +58,11 @@ public class Shelf {
 	/**
 	 * Aggiunge la carta alla colonna
 	 * @param columnSelection 	Colonna selezionata
-	 * @param Tile				Tipo di carta da inserire
+	 * @param TileType				Tipo di carta da inserire
 	 */
-	public void addCard(int columnSelection, Tile card) {
+	public void addCard(int columnSelection, TileType card) {
 		for (int i=0; i<shelf[columnSelection].length; i++) {
-				if(shelf[columnSelection][i]==Tile.EMPTY) {
+				if(shelf[columnSelection][i]==TileType.EMPTY) {
 				shelf[columnSelection][i]=card;
 				break;
 				}
