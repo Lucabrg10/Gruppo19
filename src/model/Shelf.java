@@ -1,16 +1,25 @@
 package model;
 
 public class Shelf {
-	private final int columns=5;
 	private final int rows=6;
-	private TileType [][] shelf= new TileType[columns][rows];
+	private final int columns=5;
+	private TileType [][] shelf= new TileType[rows][columns];
 	private int numOfPlayers;
 	
 	
 	public Shelf(int numOfPlayers) {
 		this.numOfPlayers=numOfPlayers; //player number
+		this.shelf=new TileType[rows][columns];
+	}	
+
+	public TileType[][] getShelf() {
+		return shelf;
 	}
-	
+
+	public void setShelf(TileType[][] shelf) {
+		this.shelf = shelf;
+	}
+
 	//Set all shelf cell to null
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
@@ -18,6 +27,17 @@ public class Shelf {
 		        shelf[i][j]=TileType.EMPTY;
 		      }
 		    }
+		
+		//CREAZIONE QUADRATI COMM GOAL1
+		shelf[2][1]=TileType.YELLOW;
+		shelf[2][2]=TileType.YELLOW;
+		shelf[4][3]=TileType.YELLOW;
+		shelf[4][4]=TileType.YELLOW;
+		
+		shelf[1][1]=TileType.YELLOW;
+		shelf[1][2]=TileType.YELLOW;
+		shelf[3][3]=TileType.YELLOW;
+		shelf[3][4]=TileType.YELLOW;
 	}
 	
 	public void print() {
@@ -49,7 +69,7 @@ public class Shelf {
 				return control;
 			}
 			}
-		if (numberOfCards>(columns-notFree)) {
+		if (numberOfCards>(rows-notFree)) {
 			control=true;
 		}
 		return control;
@@ -69,5 +89,9 @@ public class Shelf {
 		}
 	}
 	
+	public int getNumOfPlayers() {
+		return numOfPlayers;
+	}
+
 		
 }
