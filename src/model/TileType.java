@@ -71,5 +71,4 @@ public class Tile {
 		int val = rnd.nextInt(3) +1;
 		return val;
 	}
-
 }
