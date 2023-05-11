@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Bag {
 
-	List<TileType> tiles = new ArrayList<TileType>();
+	List<Tile> tiles = new ArrayList<Tile>();
 
 	public Bag() {
 
@@ -20,7 +20,7 @@ public class Bag {
 		tilesCardColor.put(ColorTile.YELLOW, 22);
 
 		for (int i = 0; i < numberOfTiles; i++) {
-			TileType tile = new TileType(ColorTile.random());
+			Tile tile = new Tile(ColorTile.random());
 			if (tilesCardColor.get(tile.getColor()) > 0) {
 				tiles.add(tile);
 				tilesCardColor.put(tile.getColor(), tilesCardColor.get(tile.getColor()) + 1);
@@ -31,7 +31,7 @@ public class Bag {
 	}
 
 	public void printBag() {
-		for (TileType tile : tiles) {
+		for (Tile tile : tiles) {
 			System.out.println(" " + tile.getColor());
 		}
 	}

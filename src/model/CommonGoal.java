@@ -5,8 +5,8 @@ public class CommonGoal extends Goal{
 	private final int rows=6;
 	private int numOfPlayer;
 	private int goalNumber;
-	private TileType [] cellControl= new TileType[6];
-	private TileType [][] playerShelf= new TileType[columns][rows];
+	private Tile [] cellControl= new Tile[6];
+	private Tile [][] playerShelf= new Tile[columns][rows];
 	
 	public CommonGoal(int numOfPlayer) {
 		this.numOfPlayer = numOfPlayer;

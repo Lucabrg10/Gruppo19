@@ -12,7 +12,7 @@ public class Board extends AbstractTableModel {
 	private final int columnLen = 9;
 	int c=0;
 	
-	TileType[][] board = new TileType[rowLen][columnLen];
+	Tile[][] board = new Tile[rowLen][columnLen];
 	Bag bag;
 	int[][] emptyTiles = {
 			{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{1,8},{1,9},
@@ -82,7 +82,7 @@ public class Board extends AbstractTableModel {
 	
 
 		for(int i = 0; i < 52; i++) {
-			board[emptyTiles[i][0]-1][emptyTiles[i][1]-1] = new TileType(ColorTile.EMPTY);
+			board[emptyTiles[i][0]-1][emptyTiles[i][1]-1] = new Tile(ColorTile.EMPTY);
 		}
 		
 		
@@ -122,8 +122,8 @@ public class Board extends AbstractTableModel {
 		}
 	}
 	//returns random TileType (not empty)
-		public TileType getRandomTile() {
-			TileType tile = bag.tiles.get(c);
+		public Tile getRandomTile() {
+			Tile tile = bag.tiles.get(c);
 			c++;
 			return tile;
 		}

@@ -3,20 +3,20 @@ package model;
 public class Shelf {
 	private final int rows=6;
 	private final int columns=5;
-	private TileType [][] shelf= new TileType[rows][columns];
+	private Tile [][] shelf= new Tile[rows][columns];
 	private int numOfPlayers;
 	
 	
 	public Shelf(int numOfPlayers) {
 		this.numOfPlayers=numOfPlayers; //player number
-		this.shelf=new TileType[rows][columns];
+		this.shelf=new Tile[rows][columns];
 	}	
 
-	public TileType[][] getShelf() {
+	public Tile[][] getShelf() {
 		return shelf;
 	}
 
-	public void setShelf(TileType[][] shelf) {
+	public void setShelf(Tile[][] shelf) {
 		this.shelf = shelf;
 	}
 
@@ -67,9 +67,9 @@ public class Shelf {
 	/**
 	 * Aggiunge la carta alla colonna
 	 * @param columnSelection 	Colonna selezionata
-	 * @param TileType				Tipo di carta da inserire
+	 * @param Tile				Tipo di carta da inserire
 	 */
-	public void addCard(int columnSelection, TileType card) {
+	public void addCard(int columnSelection, Tile card) {
 		for (int i=0; i<shelf[columnSelection].length; i++) {
 
 				if(shelf[columnSelection][i]==null) {
