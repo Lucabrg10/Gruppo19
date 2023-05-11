@@ -47,14 +47,10 @@ public class Board extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-
 		return rowLen;
 	}
 
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-
 		return columnLen;
 	}
 
@@ -72,8 +68,6 @@ public class Board extends AbstractTableModel {
 			System.out.println("\n");
 		}
 	}
-
-	// fill the board from the bag that is random //LB
 	
 	//randomly fills the board, based on the number of players
 	public void randomFillBoard(int numOfPlayers) {
@@ -87,7 +81,6 @@ public class Board extends AbstractTableModel {
 		
 		
 		//adds specific tiles based on the number of players
-		int randomNumber;
 		switch(numOfPlayers) {
 		case 4:
 			this.board[0][4] = getRandomTile();
@@ -122,9 +115,23 @@ public class Board extends AbstractTableModel {
 		}
 	}
 	//returns random TileType (not empty)
-		public Tile getRandomTile() {
-			Tile tile = bag.tiles.get(c);
-			c++;
-			return tile;
+	public Tile getRandomTile() {
+		Tile tile = bag.tiles.get(c);
+		c++;
+		return tile;
+	}
+	
+	//sets the given tile to EMPTY
+	public void removeTile(int rowIndex, int columnIndex) {
+		this.board[rowIndex][columnIndex] = new Tile(ColorTile.EMPTY);
+	}
+	
+	
+	//returns true if the tile is EMPTY
+	public boolean isTileEmpty(int rowIndex, int columnIndex) {
+		if((this.board[rowIndex][columnIndex]).getColor() == ColorTile.EMPTY) {
+			return true;
 		}
+		return false;
+	}
 }
