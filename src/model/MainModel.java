@@ -9,7 +9,7 @@ public class MainModel {
 		//test per obiettivi comuni
 		shelfPlayer1.initialize();
 		shelfPlayer1.print();
-		System.out.println(commonGoalPlayer1.controlGoal1(shelfPlayer1));
+	//	System.out.println(commonGoalPlayer1.controlGoal1(shelfPlayer1));
 		//
 		Board board = new Board(numOfPlayers);
 		board.printBoard();

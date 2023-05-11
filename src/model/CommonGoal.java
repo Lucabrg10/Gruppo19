@@ -12,11 +12,11 @@ public class CommonGoal extends Goal{
 		this.numOfPlayer = numOfPlayer;
 	}
 	
-	public boolean controlGoal1(Shelf playerShelf) {
+	/*public boolean controlGoal1(Shelf playerShelf) {
 		int square = 0;
-		TileType prevcard=TileType.EMPTY;
-		for (TileType cards : TileType.values()) {
-			if(cards==TileType.EMPTY) {
+		TileType prevcard=null;
+		for (TileType cards : ColorTile.values()) {
+			if(cards==null) {
 				break;
 			}
 			for (int i = 1; i < playerShelf.getShelf().length; ++i) {
@@ -43,6 +43,6 @@ public class CommonGoal extends Goal{
 		}
 		return false;
 	}
-	
+	*/
 	
 }
