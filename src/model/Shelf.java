@@ -27,17 +27,6 @@ public class Shelf {
 		        shelf[i][j]=null;
 		      }
 		    }
-		
-		//CREAZIONE QUADRATI COMM GOAL1
-		shelf[2][1]=TileType.YELLOW;
-		shelf[2][2]=TileType.YELLOW;
-		shelf[4][3]=TileType.YELLOW;
-		shelf[4][4]=TileType.YELLOW;
-		
-		shelf[1][1]=TileType.YELLOW;
-		shelf[1][2]=TileType.YELLOW;
-		shelf[3][3]=TileType.YELLOW;
-		shelf[3][4]=TileType.YELLOW;
 	}
 	
 	public void print() {

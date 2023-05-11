@@ -2,10 +2,7 @@ package model;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
-<<<<<<< HEAD
 import javax.swing.table.DefaultTableCellRenderer;
-=======
->>>>>>> master
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -13,10 +10,22 @@ public class Board extends AbstractTableModel {
 	private int numOfPlayers;
 	private final int rowLen = 9;
 	private final int columnLen = 9;
-
-	Tile[][] board = new Tile[rowLen][columnLen];
+	int c=0;
+	
+	TileType[][] board = new TileType[rowLen][columnLen];
 	Bag bag;
-
+	int[][] emptyTiles = {
+			{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{1,8},{1,9},
+			{2,1},{2,2},{2,3},{2,6},{2,7},{2,8},{2,9},
+			{3,1},{3,2},{3,3},{3,7},{3,8},{3,9},
+			{4,1},{4,2},{4,9},
+			{5,1},{5,9},
+			{6,1},{6,8},{6,9},
+			{7,1},{7,2},{7,3},{7,7},{7,8},{7,9},
+			{8,1},{8,2},{8,3},{8,4},{8,7},{8,8},{8,9},
+			{9,1},{9,2},{9,3},{9,4},{9,5},{9,6},{9,7},{9,8},{9,9},
+	};
+	
 
 	public Board(int numOfPlayers) {
 		if (numOfPlayers < 2 || numOfPlayers > 4) {
@@ -27,15 +36,16 @@ public class Board extends AbstractTableModel {
 
 		this.bag = new Bag();
 		// TO ADD: CHANGE BOARD LAYOUT BASED ON NUMBER OF PLAYERS
-		fillBoard();
-		printBoard();
-		//randomFillBoard();
+		randomFillBoard(numOfPlayers);
+		//printBoard();
+		// randomFillBoard();
 	}
+
 	@Override
 	public Class getColumnClass(int col) {
 		return ImageIcon.class;
 	}
-	
+
 	public int getRowCount() {
 		// TODO Auto-generated method stub
 
@@ -64,33 +74,15 @@ public class Board extends AbstractTableModel {
 	}
 
 	// fill the board from the bag that is random //LB
-	public void fillBoard() {
-		int c = 0;
-		for (int i = 0; i < rowLen; i++) {
-			for (int j = 0; j < columnLen; j++) {
-				this.board[i][j] = bag.tiles.get(c);
-				c++;
-		System.out.println(board[1][3].toString());
-		System.out.println("\n\nBOARD:\n\n");
-		for(int i = 0; i < rowLen; i++) {
-			for(int j = 0; j < columnLen; j++) {
-				if(board[i][j] == TileType.EMPTY) {
-					System.out.print("\t");
-				}
-				else {
-					System.out.print(board[i][j].toString() + "\t");
-				}
-			} 
-			System.out.println("\n");
-		}
-	}
 	
 	//randomly fills the board, based on the number of players
 	public void randomFillBoard(int numOfPlayers) {
 		
 		//sets the always empty tiles to "EMPTY"
+	
+
 		for(int i = 0; i < 52; i++) {
-			board[emptyTiles[i][0]-1][emptyTiles[i][1]-1] = TileType.EMPTY;
+			board[emptyTiles[i][0]-1][emptyTiles[i][1]-1] = new TileType(ColorTile.EMPTY);
 		}
 		
 		
@@ -123,32 +115,16 @@ public class Board extends AbstractTableModel {
 		
 		for(int i = 0; i < rowLen; i++) {
 			for(int j = 0; j < columnLen; j++) {
-				if(board[i][j] != TileType.EMPTY) {
+				if(board[i][j] == null) {
 					board[i][j] = getRandomTile();
 				}
 			}
 		}
 	}
-	
-	
 	//returns random TileType (not empty)
-	public TileType getRandomTile() {
-		int randomNumber;
-		randomNumber = ThreadLocalRandom.current().nextInt(0, 5 + 1);
-		return TileType.values()[randomNumber];
-	}
-	
-
-	// randomly fills the board
-/*	public void randomFillBoard() {
-		for (int i = 0; i < rowLen; i++) {
-			for (int j = 0; j < columnLen; j++) {
-
-				int randomNumber = ThreadLocalRandom.current().nextInt(0, 6 + 1);
-				this.board[i][j] = Tile.values()[randomNumber];
-
-			}
+		public TileType getRandomTile() {
+			TileType tile = bag.tiles.get(c);
+			c++;
+			return tile;
 		}
-	}
-*/
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class Tile {
+public class TileType {
 
 	private static int ID;
 	private ColorTile color;
@@ -19,7 +19,7 @@ public class Tile {
 		this.img = img;
 	}
 
-	public Tile(ColorTile color) {
+	public TileType(ColorTile color) {
 		this.color = color;
 
 		switch (color) {
