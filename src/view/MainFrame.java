@@ -30,6 +30,15 @@ public class MainFrame extends JFrame {
 	
 	private JPanel contentPane;
 	private JTable tableBoard;
+	private JButton btnChooseTiles;
+
+	public JButton getBtnChooseTiles() {
+		return btnChooseTiles;
+	}
+
+	public void setBtnChooseTiles(JButton btnChooseTiles) {
+		this.btnChooseTiles = btnChooseTiles;
+	}
 
 	public JTable getTableBoard() {
 		return tableBoard;
@@ -71,7 +80,7 @@ public class MainFrame extends JFrame {
 		JButton btnCommonGoal = new JButton("Vedi obiettivi comuni");
 		panel.add(btnCommonGoal);
 		
-		JButton btnChooseTiles = new JButton("Pesca");
+		btnChooseTiles = new JButton("Pesca");
 		panel.add(btnChooseTiles);
 		
 		JPanel panel_1 = new JPanel();

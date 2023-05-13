@@ -22,7 +22,7 @@ public class MainController {
 		
 		
 		int numberOfPlayers=Integer.parseInt(JOptionPane.showInputDialog(null, "inserisci il numero di giocatori","My Shelfie",1));	
-		this.board= new BoardController (frame.getTableBoard(),new Board(numberOfPlayers));
+		this.board= new BoardController (frame,new Board(numberOfPlayers));
 		frame.pack();
 		frame.setVisible(true);
 		

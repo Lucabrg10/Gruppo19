@@ -10,22 +10,16 @@ public class Board extends AbstractTableModel {
 	private int numOfPlayers;
 	private final int rowLen = 9;
 	private final int columnLen = 9;
-	int c=0;
-	
+	int c = 0;
+
 	Tile[][] board = new Tile[rowLen][columnLen];
 	Bag bag;
-	int[][] emptyTiles = {
-			{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{1,8},{1,9},
-			{2,1},{2,2},{2,3},{2,6},{2,7},{2,8},{2,9},
-			{3,1},{3,2},{3,3},{3,7},{3,8},{3,9},
-			{4,1},{4,2},{4,9},
-			{5,1},{5,9},
-			{6,1},{6,8},{6,9},
-			{7,1},{7,2},{7,3},{7,7},{7,8},{7,9},
-			{8,1},{8,2},{8,3},{8,4},{8,7},{8,8},{8,9},
-			{9,1},{9,2},{9,3},{9,4},{9,5},{9,6},{9,7},{9,8},{9,9},
-	};
-	
+	int[][] emptyTiles = { { 1, 1 }, { 1, 2 }, { 1, 3 }, { 1, 4 }, { 1, 5 }, { 1, 6 }, { 1, 7 }, { 1, 8 }, { 1, 9 },
+			{ 2, 1 }, { 2, 2 }, { 2, 3 }, { 2, 6 }, { 2, 7 }, { 2, 8 }, { 2, 9 }, { 3, 1 }, { 3, 2 }, { 3, 3 },
+			{ 3, 7 }, { 3, 8 }, { 3, 9 }, { 4, 1 }, { 4, 2 }, { 4, 9 }, { 5, 1 }, { 5, 9 }, { 6, 1 }, { 6, 8 },
+			{ 6, 9 }, { 7, 1 }, { 7, 2 }, { 7, 3 }, { 7, 7 }, { 7, 8 }, { 7, 9 }, { 8, 1 }, { 8, 2 }, { 8, 3 },
+			{ 8, 4 }, { 8, 7 }, { 8, 8 }, { 8, 9 }, { 9, 1 }, { 9, 2 }, { 9, 3 }, { 9, 4 }, { 9, 5 }, { 9, 6 },
+			{ 9, 7 }, { 9, 8 }, { 9, 9 }, };
 
 	public Board(int numOfPlayers) {
 		if (numOfPlayers < 2 || numOfPlayers > 4) {
@@ -37,7 +31,7 @@ public class Board extends AbstractTableModel {
 		this.bag = new Bag();
 		// TO ADD: CHANGE BOARD LAYOUT BASED ON NUMBER OF PLAYERS
 		randomFillBoard(numOfPlayers);
-		//printBoard();
+		// printBoard();
 		// randomFillBoard();
 	}
 
@@ -59,6 +53,12 @@ public class Board extends AbstractTableModel {
 
 	}
 
+	public Tile getValueOfTileAt(int rowIndex, int columnIndex) {
+		return board[rowIndex][columnIndex];
+	}
+
+
+
 	// print board on screen
 	public void printBoard() {
 		for (int i = 0; i < rowLen; i++) {
@@ -68,20 +68,18 @@ public class Board extends AbstractTableModel {
 			System.out.println("\n");
 		}
 	}
-	
-	//randomly fills the board, based on the number of players
-	public void randomFillBoard(int numOfPlayers) {
-		
-		//sets the always empty tiles to "EMPTY"
-	
 
-		for(int i = 0; i < 52; i++) {
-			board[emptyTiles[i][0]-1][emptyTiles[i][1]-1] = new Tile(ColorTile.EMPTY);
+	// randomly fills the board, based on the number of players
+	public void randomFillBoard(int numOfPlayers) {
+
+		// sets the always empty tiles to "EMPTY"
+
+		for (int i = 0; i < 52; i++) {
+			board[emptyTiles[i][0] - 1][emptyTiles[i][1] - 1] = new Tile(ColorTile.EMPTY);
 		}
-		
-		
-		//adds specific tiles based on the number of players
-		switch(numOfPlayers) {
+
+		// adds specific tiles based on the number of players
+		switch (numOfPlayers) {
 		case 4:
 			this.board[0][4] = getRandomTile();
 			this.board[1][5] = getRandomTile();
@@ -91,8 +89,8 @@ public class Board extends AbstractTableModel {
 			this.board[5][7] = getRandomTile();
 			this.board[7][3] = getRandomTile();
 			this.board[8][4] = getRandomTile();
-			//no break but it's fine.
-			
+			// no break but it's fine.
+
 		case 3:
 			this.board[0][3] = getRandomTile();
 			this.board[2][2] = getRandomTile();
@@ -104,34 +102,56 @@ public class Board extends AbstractTableModel {
 			this.board[8][5] = getRandomTile();
 			break;
 		}
-		
-		
-		for(int i = 0; i < rowLen; i++) {
-			for(int j = 0; j < columnLen; j++) {
-				if(board[i][j] == null) {
+
+		for (int i = 0; i < rowLen; i++) {
+			for (int j = 0; j < columnLen; j++) {
+				if (board[i][j] == null) {
 					board[i][j] = getRandomTile();
 				}
 			}
 		}
 	}
-	//returns random TileType (not empty)
+
+	// returns random TileType (not empty)
 	public Tile getRandomTile() {
 		Tile tile = bag.tiles.get(c);
 		c++;
 		return tile;
 	}
+
 	
-	//sets the given tile to EMPTY
+	//remove tile with the specific tile
+	public void removeTile(Tile tile1) {
+		
+		for (Tile[]tiles : board) {
+			for (Tile tile : tiles) {
+				if(tile==tile1) {
+					tile.setColor(ColorTile.EMPTY);
+					tile.setImg(null);
+				}
+			}
+			
+		}
+		fireTableDataChanged();
+	}
+	
+	// sets the given tile to EMPTY
 	public void removeTile(int rowIndex, int columnIndex) {
 		this.board[rowIndex][columnIndex] = new Tile(ColorTile.EMPTY);
 	}
-	
-	
-	//returns true if the tile is EMPTY
+
+	// returns true if the tile is EMPTY
 	public boolean isTileEmpty(int rowIndex, int columnIndex) {
-		if((this.board[rowIndex][columnIndex]).getColor() == ColorTile.EMPTY) {
+		if ((this.board[rowIndex][columnIndex]).getColor() == ColorTile.EMPTY) {
 			return true;
 		}
 		return false;
 	}
+	
+	public boolean isTileAvailable (int rowIndex, int columnIndex) {
+		
+		return true;
+	}
+	
+	
 }

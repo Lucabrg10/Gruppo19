@@ -26,7 +26,7 @@ public class Bag {
 				tilesCardColor.put(tile.getColor(), tilesCardColor.get(tile.getColor()) + 1);
 			}
 		}
-		printBag();
+		//printBag();
 
 	}
 
