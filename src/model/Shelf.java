@@ -25,10 +25,25 @@ public class Shelf {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
 				shelf[i][j] = ColorTile.EMPTY;
-				for (int c = 0; c < 5; c++) {
-					control = ColorTile.values();
-					shelf[i][j] = control[c];
-				}
+					
+					shelf[4][2] = ColorTile.BLUE;
+					shelf[4][1] = ColorTile.BLUE;
+					
+					shelf[1][0] = ColorTile.YELLOW;
+					shelf[1][1] = ColorTile.YELLOW;
+					
+					shelf[2][0] = ColorTile.CYAN;
+					shelf[2][1] = ColorTile.CYAN;
+					
+					shelf[3][3] = ColorTile.WHITE;
+					shelf[4][3] = ColorTile.WHITE;
+					
+					shelf[4][4] = ColorTile.GREEN;
+					shelf[4][5] = ColorTile.GREEN;
+					
+					shelf[3][4] = ColorTile.EMPTY;
+					shelf[3][5] = ColorTile.EMPTY;
+				
 			}
 
 		}
