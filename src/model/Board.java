@@ -63,7 +63,12 @@ public class Board extends AbstractTableModel {
 	public void printBoard() {
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
-				System.out.print(board[i][j].getImg() + "\t");
+				if(board[i][j].getColor()!=ColorTile.EMPTY) {
+					System.out.print(board[i][j].getColor() + "\t");	
+				}
+				else {
+					System.out.print("\t");
+				}
 			}
 			System.out.println("\n");
 		}
@@ -148,9 +153,31 @@ public class Board extends AbstractTableModel {
 		return false;
 	}
 	
+	//checks if the tile has at least one empty side
 	public boolean isTileAvailable (int rowIndex, int columnIndex) {
+		//returns true if one of the four tiles surrounding the Tile at (rowIndex, columnIndex) is EMPTY
 		
-		return true;
+		//check upper tile
+		if(rowIndex > 0 && isTileEmpty(rowIndex-1, columnIndex)) {
+			return true;
+		}
+		
+		//check lower tile
+		if(rowIndex < rowLen-1 && isTileEmpty(rowIndex+1, columnIndex)) {
+			return true;
+		}
+		
+		//check left tile
+		if(columnIndex > 0 && isTileEmpty(rowIndex, columnIndex-1)) {
+			return true;
+		}
+		
+		//check right tile
+		if(columnIndex < columnLen-1 && isTileEmpty(rowIndex, columnIndex+1)) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	
