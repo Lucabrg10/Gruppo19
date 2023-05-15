@@ -13,6 +13,7 @@ public class MainModel {
 		//
 		Board board = new Board(numOfPlayers);
 		board.printBoard();
+		
 	}
 
 }
