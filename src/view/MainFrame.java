@@ -31,6 +31,26 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JTable tableBoard;
 	private JButton btnChooseTiles;
+	private JLabel lbPlayer;
+	private JButton btnShelf;
+	public JButton getBtnShelf() {
+		return btnShelf;
+	}
+
+	public void setBtnShelf(JButton btnShelf) {
+		this.btnShelf = btnShelf;
+	}
+
+	private JButton btnPersonalGoal;
+	private JButton btnCommonGoal;
+
+	public JLabel getLbPlayer() {
+		return lbPlayer;
+	}
+
+	public void setLbPlayer(JLabel lbPlayer) {
+		this.lbPlayer = lbPlayer;
+	}
 
 	public JButton getBtnChooseTiles() {
 		return btnChooseTiles;
@@ -71,13 +91,13 @@ public class MainFrame extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnShelf = new JButton("Vedi Shelf");
+		btnShelf = new JButton("Vedi Shelf");
 		panel.add(btnShelf);
 		
-		JButton btnPersonalGoal = new JButton("Vedi obiettivo personale");
+		btnPersonalGoal = new JButton("Vedi obiettivo personale");
 		panel.add(btnPersonalGoal);
 		
-		JButton btnCommonGoal = new JButton("Vedi obiettivi comuni");
+		btnCommonGoal = new JButton("Vedi obiettivi comuni");
 		panel.add(btnCommonGoal);
 		
 		btnChooseTiles = new JButton("Pesca");
@@ -86,8 +106,8 @@ public class MainFrame extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		
-		JTextPane textTurnOf = new JTextPane();
-		panel_1.add(textTurnOf);
+		lbPlayer = new JLabel("");
+		panel_1.add(lbPlayer);
 		//Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		//setSize(size);
 	}

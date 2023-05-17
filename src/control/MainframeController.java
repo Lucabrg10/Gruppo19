@@ -4,47 +4,53 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import model.Board;
+import model.Player;
 import model.Tile;
 import view.MainFrame;
 
-public class BoardController {
-
-	private PlayerController playerController;
+public class MainframeController {
+	
 	private MainFrame frame;
 	private JTable table;
-	private Board board;
+	private BoardController boardC;
+	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
-	
-
-	public BoardController(MainFrame frame, Board board) {
-
+	private ArrayList<Player> players;
+	private Board board;
+	int prevRow;
+	int prevCol;
+	int cont=0;
+	public MainframeController(MainFrame frame, BoardController boardC,PlayerController player, Board board, ArrayList<Player> players) {
 		this.frame = frame;
-		this.setBoard(board);
-		this.table = frame.getTableBoard();
-		table.setModel(board);
-		/*assignTableController();
-		assignBtnChooseController();*/
-
-	}
-
-
-	public Board getBoard() {
-		return board;
-	}
-
-
-	public void setBoard(Board board) {
+		this.boardC = boardC;
+		this.playerC = player;
 		this.board = board;
+		this.table = frame.getTableBoard();
+		this.players = players;
+		this.playerC.setPlayer(players.get(cont));
+		//assegno un listener alla tabella e al pulsante "prova"
+		assignTableController();
+		assignBtnChooseController();
+		assignBtnShelfController();
 	}
-
-	/*private void assignBtnChooseController() {
+	private void assignBtnShelfController() {
+		// TODO Auto-generated method stub
+		frame.getBtnShelf().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				playerC.getPlayer().getShelf().print();
+			}
+		});
+	}
+	private void assignBtnChooseController() {
 		// TODO Auto-generated method stub
 		frame.getBtnChooseTiles().addActionListener(new ActionListener() {
 
@@ -53,17 +59,19 @@ public class BoardController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				playerC.selectOrderOfTiles(tilesChoosen);
 				for (Tile tile : tilesChoosen) {
 					board.removeTile(tile);
 				//	System.out.println("Funziona");
 				}
-				playerController.addCardsToShelf(tilesChoosen);
+				
 				tilesChoosen.clear();
+				cont=(cont+1)%board.getNumOfPlayers();
+				frame.setVisible(false);
+				playerC.setPlayer(players.get(cont));
 			}
 		});
 	}
-
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -120,6 +128,6 @@ public class BoardController {
 				}
 			}
 		});
-	}*/
+	}
 
 }

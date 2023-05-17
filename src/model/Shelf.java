@@ -4,11 +4,10 @@ public class Shelf {
 	private final int rows=6;
 	private final int columns=5;
 	private Tile [][] shelf= new Tile[rows][columns];
-	private int numOfPlayers;
 	
 	
-	public Shelf(int numOfPlayers) {
-		this.numOfPlayers=numOfPlayers; //player number
+	public Shelf() {
+		 //player number
 		this.shelf=new Tile[rows][columns];
 	}	
 
@@ -77,10 +76,6 @@ public class Shelf {
 				break;
 				}
 		}
-	}
-	
-	public int getNumOfPlayers() {
-		return numOfPlayers;
 	}
 
 		

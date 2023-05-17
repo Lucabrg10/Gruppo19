@@ -8,6 +8,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Board extends AbstractTableModel {
 	private int numOfPlayers;
+	public int getNumOfPlayers() {
+		return numOfPlayers;
+	}
+
+	public void setNumOfPlayers(int numOfPlayers) {
+		this.numOfPlayers = numOfPlayers;
+	}
+
 	private final int rowLen = 9;
 	private final int columnLen = 9;
 	int c = 0;
