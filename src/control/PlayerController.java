@@ -37,7 +37,7 @@ public class PlayerController {
 	}
 
 	public void showBoard() {
-		this.frame.getLbPlayer().setText(this.player.getUserName());
+		this.frame.getLbPlayer().setText(this.player.getPlayerName());
 		this.frame.setVisible(true);
 	}
 	public void selectOrderOfTiles(ArrayList<Tile> tilesChoosen) {
