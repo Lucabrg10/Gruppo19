@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -68,9 +71,8 @@ public class PlayerController {
 		
 		JFrame Jframe = new JFrame();
 		JPanel panelLabel = new JPanel(new FlowLayout());
-		JPanel panelBtn = new JPanel(new FlowLayout());
 		
-		for(int i=0;i<tilesChoosen.size()-1;i++) {
+		for(int i=0;i<tilesChoosen.size();i++) {
 			LabelTile label = new LabelTile(tilesChoosen.get(i));
 			
 		
@@ -91,7 +93,20 @@ public class PlayerController {
 			panelLabel.add(label);
 		}
 		
-		LabelTile label = new LabelTile(tilesChoosen.get(tilesChoosen.size()-1));
+		JButton button = new JButton("Inserisci!");
+		System.out.println(button.isVisible()); 
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Jframe.setVisible(false);
+	        	frame.setVisible(true);
+	        	player.getShelf().print();
+			}
+		});
+		panelLabel.add(button);
+	/*	LabelTile label = new LabelTile(tilesChoosen.get(tilesChoosen.size()-1));
 		label.setIcon(tilesChoosen.get(tilesChoosen.size()-1).getImg());
 		label.addMouseListener(new MouseAdapter()   {   
 
@@ -109,7 +124,7 @@ public class PlayerController {
 	        }   
 		});
 		
-		panelLabel.add(label);
+		panelLabel.add(label);*/
 		Jframe.add(panelLabel);
 		Jframe.pack();
 		Jframe.setLocationRelativeTo(null);

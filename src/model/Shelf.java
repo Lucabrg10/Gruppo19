@@ -69,10 +69,10 @@ public class Shelf {
 	 * @param Tile				Tipo di carta da inserire
 	 */
 	public void addCard(int columnSelection, Tile card) {
-		for (int i=0; i<shelf[columnSelection].length; i++) {
+		for (int i=5; i>=0; i--) {
 
-				if(shelf[columnSelection][i]==null) {
-				shelf[columnSelection][i]=card;
+				if(shelf[i][columnSelection]==null) {
+				shelf[i][columnSelection]=card;
 				break;
 				}
 		}
