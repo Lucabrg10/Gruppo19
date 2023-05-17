@@ -55,10 +55,8 @@ public class Player {
 		return points;
 	}
 	
-	public void addTiles(ArrayList<Tile>tiles) {
-		for (Tile tile : tiles) {
-			this.shelf.addCard(0, tile);
-		}
+	public void addTile(Tile tile, int col) {
+		this.shelf.addCard(col, tile);
 	}
 
 

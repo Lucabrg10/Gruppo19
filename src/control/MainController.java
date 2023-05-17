@@ -38,7 +38,9 @@ public class MainController {
 		
 		this.frameController = new MainframeController(f, board, playerController, board.getBoard(),listOfPlayers);
 		
+		
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		// frame.setVisible(true);
 
 		frame.getTableBoard().setRowHeight(50);

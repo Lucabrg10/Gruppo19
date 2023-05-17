@@ -67,10 +67,12 @@ public class MainframeController {
 				
 				tilesChoosen.clear();
 				cont=(cont+1)%board.getNumOfPlayers();
-				frame.setVisible(false);
 				playerC.setPlayer(players.get(cont));
+				frame.setVisible(false);
 			}
+			
 		});
+		
 	}
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
