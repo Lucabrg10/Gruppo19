@@ -24,37 +24,22 @@ public class Shelf {
 		ColorTile[] control = new ColorTile[6];
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				shelf[i][j] = ColorTile.EMPTY;
-					
-					shelf[4][2] = ColorTile.BLUE;
-					shelf[4][1] = ColorTile.BLUE;
-					
-					shelf[1][0] = ColorTile.YELLOW;
-					shelf[1][1] = ColorTile.YELLOW;
-					
-					shelf[2][0] = ColorTile.CYAN;
-					shelf[2][1] = ColorTile.CYAN;
-					
-					shelf[3][3] = ColorTile.WHITE;
-					shelf[4][3] = ColorTile.WHITE;
-					
-					shelf[4][4] = ColorTile.GREEN;
-					shelf[4][5] = ColorTile.GREEN;
-					
-					shelf[3][4] = ColorTile.EMPTY;
-					shelf[3][5] = ColorTile.EMPTY;
-				
+				shelf[i][j] = ColorTile.YELLOW;
+				shelf[2][2] = ColorTile.CYAN;
+				shelf[3][2] = ColorTile.CYAN;
+				shelf[4][2] = ColorTile.WHITE;
+				shelf[3][3] = ColorTile.CYAN;
+				shelf[3][4] = ColorTile.CYAN;
+				shelf[3][0] = ColorTile.YELLOW;
 			}
-
 		}
-
 	}
 
 	public void print() {
 		System.out.println("Shelf Print");
-		for (int i = 0; i < shelf.length; ++i) {
-			for (int j = 0; j < shelf[i].length; ++j) {
-				System.out.print(" | " + shelf[i][j] + " | ");
+		for (int i = 5; i >=0 ; --i) {
+			for (int j = 0; j < 5 ; ++j) {
+				System.out.print(" | " + shelf[j][i] + " | ");
 			}
 			System.out.println("\n");
 		}
@@ -101,6 +86,23 @@ public class Shelf {
 		}
 	}
 
+	public boolean isColorInRow(ColorTile color, int r) {
+		ColorTile[] array = new ColorTile[5];
+		for (int i = 0; i < 5; ++i) {
+			array[i] = shelf[i][r];
+		}
+		int cont = 0;
+		for (int i = 0; i < shelf.length; i++) {
+			if (color == array[i]) {
+				cont++;
+			}
+		}
+		if (cont == 1) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int getNumOfPlayers() {
 		return numOfPlayers;
 	}

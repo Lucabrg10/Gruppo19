@@ -50,91 +50,262 @@ public class CommonGoal extends Goal {
 
 	public boolean controlGoal2(Shelf playerShelf) {
 		int column = 0;
-		ArrayList<ColorTile> controlColumn = new ArrayList<ColorTile>();
-		for (int r = 0; r < 6; r++) {
-			controlColumn.add(r, ColorTile.EMPTY);
-		}
-		for (int i = 0; i < playerShelf.getShelf()[i].length; ++i) {
-			for (int j = 0; j < playerShelf.getShelf().length; ++j) {
-				for (int x = 0; x < 5; x++) {
-					if (playerShelf.getShelf()[j][i] != controlColumn.get(x)) {
-						controlColumn.set(j, playerShelf.getShelf()[j][i]);
-						if (controlColumn.get(controlColumn.size() - 1) != ColorTile.EMPTY) {
-							column++;
-							if (column == 2) {
-								return true;
-							}
-							for (int r = 0; r < 6; r++) {
-								controlColumn.set(r, ColorTile.EMPTY);
-							}
-							break;
-						}
+		boolean bool = true;
+		for (int i = 0; i < 6; ++i) {
+			for (int j = 0; j < 5; ++j) {
 
-					}
+				bool = isColorInColumn(playerShelf.getShelf()[j][i], j, playerShelf.getShelf());
+				if (!bool) {
+					break;
 				}
 			}
+			if (bool) {
+				column++;
+			}
+		}
+		if (column >= 2) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isColorInColumn(ColorTile color, int r, ColorTile[][] shelf) {
+		if (color == ColorTile.EMPTY) {
+			return false;
+		}
+		ColorTile[] array = new ColorTile[6];
+		for (int i = 0; i < 6; ++i) {
+			array[i] = shelf[r][i];
+			System.out.println(array[i]);
+		}
+		int cont = 0;
+		for (int i = 0; i < shelf.length; i++) {
+			if (color == array[i]) {
+				cont++;
+				System.out.println(cont);
+			}
+		}
+		if (cont == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean controlGoal3(Shelf playerShelf) {
+		int group = 0;
+		for (ColorTile cards : ColorTile.values()) {
+			if (cards == ColorTile.EMPTY) {
+				break;
+			}
+
+			for (int i = 0; i < columns; ++i) {
+				if (((playerShelf.getShelf()[i][0].equals(cards) && playerShelf.getShelf()[i][1].equals(cards)
+						&& playerShelf.getShelf()[i][2].equals(cards) && playerShelf.getShelf()[i][3].equals(cards))
+						&& !(playerShelf.getShelf()[i + 1][0].equals(cards)
+								&& playerShelf.getShelf()[i + 1][1].equals(cards)
+								&& playerShelf.getShelf()[i + 1][2].equals(cards)
+								&& playerShelf.getShelf()[i + 1][3].equals(cards)))
+						|| ((playerShelf.getShelf()[i][1].equals(cards) && playerShelf.getShelf()[i][2].equals(cards)
+								&& playerShelf.getShelf()[i][3].equals(cards)
+								&& playerShelf.getShelf()[i][4].equals(cards))
+								&& !(playerShelf.getShelf()[i + 1][1].equals(cards)
+										&& playerShelf.getShelf()[i + 1][2].equals(cards)
+										&& playerShelf.getShelf()[i + 1][3].equals(cards)
+										&& playerShelf.getShelf()[i + 1][4].equals(cards)))
+						|| ((playerShelf.getShelf()[i][2].equals(cards) && playerShelf.getShelf()[i][3].equals(cards)
+								&& playerShelf.getShelf()[i][4].equals(cards)
+								&& playerShelf.getShelf()[i][5].equals(cards))
+								&& !(playerShelf.getShelf()[i + 1][2].equals(cards)
+										&& playerShelf.getShelf()[i + 1][3].equals(cards)
+										&& playerShelf.getShelf()[i + 1][4].equals(cards)
+										&& playerShelf.getShelf()[i + 1][5].equals(cards)))) {
+					group++;
+				}
+			}
+
+			for (int j = 0; j < rows; ++j) {
+				if (((playerShelf.getShelf()[0][j].equals(cards) && playerShelf.getShelf()[1][j].equals(cards)
+						&& playerShelf.getShelf()[2][j].equals(cards) && playerShelf.getShelf()[3][j].equals(cards))
+						&& !(playerShelf.getShelf()[0][j + 1].equals(cards)
+								&& playerShelf.getShelf()[1][j + 1].equals(cards)
+								&& playerShelf.getShelf()[2][j + 1].equals(cards)
+								&& playerShelf.getShelf()[3][j + 1].equals(cards)))
+						|| ((playerShelf.getShelf()[1][j].equals(cards) && playerShelf.getShelf()[2][j].equals(cards)
+								&& playerShelf.getShelf()[3][j].equals(cards)
+								&& playerShelf.getShelf()[4][j].equals(cards))
+								&& !(playerShelf.getShelf()[1][j + 1].equals(cards)
+										&& playerShelf.getShelf()[2][j + 1].equals(cards)
+										&& playerShelf.getShelf()[3][j + 1].equals(cards)
+										&& playerShelf.getShelf()[4][j + 1].equals(cards)))) {
+					group++;
+				}
+			}
+		}
+		if (group >= 4) {
+			return true;
 		}
 		return false;
 	}
 
 	public boolean controlGoal4(Shelf playerShelf) {
-		int couple=0;
+		int couple = 0;
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
 				break;
 			}
 			for (int i = 0; i < columns; ++i) {
 				for (int j = 0; j < rows; ++j) {
-					if (i<columns-1 && j<rows-1) {
-						if (playerShelf.getShelf()[i][j] == cards && (playerShelf.getShelf()[i+1][j] == cards ^ playerShelf.getShelf()[i][j+1] == cards)) {
+					if (i < columns - 1 && j < rows - 1) {
+						if (playerShelf.getShelf()[i][j] == cards && (playerShelf.getShelf()[i + 1][j] == cards
+								^ playerShelf.getShelf()[i][j + 1] == cards)) {
+							couple++;
+						}
+					} else {
+						if (playerShelf.getShelf()[columns - 1][rows - 1] == cards
+								&& (playerShelf.getShelf()[columns - 2][rows - 1] == cards
+										^ playerShelf.getShelf()[columns - 1][rows - 2] == cards)) {
 							couple++;
 						}
 					}
-					else {
-						if (playerShelf.getShelf()[columns-1][rows-1] == cards && (playerShelf.getShelf()[columns-2][rows-1] == cards ^ playerShelf.getShelf()[columns-1][rows-2] == cards)) {
-							couple++;
-						}
-					}
-					
-					if (couple == 6) {
+
+					if (couple >= 6) {
 						return true;
 					}
-					
-			}
+
+				}
 			}
 		}
 		return false;
 	}
 
-	public boolean controlGoal6(Shelf playerShelf) {
-		int row = 0;
-		ArrayList<ColorTile> controlRow = new ArrayList<ColorTile>();
-		for (int r = 0; r < 5; r++) {
-			controlRow.add(r, ColorTile.EMPTY);
-		}
-		for (int j = 0; j < rows; ++j) {
-
-			for (int i = 0; i < columns; ++i) {
-
-				for (int x = 0; x < 5; x++) {
-					if ((controlRow.get(x) != playerShelf.getShelf()[i][j])) {
-						controlRow.set(j, playerShelf.getShelf()[i][j]);
-						if (controlRow.get(controlRow.size() - 1) != ColorTile.EMPTY) {
-							row++;
-							if (row == 2) {
-								return true;
-							}
-							for (int r = 0; r < 5; r++) {
-								controlRow.set(r, ColorTile.EMPTY);
-							}
-							break;
-						}
-
-					}
+	public boolean controlGoal5(Shelf playerShelf) {
+		
+		int counter;
+		int column = 0;
+		ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
+		for (int i = 0; i < 5; ++i) {
+			for (ColorTile cards : ColorTile.values()) {
+				if (cards == ColorTile.EMPTY) {
+					break;
+				}
+				counter = countColorInColumn(cards, i, playerShelf.getShelf());
+				if (counter > 0) {
+					controller.add(cards);
 				}
 			}
+			if (controller.size() < 4 && controller.size() > 0) {
+				System.out.println(controller.toString());
+				column++;
+				controller.clear();
+			}
+		}
+		if (column >= 3) {
+			return true;
 		}
 		return false;
+	}
+
+	public int countColorInColumn(ColorTile color, int r, ColorTile[][] shelf) {
+		if (color == ColorTile.EMPTY) {
+			return 0;
+		}
+		ColorTile[] array = new ColorTile[6];
+		for (int i = 0; i < 6; ++i) {
+			array[i] = shelf[r][i];
+		}
+		int cont = 0;
+		for (int i = 0; i < shelf.length; i++) {
+			if (color == array[i]) {
+				cont++;
+				System.out.println(cont);
+			}
+		}
+		return cont;
+	}
+
+	public boolean controlGoal6(Shelf playerShelf) {
+		int row = 0;
+		boolean bool = true;
+		for (int i = 0; i < 6; ++i) {
+			for (int j = 0; j < 5; ++j) {
+				bool = isColorInRow(playerShelf.getShelf()[j][i], i, playerShelf.getShelf());
+				if (!bool) {
+					break;
+				}
+			}
+			if (bool) {
+				row++;
+			}
+		}
+		if (row >= 2) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isColorInRow(ColorTile color, int r, ColorTile[][] shelf) {
+		if (color == ColorTile.EMPTY) {
+			return false;
+		}
+		ColorTile[] array = new ColorTile[5];
+		for (int i = 0; i < 5; ++i) {
+			array[i] = shelf[i][r];
+		}
+		int cont = 0;
+		for (int i = 0; i < shelf.length; i++) {
+			if (color == array[i]) {
+				cont++;
+				System.out.println(cont);
+			}
+		}
+		if (cont == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean controlGoal7(Shelf playerShelf) {
+		int counter;
+		int column = 0;
+		ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
+		for (int i = 0; i < 6; ++i) {
+			for (ColorTile cards : ColorTile.values()) {
+				if (cards == ColorTile.EMPTY) {
+					break;
+				}
+				counter = countColorInRow(cards, i, playerShelf.getShelf());
+				if (counter > 0) {
+					controller.add(cards);
+				}
+			}
+			if (controller.size() < 4 && controller.size() > 0) {
+				System.out.println(controller.toString());
+				column++;
+				controller.clear();
+			}
+		}
+		if (column >= 4) {
+			return true;
+		}
+		return false;
+	}
+
+	public int countColorInRow(ColorTile color, int r, ColorTile[][] shelf) {
+		if (color == ColorTile.EMPTY) {
+			return 0;
+		}
+		ColorTile[] array = new ColorTile[5];
+		for (int i = 0; i < 5; ++i) {
+			array[i] = shelf[i][r];
+		}
+		int cont = 0;
+		for (int i = 0; i < shelf.length; i++) {
+			if (color == array[i]) {
+				cont++;
+				System.out.println(cont);
+			}
+		}
+		return cont;
 	}
 
 	public boolean controlGoal8(Shelf playerShelf) {
@@ -171,4 +342,81 @@ public class CommonGoal extends Goal {
 		return false;
 	}
 
+	public boolean controlGoal10(Shelf playerShelf) {
+		for (ColorTile cards : ColorTile.values()) {
+			if (cards == ColorTile.EMPTY) {
+				break;
+			}
+			for (int i = 1; i < 4; ++i) {
+				for (int j = 1; j < 5; ++j) {
+					if (playerShelf.getShelf()[i][j].equals(cards) && playerShelf.getShelf()[i + 1][j + 1].equals(cards)
+							&& playerShelf.getShelf()[i - 1][j - 1].equals(cards)
+							&& playerShelf.getShelf()[i - 1][j + 1].equals(cards)
+							&& playerShelf.getShelf()[i + 1][j - 1].equals(cards)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean controlGoal11(Shelf playerShelf) {
+		for (ColorTile cards : ColorTile.values()) {
+			if (cards == ColorTile.EMPTY) {
+				break;
+			}
+			if (playerShelf.getShelf()[0][0].equals(cards) && playerShelf.getShelf()[1][1].equals(cards)
+					&& playerShelf.getShelf()[2][2].equals(cards) && playerShelf.getShelf()[3][3].equals(cards)
+					&& playerShelf.getShelf()[4][4].equals(cards)) {
+				return true;
+			}
+			if (playerShelf.getShelf()[0][1].equals(cards) && playerShelf.getShelf()[1][2].equals(cards)
+					&& playerShelf.getShelf()[2][3].equals(cards) && playerShelf.getShelf()[3][4].equals(cards)
+					&& playerShelf.getShelf()[4][5].equals(cards)) {
+				return true;
+			}
+			if (playerShelf.getShelf()[0][4].equals(cards) && playerShelf.getShelf()[1][3].equals(cards)
+					&& playerShelf.getShelf()[2][2].equals(cards) && playerShelf.getShelf()[3][1].equals(cards)
+					&& playerShelf.getShelf()[4][0].equals(cards)) {
+				return true;
+			}
+			if (playerShelf.getShelf()[0][5].equals(cards) && playerShelf.getShelf()[1][4].equals(cards)
+					&& playerShelf.getShelf()[2][3].equals(cards) && playerShelf.getShelf()[3][2].equals(cards)
+					&& playerShelf.getShelf()[4][1].equals(cards)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean controlGoal12(Shelf playerShelf) {
+		for (int i = 1; i < 5; ++i) {
+			if (playerShelf.getShelf()[0][0].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[1][1].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[2][2].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[3][3].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[4][4].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[0][1].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[1][2].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[2][3].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[3][4].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[4][5].equals(ColorTile.EMPTY)) {
+				return true;
+			}
+			if (playerShelf.getShelf()[0][4].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[1][3].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[2][2].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[3][1].equals(ColorTile.EMPTY)
+					&& playerShelf.getShelf()[4][0].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[0][4].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[1][3].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[2][2].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[3][1].equals(ColorTile.EMPTY)
+					&& !playerShelf.getShelf()[4][0].equals(ColorTile.EMPTY)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
