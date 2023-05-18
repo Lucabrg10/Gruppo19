@@ -119,7 +119,7 @@ public class MainframeController {
 							}
 
 						} else {
-							System.out.println("La cella non è disponibile");
+							System.out.println("La cella non \u00E8 disponibile");
 						}
 
 					} else {

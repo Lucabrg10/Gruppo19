@@ -74,7 +74,7 @@ public class Board extends AbstractTableModel {
 	public void printBoard() {
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
-				if(board[i][j].getColor()!=ColorTile.EMPTY) {
+				if(board[i][j]!= null && board[i][j].getColor()!=ColorTile.EMPTY) {
 					System.out.print(board[i][j].getColor() + "\t");	
 				}
 				else {
@@ -129,10 +129,8 @@ public class Board extends AbstractTableModel {
 		//fills EMPTY tiles
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
-				if(board[i][j] != null) {
-					if (board[i][j].getColor() == ColorTile.EMPTY) {
-						this.board[i][j] = getRandomTile();
-					}
+				if (board[i][j]!=null && board[i][j].getColor() == ColorTile.EMPTY) {
+					this.board[i][j] = getRandomTile();
 				}
 			}
 		}
@@ -169,7 +167,7 @@ public class Board extends AbstractTableModel {
 			
 			
 		}
-		//this.printBoard();
+		this.printBoard();
 		
 		fireTableDataChanged();
 	}
@@ -190,32 +188,51 @@ public class Board extends AbstractTableModel {
 		return false;
 	}
 	
-	//checks if the tile has at least one empty side
+	//checks if the tile is available (has at least one free side and a max of 3 free sides)
 	public boolean isTileAvailable (int rowIndex, int columnIndex) {
-		//returns true if one of the four tiles surrounding the Tile at (rowIndex, columnIndex) is EMPTY
+		///aggiungere controllo su 4 lati: se tutti empty, la carta non è prendibilide: return false (all'inizio)
+		
+		//freeSides conta il numero di lati liberi (deve essere >0 e <4)
+		int freeSides = 0;
 		
 		//check upper tile
 		if(rowIndex > 0 && isTileEmpty(rowIndex-1, columnIndex)) {
-			return true;
+			freeSides++;
 		}
 		
 		//check lower tile
 		if(rowIndex < rowLen-1 && isTileEmpty(rowIndex+1, columnIndex)) {
-			return true;
+			freeSides++;
 		}
 		
 		//check left tile
 		if(columnIndex > 0 && isTileEmpty(rowIndex, columnIndex-1)) {
-			return true;
+			freeSides++;
 		}
 		
 		//check right tile
 		if(columnIndex < columnLen-1 && isTileEmpty(rowIndex, columnIndex+1)) {
+			freeSides++;
+		}
+		if(freeSides > 0 && freeSides < 4) {
 			return true;
 		}
-		
 		return false;
 	}
 	
+	public boolean checkForRefill() {
+		for(int i = 0; i < rowLen; i++) {
+			for(int j = 0; j < columnLen; j++) {
+				if(isTileAvailable(i, j)) {
+					//if it gets here it means that at least one tile is available
+					//there is no need to refill.
+					return false;
+				}
+			}
+		}
+		
+		//if no tile is available, the refill is needed (return true)
+		return true;
+	}
 	
 }
