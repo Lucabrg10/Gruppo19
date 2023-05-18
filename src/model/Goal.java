@@ -8,5 +8,6 @@ public abstract class Goal {
 	}
 	
 	public void printPoint() {
+		
 	}
 }

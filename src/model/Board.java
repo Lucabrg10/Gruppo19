@@ -37,8 +37,8 @@ public class Board extends AbstractTableModel {
 		this.numOfPlayers = numOfPlayers;
 
 		this.bag = new Bag();
-		// TO ADD: CHANGE BOARD LAYOUT BASED ON NUMBER OF PLAYERS
 		randomFillBoard(numOfPlayers);
+		
 		// printBoard();
 		// randomFillBoard();
 	}
@@ -57,7 +57,10 @@ public class Board extends AbstractTableModel {
 	}
 
 	public ImageIcon getValueAt(int rowIndex, int columnIndex) {
-		return board[rowIndex][columnIndex].getImg();
+		if(board[rowIndex][columnIndex]!=null) {
+			return board[rowIndex][columnIndex].getImg();
+		}
+		return null;
 
 	}
 
@@ -84,11 +87,18 @@ public class Board extends AbstractTableModel {
 
 	// randomly fills the board, based on the number of players
 	public void randomFillBoard(int numOfPlayers) {
+		
+		//sets every tile to EMPTY
+		for (int i = 0; i < rowLen; i++) {
+			for (int j = 0; j < columnLen; j++) {
+					board[i][j] = new Tile(ColorTile.EMPTY);
+					//tile.setImg(null);
+			}
+		}
 
-		// sets the always empty tiles to "EMPTY"
-
+		// sets the always empty tiles to null
 		for (int i = 0; i < 52; i++) {
-			board[emptyTiles[i][0] - 1][emptyTiles[i][1] - 1] = new Tile(ColorTile.EMPTY);
+			board[emptyTiles[i][0] - 1][emptyTiles[i][1] - 1] = null;
 		}
 
 		// adds specific tiles based on the number of players
@@ -115,11 +125,24 @@ public class Board extends AbstractTableModel {
 			this.board[8][5] = getRandomTile();
 			break;
 		}
-
+		
+		//fills EMPTY tiles
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
-				if (board[i][j] == null) {
-					board[i][j] = getRandomTile();
+				if(board[i][j] != null) {
+					if (board[i][j].getColor() == ColorTile.EMPTY) {
+						this.board[i][j] = getRandomTile();
+					}
+				}
+			}
+		}
+	}
+	
+	public void refillBoard(int numOfPlayers) {
+		for(int i = 0; i < columnLen; i++) {
+			for(int j = 0; j < rowLen; j++) {
+				if(board[i][j].getColor() == ColorTile.EMPTY) {
+					this.board[i][j] = getRandomTile();
 				}
 			}
 		}
@@ -144,7 +167,10 @@ public class Board extends AbstractTableModel {
 				}
 			}
 			
+			
 		}
+		//this.printBoard();
+		
 		fireTableDataChanged();
 	}
 	
@@ -155,7 +181,10 @@ public class Board extends AbstractTableModel {
 
 	// returns true if the tile is EMPTY
 	public boolean isTileEmpty(int rowIndex, int columnIndex) {
-		if ((this.board[rowIndex][columnIndex]).getColor() == ColorTile.EMPTY) {
+		if (this.board[rowIndex][columnIndex] == null) {
+			return true;
+		}
+		else if((this.board[rowIndex][columnIndex]).getColor() == ColorTile.EMPTY) {
 			return true;
 		}
 		return false;
