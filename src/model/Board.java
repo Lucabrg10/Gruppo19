@@ -167,7 +167,7 @@ public class Board extends AbstractTableModel {
 			
 			
 		}
-		this.printBoard();
+	//	this.printBoard();
 		
 		fireTableDataChanged();
 	}

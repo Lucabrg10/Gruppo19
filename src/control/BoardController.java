@@ -16,12 +16,9 @@ import view.MainFrame;
 
 public class BoardController {
 
-	private PlayerController playerController;
 	private MainFrame frame;
 	private JTable table;
 	private Board board;
-	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
-	
 
 	public BoardController(MainFrame frame, Board board) {
 

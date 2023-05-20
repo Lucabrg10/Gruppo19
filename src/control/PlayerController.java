@@ -48,7 +48,7 @@ public class PlayerController {
 	}
 
 	public void showBoard() {
-		this.frame.getLbPlayer().setText(this.player.getPlayerName());
+		this.frame.getLbPlayer().setText("Shelf di " + this.player.getPlayerName());
 		this.frame.setVisible(true);
 	}
 
@@ -56,91 +56,100 @@ public class PlayerController {
 	 * 
 	 * @param tilesChoosen Lista delle tessere scelte
 	 * 
-	 * Il metodo crea un jframe che permette di vedere le carte scelte
-	 * e cliccando su esse si sceglie l'ordine. Le carte in ordine vengono inserite
-	 * in tilesSorted e inviate al player che le aggiungerà nella colonna desiderata
+	 *                     Il metodo crea un jframe che permette di vedere le carte
+	 *                     scelte e cliccando su esse si sceglie l'ordine. Le carte
+	 *                     in ordine vengono inserite in tilesSorted e inviate al
+	 *                     player che le aggiungerà nella colonna desiderata
 	 * 
 	 */
-	public void selectOrderOfTiles(ArrayList<Tile> tilesChoosen) {
-		
-		int col=chooseCol();
+	public JFrame selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext) {
 
-		this.tilesChoosen= tilesChoosen;
-		ArrayList<Integer>positions = new ArrayList<>();
-		
-		
+		int col = chooseCol();
+
+		this.tilesChoosen = tilesChoosen;
+		ArrayList<Integer> positions = new ArrayList<>();
+
 		JFrame Jframe = new JFrame();
 		JPanel panelLabel = new JPanel(new FlowLayout());
-		
-		for(int i=0;i<tilesChoosen.size();i++) {
-			LabelTile label = new LabelTile(tilesChoosen.get(i));
-			
-		
-			label.setIcon(tilesChoosen.get(i).getImg());
-			label.addMouseListener(new MouseAdapter()   {   
 
-		        public void mouseClicked(MouseEvent e)   
-		        {   
-		        	
-		        	player.addTile(label.getTile(),col);
-		        	Container container = label.getParent();
-		        	container.remove(label);
-		        	container.validate();
-		        	container.repaint();
-		        }   
-		        
-		});
+		for (int i = 0; i < tilesChoosen.size(); i++) {
+			LabelTile label = new LabelTile(tilesChoosen.get(i));
+			System.out.println(tilesChoosen.get(i));
+			label.setIcon(tilesChoosen.get(i).getImg());
+			label.addMouseListener(new MouseAdapter() {
+				/**
+				 * al click del mouse su una label si aggiunge una tile alla shelf e la si
+				 * rimuove dalla board
+				 */
+				public void mouseClicked(MouseEvent e) {
+					boolean aggiunto;
+					Tile tile1 = new Tile(label.getTile().getColor(), label.getTile().getImg());
+					// System.out.println(tile1.getColor());
+					aggiunto = player.addTile(tile1, col);
+					if (aggiunto) {
+						Container container = label.getParent();
+						container.remove(label);
+						container.validate();
+						container.repaint();
+						// player.getShelf().print();
+						board.getBoard().removeTile(label.getTile());
+					}
+
+					else {
+						JOptionPane errore = new JOptionPane();
+						errore.showMessageDialog(label, "La colonna è piena");
+					}
+
+				}
+
+			});
 			panelLabel.add(label);
 		}
-		
-		JButton button = new JButton("Inserisci!");
-		System.out.println(button.isVisible()); 
+
+		JButton button = new JButton("Passa!");
+		// System.out.println(button.isVisible());
 		button.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				setPlayer(playerNext);
 				Jframe.setVisible(false);
-	        	frame.setVisible(true);
-	        	player.getShelf().print();
+				frame.setVisible(true);
+				frame.getShelfTable().setModel(player.getShelf());
+				//frame.getLbPlayerName().setText(player.getPlayerName());
+
+				// player.getShelf().fireTableDataChanged();
 			}
 		});
 		panelLabel.add(button);
-	/*	LabelTile label = new LabelTile(tilesChoosen.get(tilesChoosen.size()-1));
-		label.setIcon(tilesChoosen.get(tilesChoosen.size()-1).getImg());
-		label.addMouseListener(new MouseAdapter()   {   
-
-	        public void mouseClicked(MouseEvent e)   
-	        {   
-	        	
-	        	player.addTile(label.getTile(),col);
-	        	Container container = label.getParent();
-	        	container.remove(label);
-	        	container.validate();
-	        	container.repaint();
-	        	Jframe.setVisible(false);
-	        	frame.setVisible(true);
-	        	player.getShelf().print();
-	        }   
-		});
-		
-		panelLabel.add(label);*/
+		/*
+		 * LabelTile label = new LabelTile(tilesChoosen.get(tilesChoosen.size()-1));
+		 * label.setIcon(tilesChoosen.get(tilesChoosen.size()-1).getImg());
+		 * label.addMouseListener(new MouseAdapter() {
+		 * 
+		 * public void mouseClicked(MouseEvent e) {
+		 * 
+		 * player.addTile(label.getTile(),col); Container container = label.getParent();
+		 * container.remove(label); container.validate(); container.repaint();
+		 * Jframe.setVisible(false); frame.setVisible(true); player.getShelf().print();
+		 * } });
+		 * 
+		 * panelLabel.add(label);
+		 */
 		Jframe.add(panelLabel);
 		Jframe.pack();
 		Jframe.setLocationRelativeTo(null);
-		Jframe.setVisible(true);
-		
-		
-		
+
+		return Jframe;
+
 		//
 	}
-	
+
 	public int chooseCol() {
-	
+
 		int col = Integer.parseInt(JOptionPane.showInputDialog(null, "inserisci la colonna", "My Shelfie", 1));
 		return col;
 	}
-	
-	
 
 }

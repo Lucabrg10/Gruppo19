@@ -56,6 +56,10 @@ public class Tile {
 		
 		this.ID++;
 	}
+	public Tile( ColorTile color2, ImageIcon img2) {
+		this.color=color2;
+		this.img=img2;
+	}
 
 	public ColorTile getColor() {
 		return color;

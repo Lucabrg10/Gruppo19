@@ -55,8 +55,12 @@ public class Player {
 		return points;
 	}
 	
-	public void addTile(Tile tile, int col) {
-		this.shelf.addCard(col, tile);
+	public boolean addTile(Tile tile, int col) {
+		boolean aggiunto=false;
+		
+		aggiunto=this.shelf.addCard(col, tile);
+		return aggiunto;
+		
 	}
 
 

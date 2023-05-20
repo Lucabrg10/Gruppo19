@@ -7,7 +7,11 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import model.Board;
 import model.Player;
@@ -15,9 +19,10 @@ import model.Tile;
 import view.MainFrame;
 
 public class MainframeController {
-	
+
 	private MainFrame frame;
 	private JTable table;
+	private JTable shelfTable;
 	private BoardController boardC;
 	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
@@ -25,54 +30,80 @@ public class MainframeController {
 	private Board board;
 	int prevRow;
 	int prevCol;
-	int cont=0;
-	public MainframeController(MainFrame frame, BoardController boardC,PlayerController player, Board board, ArrayList<Player> players) {
+	int cont = 0;
+
+	public MainframeController(MainFrame frame, BoardController boardC, PlayerController player, Board board,
+			ArrayList<Player> players) {
 		this.frame = frame;
-		this.boardC = boardC;
 		this.playerC = player;
 		this.board = board;
 		this.table = frame.getTableBoard();
 		this.players = players;
-		this.playerC.setPlayer(players.get(cont));
-		//assegno un listener alla tabella e al pulsante "prova"
+		this.playerC.setPlayer(players.get(0));
+		this.shelfTable = frame.getShelfTable();
+		shelfTable.setModel(players.get(0).getShelf());
+		
+		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();
 		assignBtnChooseController();
-		assignBtnShelfController();
+		assignShelfTableController();
+		// assignBtnShelfController();
 	}
-	private void assignBtnShelfController() {
-		// TODO Auto-generated method stub
-		frame.getBtnShelf().addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				playerC.getPlayer().getShelf().print();
-			}
-		});
-	}
+	/*
+	 * private void assignBtnShelfController() { // TODO Auto-generated method stub
+	 * frame.getBtnShelf().addActionListener(new ActionListener() {
+	 * 
+	 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
+	 * method stub playerC.getPlayer().getShelf().print(); } }); }
+	 */
+
 	private void assignBtnChooseController() {
 		// TODO Auto-generated method stub
 		frame.getBtnChooseTiles().addActionListener(new ActionListener() {
 
-			
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				playerC.selectOrderOfTiles(tilesChoosen);
-				for (Tile tile : tilesChoosen) {
-					board.removeTile(tile);
-				//	System.out.println("Funziona");
-				}
-				
-				tilesChoosen.clear();
-				cont=(cont+1)%board.getNumOfPlayers();
-				playerC.setPlayer(players.get(cont));
-				frame.setVisible(false);
-			}
 			
+				cont++;
+				cont = (cont) % board.getNumOfPlayers();
+				JFrame jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
+			/*	
+*/
+				tilesChoosen.clear();
+				//playerC.getPlayer().getShelf().fireTableDataChanged();
+				jframe.setVisible(true);
+				
+			}
+
 		});
-		
+
+	}
+
+	public void assignShelfTableController() {
+		shelfTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					JTable target = (JTable) e.getSource();
+					int row = target.getSelectedRow();
+					int column = target.getSelectedColumn();
+					System.out.println(shelfTable.getValueAt(row, column));
+				}
+			}
+		});
+	}
+	public void showMessageError() {
+		JOptionPane pane = new JOptionPane();
+		pane.showMessageDialog(frame, "Le tiles devono essere allineate");
+	}
+	
+	public boolean tileIsInTiles(Tile tile1) {
+		for (Tile tile : tilesChoosen) {
+			if(tile==tile1) {
+				return true;
+			}
+		}
+		return false;
 	}
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
@@ -81,7 +112,7 @@ public class MainframeController {
 					JTable target = (JTable) e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
-					boolean isRow=true;
+					boolean isRow = true;
 					// do some action if appropriate column
 					if (!board.isTileEmpty(row, column)) {
 						if (board.isTileAvailable(row, column)) {
@@ -92,29 +123,38 @@ public class MainframeController {
 									prevCol = column;
 									tilesChoosen.add(board.getValueOfTileAt(row, column));
 								} else {
-									if (row == prevRow && isRow) {
-										if(column == prevCol+1 || column == prevCol-1) {
-											prevRow = row;
-											prevCol = column;
-											isRow=true;
-											tilesChoosen.add(board.getValueOfTileAt(row, column));
-										}else {
+									if(!tileIsInTiles(board.getValueOfTileAt(row, column))) {
+										if (row == prevRow && isRow) {
+											if (column == prevCol + 1 || column == prevCol - 1) {
+												prevRow = row;
+												prevCol = column;
+												isRow = true;
+												tilesChoosen.add(board.getValueOfTileAt(row, column));
+											} else {
+												System.out.println("Le tiles devono essere allineate");
+												showMessageError();
+											}
+
+										} else if (column == prevCol) {
+											if (row == prevRow + 1 || row == prevRow - 1) {
+												prevCol = column;
+												prevRow = row;
+												isRow = false;
+												tilesChoosen.add(board.getValueOfTileAt(row, column));
+											} else {
+												System.out.println("Le tiles devono essere allineate");
+												showMessageError();
+											}
+
+										} else {
 											System.out.println("Le tiles devono essere allineate");
+											showMessageError();
 										}
-										
-									} else if (column == prevCol) {
-										if(row == prevRow+1 || column == prevRow-1) {
-											prevCol = column;
-											prevRow = row;
-											isRow=false;
-											tilesChoosen.add(board.getValueOfTileAt(row, column));
-										}else {
-											System.out.println("Le tiles devono essere allineate");
-										}
-										
 									}else {
-										System.out.println("Le tiles devono essere allineate");
+										JOptionPane pane = new JOptionPane();
+										pane.showMessageDialog(frame, "Non puoi pescare la stessa carta");
 									}
+									
 								}
 							}
 
