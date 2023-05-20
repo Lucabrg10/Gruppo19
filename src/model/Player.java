@@ -6,18 +6,30 @@ public class Player {
 	
 	private final int idPlayer;
 	private String playerName;
-	private int count=0;
+	private Shelf playerShelf;
 	
-	public Player(String name){
+	
+	public Player(String name, int count){
 		this.idPlayer=count;
-		count++;
 		
 		this.playerName=name;
 		
+		playerShelf= new Shelf(count);  
 		
 		
 	}
-
 	
+	public void addCard(int columnSelection, ColorTile card) {
+		
+		playerShelf.addCard(columnSelection, card);
+		
+	}
+	
+	public int calculateScore() {
+		
+		
+		
+		return 0;
+	}
 	
 }
