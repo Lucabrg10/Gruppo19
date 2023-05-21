@@ -24,13 +24,13 @@ public class Shelf {
 		ColorTile[] control = new ColorTile[6];
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				shelf[i][j] = ColorTile.YELLOW;
-				shelf[2][2] = ColorTile.CYAN;
-				shelf[3][2] = ColorTile.CYAN;
-				shelf[4][2] = ColorTile.WHITE;
-				shelf[3][3] = ColorTile.CYAN;
-				shelf[3][4] = ColorTile.CYAN;
-				shelf[3][0] = ColorTile.YELLOW;
+				shelf[i][j] = ColorTile.EMPTY;
+				shelf[1][2] = ColorTile.YELLOW;
+				shelf[2][0] = ColorTile.CYAN;
+				shelf[2][5] = ColorTile.BLUE;
+				shelf[4][4] = ColorTile.GREEN;
+				shelf[0][5] = ColorTile.PINK;
+				shelf[3][3] = ColorTile.WHITE;
 			}
 		}
 	}
@@ -84,23 +84,6 @@ public class Shelf {
 				break;
 			}
 		}
-	}
-
-	public boolean isColorInRow(ColorTile color, int r) {
-		ColorTile[] array = new ColorTile[5];
-		for (int i = 0; i < 5; ++i) {
-			array[i] = shelf[i][r];
-		}
-		int cont = 0;
-		for (int i = 0; i < shelf.length; i++) {
-			if (color == array[i]) {
-				cont++;
-			}
-		}
-		if (cont == 1) {
-			return true;
-		}
-		return false;
 	}
 	
 	public int getNumOfPlayers() {
