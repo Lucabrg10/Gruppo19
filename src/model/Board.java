@@ -206,26 +206,29 @@ public class Board extends AbstractTableModel {
 		//freeSides conta il numero di lati liberi (deve essere >0 e <4)
 		int freeSides = 0;
 		
-		//check upper tile
-		if(rowIndex > 0 && isTileEmpty(rowIndex-1, columnIndex)) {
-			freeSides++;
+		if(this.board[rowIndex][columnIndex]!=null) {
+			System.out.println(this.board[rowIndex][columnIndex].getColor());
+			//check upper tile
+			if(rowIndex > 0 && isTileEmpty(rowIndex-1, columnIndex)) {
+				freeSides++;
+			}
+			
+			//check lower tile
+			if(rowIndex < rowLen-1 && isTileEmpty(rowIndex+1, columnIndex)) {
+				freeSides++;
+			}
+			
+			//check left tile
+			if(columnIndex > 0 && isTileEmpty(rowIndex, columnIndex-1)) {
+				freeSides++;
+			}
+			
+			//check right tile
+			if(columnIndex < columnLen-1 && isTileEmpty(rowIndex, columnIndex+1)) {
+				freeSides++;
+			}
 		}
-		
-		//check lower tile
-		if(rowIndex < rowLen-1 && isTileEmpty(rowIndex+1, columnIndex)) {
-			freeSides++;
-		}
-		
-		//check left tile
-		if(columnIndex > 0 && isTileEmpty(rowIndex, columnIndex-1)) {
-			freeSides++;
-		}
-		
-		//check right tile
-		if(columnIndex < columnLen-1 && isTileEmpty(rowIndex, columnIndex+1)) {
-			freeSides++;
-		}
-		System.out.println(freeSides+" - "+rowIndex+" - "+columnIndex);
+		//System.out.println("Lati liberi: "+freeSides+" (at "+rowIndex+" - "+columnIndex+")");
 		
 		if(freeSides > 0 && freeSides < 4) {
 			return true;
