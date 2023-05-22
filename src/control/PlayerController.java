@@ -81,7 +81,7 @@ public class PlayerController {
 				 * al click del mouse su una label si aggiunge una tile alla shelf e la si
 				 * rimuove dalla board
 				 */
-				public void mouseClicked(MouseEvent e) {
+				public void mousePressed(MouseEvent e) {
 					boolean aggiunto;
 					Tile tile1 = new Tile(label.getTile().getColor(), label.getTile().getImg());
 					// System.out.println(tile1.getColor());

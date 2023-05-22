@@ -42,7 +42,7 @@ public class MainframeController {
 		this.playerC.setPlayer(players.get(0));
 		this.shelfTable = frame.getShelfTable();
 		shelfTable.setModel(players.get(0).getShelf());
-		
+
 		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();
 		assignBtnChooseController();
@@ -64,19 +64,19 @@ public class MainframeController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			
+
 				cont++;
 				cont = (cont) % board.getNumOfPlayers();
 				JFrame jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
-			/*	
-*/
+				/*	
+				*/
 				tilesChoosen.clear();
-				//playerC.getPlayer().getShelf().fireTableDataChanged();
-				/*if(board.checkForRefill()) {
-					board.refillBoard();
-				}*/
+				// playerC.getPlayer().getShelf().fireTableDataChanged();
+				/*
+				 * if(board.checkForRefill()) { board.refillBoard(); }
+				 */
 				jframe.setVisible(true);
-				
+
 			}
 
 		});
@@ -95,22 +95,46 @@ public class MainframeController {
 			}
 		});
 	}
+
 	public void showMessageError() {
 		JOptionPane pane = new JOptionPane();
 		pane.showMessageDialog(frame, "Le tiles devono essere allineate");
 	}
-	
+
+	public boolean checkIfIsNext(boolean isRow, int row, int column) {
+
+		if (isRow) {
+			for (Tile tile2 : tilesChoosen) {
+				if (board.getValueOfTileAt(row, column + 1) == tile2
+						|| board.getValueOfTileAt(row, column - 1) == tile2) {
+					return true;
+				}
+			}
+
+		} else {
+			for (Tile tile2 : tilesChoosen) {
+				if (board.getValueOfTileAt(row + 1, column) == tile2
+						|| board.getValueOfTileAt(row - 1, column) == tile2) {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
+
 	public boolean tileIsInTiles(Tile tile1) {
 		for (Tile tile : tilesChoosen) {
-			if(tile==tile1) {
+			if (tile == tile1) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() == 1) {
 					JTable target = (JTable) e.getSource();
 					int row = target.getSelectedRow();
@@ -126,11 +150,11 @@ public class MainframeController {
 									prevCol = column;
 									tilesChoosen.add(board.getValueOfTileAt(row, column));
 								} else {
-									if(!tileIsInTiles(board.getValueOfTileAt(row, column))) {
+									if (!tileIsInTiles(board.getValueOfTileAt(row, column))) {
 										if (row == prevRow && isRow) {
-											if (column == prevCol + 1 || column == prevCol - 1) {
-												prevRow = row;
-												prevCol = column;
+											if (checkIfIsNext(isRow, row, column)) {
+												// prevRow = row;
+												// prevCol = column;
 												isRow = true;
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 											} else {
@@ -139,10 +163,11 @@ public class MainframeController {
 											}
 
 										} else if (column == prevCol) {
-											if (row == prevRow + 1 || row == prevRow - 1) {
-												prevCol = column;
-												prevRow = row;
-												isRow = false;
+											isRow = false;
+											if (checkIfIsNext(isRow, row, column)) {
+												// prevCol = column;
+												// prevRow = row;
+												
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 											} else {
 												System.out.println("Le tiles devono essere allineate");
@@ -153,11 +178,11 @@ public class MainframeController {
 											System.out.println("Le tiles devono essere allineate");
 											showMessageError();
 										}
-									}else {
+									} else {
 										JOptionPane pane = new JOptionPane();
 										pane.showMessageDialog(frame, "Non puoi pescare la stessa carta");
 									}
-									
+
 								}
 							}
 

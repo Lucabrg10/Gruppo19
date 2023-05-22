@@ -7,30 +7,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board extends AbstractTableModel {
-	private int numOfPlayers;
 	
-	public int getNumOfPlayers() {
-		return numOfPlayers;
-	}
-
-	public void setNumOfPlayers(int numOfPlayers) {
-		this.numOfPlayers = numOfPlayers;
-	}
-
+	private int numOfPlayers;
 	private final int rowLen = 9;
 	private final int columnLen = 9;
 	private final String[] columnNames = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
-	int c = 0;
+	private int c = 0;
 	
-	
-
-	@Override
-	public String getColumnName(int columnIndex) {
-		return columnNames[columnIndex];
-	}
 
 	Tile[][] board = new Tile[rowLen][columnLen];
 	Bag bag;
+	
+	
 	int[][] emptyTiles = { { 1, 1 }, { 1, 2 }, { 1, 3 }, { 1, 4 }, { 1, 5 }, { 1, 6 }, { 1, 7 }, { 1, 8 }, { 1, 9 },
 			{ 2, 1 }, { 2, 2 }, { 2, 3 }, { 2, 6 }, { 2, 7 }, { 2, 8 }, { 2, 9 }, { 3, 1 }, { 3, 2 }, { 3, 3 },
 			{ 3, 7 }, { 3, 8 }, { 3, 9 }, { 4, 1 }, { 4, 2 }, { 4, 9 }, { 5, 1 }, { 5, 9 }, { 6, 1 }, { 6, 8 },
@@ -38,6 +26,8 @@ public class Board extends AbstractTableModel {
 			{ 8, 4 }, { 8, 7 }, { 8, 8 }, { 8, 9 }, { 9, 1 }, { 9, 2 }, { 9, 3 }, { 9, 4 }, { 9, 5 }, { 9, 6 },
 			{ 9, 7 }, { 9, 8 }, { 9, 9 }, };
 
+	
+	
 	public Board(int numOfPlayers) {
 		if (numOfPlayers < 2 || numOfPlayers > 4) {
 			throw new IllegalArgumentException("Il numero di giocatori deve essere compreso tra 2 e 4.");
@@ -52,6 +42,23 @@ public class Board extends AbstractTableModel {
 		// randomFillBoard();
 	}
 
+	public int getNumOfPlayers() {
+		return numOfPlayers;
+	}
+
+	public void setNumOfPlayers(int numOfPlayers) {
+		this.numOfPlayers = numOfPlayers;
+	}
+
+	
+	
+	
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return columnNames[columnIndex];
+	}
+	
 	@Override
 	public Class getColumnClass(int col) {
 		return ImageIcon.class;
@@ -219,6 +226,7 @@ public class Board extends AbstractTableModel {
 			freeSides++;
 		}
 		System.out.println(freeSides+" - "+rowIndex+" - "+columnIndex);
+		
 		if(freeSides > 0 && freeSides < 4) {
 			return true;
 		}
