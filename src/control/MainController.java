@@ -57,10 +57,10 @@ public class MainController {
 			column2.setPreferredWidth(50);
 		}*/
 
-		frame.getShelfTable().setRowHeight(45);
-		frame.getTableBoard().setRowHeight(45);
+		frame.getShelfTable().setRowHeight(70);
+		frame.getTableBoard().setRowHeight(70);
 		frame.getTableBoard().setCellSelectionEnabled(true);
-		frame.setSize(700, 550);
+		frame.setSize(1020, 860);
 
 	}
 
