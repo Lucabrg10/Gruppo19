@@ -23,6 +23,7 @@ public class Shelf extends AbstractTableModel {
 	public Shelf() {
 		// player number
 		this.shelf = new Tile[rows][columns];
+		fireTableDataChanged();
 	}
 
 	public Tile[][] getShelf() {

@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Board extends AbstractTableModel {
 	private int numOfPlayers;
+	
 	public int getNumOfPlayers() {
 		return numOfPlayers;
 	}
@@ -18,7 +19,15 @@ public class Board extends AbstractTableModel {
 
 	private final int rowLen = 9;
 	private final int columnLen = 9;
+	private final String[] columnNames = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
 	int c = 0;
+	
+	
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return columnNames[columnIndex];
+	}
 
 	Tile[][] board = new Tile[rowLen][columnLen];
 	Bag bag;
@@ -127,19 +136,14 @@ public class Board extends AbstractTableModel {
 		}
 		
 		//fills EMPTY tiles
+		refillBoard();
+		
+	}
+	
+	public void refillBoard() {
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
 				if (board[i][j]!=null && board[i][j].getColor() == ColorTile.EMPTY) {
-					this.board[i][j] = getRandomTile();
-				}
-			}
-		}
-	}
-	
-	public void refillBoard(int numOfPlayers) {
-		for(int i = 0; i < columnLen; i++) {
-			for(int j = 0; j < rowLen; j++) {
-				if(board[i][j].getColor() == ColorTile.EMPTY) {
 					this.board[i][j] = getRandomTile();
 				}
 			}
@@ -214,6 +218,7 @@ public class Board extends AbstractTableModel {
 		if(columnIndex < columnLen-1 && isTileEmpty(rowIndex, columnIndex+1)) {
 			freeSides++;
 		}
+		System.out.println(freeSides+" - "+rowIndex+" - "+columnIndex);
 		if(freeSides > 0 && freeSides < 4) {
 			return true;
 		}
@@ -224,6 +229,7 @@ public class Board extends AbstractTableModel {
 		for(int i = 0; i < rowLen; i++) {
 			for(int j = 0; j < columnLen; j++) {
 				if(isTileAvailable(i, j)) {
+					
 					//if it gets here it means that at least one tile is available
 					//there is no need to refill.
 					return false;

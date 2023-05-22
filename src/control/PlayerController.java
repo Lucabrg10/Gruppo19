@@ -106,6 +106,10 @@ public class PlayerController {
 			panelLabel.add(label);
 		}
 
+		
+		/**
+		 * Al click sul button si passa al giocatore successivo
+		 */
 		JButton button = new JButton("Passa!");
 		// System.out.println(button.isVisible());
 		button.addActionListener(new ActionListener() {
@@ -117,6 +121,9 @@ public class PlayerController {
 				Jframe.setVisible(false);
 				frame.setVisible(true);
 				frame.getShelfTable().setModel(player.getShelf());
+				if(board.getBoard().checkForRefill()) {
+					board.getBoard().refillBoard();
+				}
 				//frame.getLbPlayerName().setText(player.getPlayerName());
 
 				// player.getShelf().fireTableDataChanged();

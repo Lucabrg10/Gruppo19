@@ -36,6 +36,8 @@ import javax.swing.JSplitPane;
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class MainFrame extends JFrame {
 
@@ -55,6 +57,8 @@ public class MainFrame extends JFrame {
 	private JSplitPane splitPane_1;
 	private JPanel panel_2;
 	private JLabel lbMyShelfieTitle;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
 
 	public JTable getShelfTable() {
 		return shelfTable;
@@ -156,10 +160,17 @@ public class MainFrame extends JFrame {
 		
 		splitPane.setDividerLocation(350);
 		shelfPanel.add(splitPane);
+		splitPane.setEnabled(false);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		splitPane.setLeftComponent(scrollPane);
 		
 		
 		
 		shelfTable = new JTable();
+		scrollPane.setViewportView(shelfTable);
 		shelfTable.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -168,14 +179,15 @@ public class MainFrame extends JFrame {
 			}
 		));
 		shelfTable.setEnabled(false);
-		splitPane.setLeftComponent(shelfTable);
-		splitPane.setEnabled(false);
 		shelfTable.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		shelfTable.setBackground(Color.WHITE);
 		shelfTable.setForeground(Color.BLACK);
 		shelfTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+		scrollPane_1 = new JScrollPane();
+		splitPane.setRightComponent(scrollPane_1);
 		this.tableBoard = new JTable();
-		splitPane.setRightComponent(tableBoard);
+		scrollPane_1.setViewportView(tableBoard);
 		tableBoard.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		tableBoard.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tableBoard.setPreferredScrollableViewportSize(tableBoard.getPreferredSize());

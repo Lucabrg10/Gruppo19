@@ -72,6 +72,9 @@ public class MainframeController {
 */
 				tilesChoosen.clear();
 				//playerC.getPlayer().getShelf().fireTableDataChanged();
+				/*if(board.checkForRefill()) {
+					board.refillBoard();
+				}*/
 				jframe.setVisible(true);
 				
 			}

@@ -57,10 +57,13 @@ public class MainController {
 			column2.setPreferredWidth(50);
 		}*/
 
+		frame.getShelfTable().getTableHeader().setReorderingAllowed(false);
+		frame.getTableBoard().getTableHeader().setReorderingAllowed(false);
 		frame.getShelfTable().setRowHeight(70);
 		frame.getTableBoard().setRowHeight(70);
 		frame.getTableBoard().setCellSelectionEnabled(true);
-		frame.setSize(1020, 860);
+		frame.setSize(1020, 890);
+		frame.setResizable(false);
 
 	}
 
