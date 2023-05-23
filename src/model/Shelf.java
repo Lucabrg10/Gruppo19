@@ -35,7 +35,9 @@ public class Shelf extends AbstractTableModel {
 	}
 
 	// Set all shelf cell to empty
+
 	public void initialize() {
+		ColorTile[] control = new ColorTile[6];
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
 				shelf[i][j] = new Tile(ColorTile.EMPTY);
@@ -62,7 +64,8 @@ public class Shelf extends AbstractTableModel {
 	 * @return false Si possono inserire
 	 */
 
-	public boolean ControlFreeBoxes(int columnSelection, int numberOfCards) {
+	public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
+
 		int notFree = 0;
 		boolean control = false;
 		for (int i = 0; i < shelf[columnSelection].length; i++) {
@@ -73,7 +76,8 @@ public class Shelf extends AbstractTableModel {
 				return control;
 			}
 		}
-		if (numberOfCards > (rows - notFree)) {
+
+		if (numberOfCards > (columns - notFree)) {
 			control = true;
 		}
 		return control;
@@ -83,6 +87,7 @@ public class Shelf extends AbstractTableModel {
 	 * Aggiunge la carta alla colonna
 	 * 
 	 * @param columnSelection Colonna selezionata
+
 	 * @param Tile            Tipo di carta da inserire
 	 */
 	public boolean addCard(int columnSelection, Tile card) {

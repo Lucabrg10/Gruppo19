@@ -49,13 +49,7 @@ public class MainframeController {
 		assignShelfTableController();
 		// assignBtnShelfController();
 	}
-	/*
-	 * private void assignBtnShelfController() { // TODO Auto-generated method stub
-	 * frame.getBtnShelf().addActionListener(new ActionListener() {
-	 * 
-	 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
-	 * method stub playerC.getPlayer().getShelf().print(); } }); }
-	 */
+	
 
 	private void assignBtnChooseController() {
 		// TODO Auto-generated method stub

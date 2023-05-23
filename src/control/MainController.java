@@ -1,12 +1,14 @@
 package control;
 
 import model.Board;
+import model.PersonalGoal;
 import model.Player;
 import view.MainFrame;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -31,10 +33,15 @@ public class MainController {
 				.parseInt(JOptionPane.showInputDialog(null, "inserisci il numero di giocatori", "My Shelfie", 1));
 
 		String username;
+		int numOfPersonalGoal;
+		
 		for (int i = 0; i < numberOfPlayers; i++) {
 
 			username = JOptionPane.showInputDialog(null, "Inserisci l'username del giocatore "+(i+1), "Username", 1);
-			listOfPlayers.add(new Player(username));
+			
+			Random rnd = new Random();
+			numOfPersonalGoal=rnd.nextInt(12);
+			listOfPlayers.add(new Player(username, new PersonalGoal(numOfPersonalGoal)));
 		}
 		this.board = new BoardController(frame, new Board(numberOfPlayers));
 		this.playerController = new PlayerController(f, board);
@@ -42,20 +49,6 @@ public class MainController {
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		// frame.setVisible(true);
-	/*	TableColumnModel columnModel1 = frame.getShelfTable().getColumnModel();
-		TableColumnModel columnModel2 = frame.getTableBoard().getColumnModel();
-		for (int columnIndex = 0; columnIndex < 5; columnIndex++) {
-			TableColumn column1 = columnModel1.getColumn(columnIndex);
-
-			column1.setPreferredWidth(50);
-		}
-		for (int columnIndex = 0; columnIndex < 9; columnIndex++) {
-
-			TableColumn column2 = columnModel2.getColumn(columnIndex);
-
-			column2.setPreferredWidth(50);
-		}*/
 
 		frame.getShelfTable().getTableHeader().setReorderingAllowed(false);
 		frame.getTableBoard().getTableHeader().setReorderingAllowed(false);
