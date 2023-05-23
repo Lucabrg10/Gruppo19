@@ -199,7 +199,7 @@ public class MainFrame extends JFrame {
 		
 		lbMyShelfieTitle = new JLabel("");
 		//System.out.println(new ImageIcon("/assets/myshelfie/pub/title1"));
-		lbMyShelfieTitle.setIcon(new ImageIcon("C:\\Users\\Black\\eclipse-workspace\\myshelfie\\Gruppo19\\assets\\myshelfie\\pub\\title1.png"));
+		lbMyShelfieTitle.setIcon(new ImageIcon("./assets/myshelfie/pub/title1.png"));
 		panel_2.add(lbMyShelfieTitle);
 		//Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		//setSize(size);
