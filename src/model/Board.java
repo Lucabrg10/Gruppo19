@@ -155,6 +155,7 @@ public class Board extends AbstractTableModel {
 				}
 			}
 		}
+		fireTableDataChanged();
 	}
 
 	// returns random TileType (not empty)
@@ -206,7 +207,7 @@ public class Board extends AbstractTableModel {
 		//freeSides conta il numero di lati liberi (deve essere >0 e <4)
 		int freeSides = 0;
 		
-		if(this.board[rowIndex][columnIndex]!=null) {
+		if(this.board[rowIndex][columnIndex]!=null && this.board[rowIndex][columnIndex].getColor()!=ColorTile.EMPTY) {
 			System.out.println(this.board[rowIndex][columnIndex].getColor());
 			//check upper tile
 			if(rowIndex > 0 && isTileEmpty(rowIndex-1, columnIndex)) {
@@ -228,7 +229,7 @@ public class Board extends AbstractTableModel {
 				freeSides++;
 			}
 		}
-		//System.out.println("Lati liberi: "+freeSides+" (at "+rowIndex+" - "+columnIndex+")");
+		System.out.println("Lati liberi: "+freeSides+" (at "+rowIndex+" - "+columnIndex+")");
 		
 		if(freeSides > 0 && freeSides < 4) {
 			return true;

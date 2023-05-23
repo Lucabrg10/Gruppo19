@@ -34,7 +34,7 @@ public class Shelf extends AbstractTableModel {
 		this.shelf = shelf;
 	}
 
-	// Set all shelf cell to null
+	// Set all shelf cell to empty
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
@@ -61,13 +61,23 @@ public class Shelf extends AbstractTableModel {
 	 * @return true Non si può inserire
 	 * @return false Si possono inserire
 	 */
-	/*
-	 * public boolean ControlFreeBoxes(int columnSelection, int numberOfCards) { int
-	 * notFree = 0; boolean control = false; for (int i = 0; i <
-	 * shelf[columnSelection].length; i++) { if (shelf[columnSelection][i] == null)
-	 * { notFree = i - 1; } else { control = true; return control; } } if
-	 * (numberOfCards > (rows - notFree)) { control = true; } return control; }
-	 */
+
+	public boolean ControlFreeBoxes(int columnSelection, int numberOfCards) {
+		int notFree = 0;
+		boolean control = false;
+		for (int i = 0; i < shelf[columnSelection].length; i++) {
+			if (shelf[columnSelection][i] == null) {
+				notFree = i - 1;
+			} else {
+				control = true;
+				return control;
+			}
+		}
+		if (numberOfCards > (rows - notFree)) {
+			control = true;
+		}
+		return control;
+	}
 
 	/**
 	 * Aggiunge la carta alla colonna
@@ -76,19 +86,20 @@ public class Shelf extends AbstractTableModel {
 	 * @param Tile            Tipo di carta da inserire
 	 */
 	public boolean addCard(int columnSelection, Tile card) {
-		//System.out.println(card.getClass() + " " + card.getColor() + " " + card.getImg());ù
-		boolean aggiunto=false;
+		// System.out.println(card.getClass() + " " + card.getColor() + " " +
+		// card.getImg());ù
+		boolean aggiunto = false;
 		int i;
 		for (i = 5; i >= 0; i--) {
 
 			if (shelf[i][columnSelection] == null) {
 				shelf[i][columnSelection] = card;
-				aggiunto=true;
+				aggiunto = true;
 				break;
 			}
 		}
-		
-		//print();
+
+		// print();
 		fireTableDataChanged();
 		return aggiunto;
 	}

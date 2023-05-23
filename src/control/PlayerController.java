@@ -123,6 +123,7 @@ public class PlayerController {
 				frame.getShelfTable().setModel(player.getShelf());
 				if(board.getBoard().checkForRefill()) {
 					board.getBoard().refillBoard();
+					
 				}
 				//frame.getLbPlayerName().setText(player.getPlayerName());
 
