@@ -1,16 +1,38 @@
 package model;
 
-public class PersonalGoal extends Goal {
-	private int numOfGoal;
+import javax.swing.ImageIcon;
 
-//	YE	   CY	  BL    GR	  PI	WH
-	int[][] pGoalArray = { { 12, 20, 25, 44, 05, 33 }, { 23, 31, 40, 04, 14, 42 }, { 34, 42, 04, 12, 23, 00 },
-			{ 45, 03, 23, 21, 32, 11 }, { 00, 14, 12, 30, 41, 22 }, { 11, 25, 31, 45, 00, 33 },
-			{ 41, 02, 34, 05, 13, 20 }, { 30, 23, 45, 14, 02, 31 }, { 25, 11, 00, 23, 41, 42 },
-			{ 14, 45, 11, 32, 30, 03 }, { 03, 30, 22, 41, 25, 14 }, { 41, 32, 23, 00, 14, 25 } };
+public class PersonalGoal {
+	private int numOfGoal;
+	private ImageIcon imgGoal;
+
+	public ImageIcon getImgGoal() {
+		return imgGoal;
+	}
+
+	public void setImgGoal(ImageIcon imgGoal) {
+		this.imgGoal = imgGoal;
+	}
+
+	// YE CY BL GR PI WH
+	int[][] pGoalArray = { 
+			{ 31, 52, 02, 14, 00, 23 }, 
+			{ 22, 43, 54, 20, 11, 34 }, 
+			{ 13, 34, 10, 31, 22, 50 },
+			{ 04, 20, 22, 42, 33, 41 }, 
+			{ 50, 11, 31, 53, 44, 32 }, 
+			{ 41, 02, 43, 04, 50, 23 },			
+			{ 44, 30, 13, 00, 21, 52 }, 
+			{ 53, 22, 04, 11, 30, 43 }, 
+			{ 02, 41, 50, 22, 44, 34 },
+			{ 11, 04, 41, 33, 53, 20 }, 
+			{ 20, 53, 32, 44, 02, 11 }, 
+			{ 44, 33, 22, 50, 11, 02 } 
+			};
 
 	public PersonalGoal(int numOfGoal) {
 		this.numOfGoal = numOfGoal;
+		this.imgGoal = new ImageIcon("./assets/myshelfie/pers_goal/Personal_Goals" + (numOfGoal + 1) + ".png");
 	}
 
 	/**
@@ -21,33 +43,35 @@ public class PersonalGoal extends Goal {
 	 * @return number of tile in the correct position
 	 */
 
-	public int counterPersonalGoalPoint( Shelf playerShelf) {
+	public int counterPersonalGoalPoint(Shelf playerShelf) {
 		int cardsOk = 0;
-		if (playerShelf.getShelf()[(pGoalArray[numOfGoal][0]) / 10][(pGoalArray[numOfGoal][0]) % 10]
+		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][0]) / 10, (pGoalArray[numOfGoal][0]) % 10)
 				.getColor() == ColorTile.YELLOW) {
 			cardsOk++;
 		}
-		if (playerShelf.getShelf()[(pGoalArray[numOfGoal][1]) / 10][(pGoalArray[numOfGoal][1]) % 10]
+		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][1]) / 10, (pGoalArray[numOfGoal][1]) % 10)
 				.getColor() == ColorTile.CYAN) {
 			cardsOk++;
 		}
-		if (playerShelf.getShelf()[(pGoalArray[numOfGoal][2]) / 10][(pGoalArray[numOfGoal][2]) % 10]
+		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][2]) / 10, (pGoalArray[numOfGoal][2]) % 10)
 				.getColor() == ColorTile.BLUE) {
 			cardsOk++;
 		}
-		if (playerShelf.getShelf()[(pGoalArray[numOfGoal][3]) / 10][(pGoalArray[numOfGoal][3]) % 10]
+		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][3]) / 10, (pGoalArray[numOfGoal][3]) % 10)
 				.getColor() == ColorTile.GREEN) {
 			cardsOk++;
 		}
-		if (playerShelf.getShelf()[(pGoalArray[numOfGoal][4]) / 10][(pGoalArray[numOfGoal][4]) % 10]
+		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][4]) / 10, (pGoalArray[numOfGoal][4]) % 10)
 				.getColor() == ColorTile.PINK) {
 			cardsOk++;
 		}
-		if (playerShelf.getShelf()[(pGoalArray[numOfGoal][5]) / 10][(pGoalArray[numOfGoal][5]) % 10]
+		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][5]) / 10, (pGoalArray[numOfGoal][5]) % 10)
 				.getColor() == ColorTile.WHITE) {
 			cardsOk++;
 		}
 
+		playerShelf.print();
+		System.out.println(cardsOk);
 		return countPoint(cardsOk);
 	}
 

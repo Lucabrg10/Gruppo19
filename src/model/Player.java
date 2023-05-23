@@ -7,9 +7,12 @@ import java.util.HashSet;
 public class Player {
 	private int playerId;
 	private String playerName;
-	private int points;
+	private int points = 0;
 	private Shelf shelf;
 	private PersonalGoal personalGoal;
+	
+
+
 	private int idcount = 1;
 	private static Set<String> existingNames = new HashSet<String>();
 
@@ -30,7 +33,18 @@ public class Player {
 
 		this.points = 0;
 	}
+	public PersonalGoal getPersonalGoal() {
+		return personalGoal;
+	}
 
+
+
+	public void setPersonalGoal(PersonalGoal personalGoal) {
+		this.personalGoal = personalGoal;
+	}
+
+	
+	
 	public void setPoints(int points) {
 		this.points = points;
 	}

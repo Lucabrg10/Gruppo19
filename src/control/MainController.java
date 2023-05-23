@@ -34,13 +34,14 @@ public class MainController {
 
 		String username;
 		int numOfPersonalGoal;
-		
+		Random rnd = new Random();
 		for (int i = 0; i < numberOfPlayers; i++) {
 
 			username = JOptionPane.showInputDialog(null, "Inserisci l'username del giocatore "+(i+1), "Username", 1);
 			
-			Random rnd = new Random();
+			
 			numOfPersonalGoal=rnd.nextInt(12);
+			System.out.println(numOfPersonalGoal);
 			listOfPlayers.add(new Player(username, new PersonalGoal(numOfPersonalGoal)));
 		}
 		this.board = new BoardController(frame, new Board(numberOfPlayers));

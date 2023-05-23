@@ -93,6 +93,10 @@ public class PlayerController {
 						container.repaint();
 						// player.getShelf().print();
 						board.getBoard().removeTile(label.getTile());
+						System.out.println(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
+						player.setPoints(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
+						System.out.println("Punteggio "+player.getPlayerName()+" : "+player.getPoints());
+						frame.getLbPoints().setText("Punteggio: "+player.getPoints());
 					}
 
 					else {
@@ -125,33 +129,18 @@ public class PlayerController {
 					board.getBoard().refillBoard();
 					
 				}
+				frame.getLbPoints().setText("Punteggio: "+player.getPoints());
 				//frame.getLbPlayerName().setText(player.getPlayerName());
 
 				// player.getShelf().fireTableDataChanged();
 			}
 		});
 		panelLabel.add(button);
-		/*
-		 * LabelTile label = new LabelTile(tilesChoosen.get(tilesChoosen.size()-1));
-		 * label.setIcon(tilesChoosen.get(tilesChoosen.size()-1).getImg());
-		 * label.addMouseListener(new MouseAdapter() {
-		 * 
-		 * public void mouseClicked(MouseEvent e) {
-		 * 
-		 * player.addTile(label.getTile(),col); Container container = label.getParent();
-		 * container.remove(label); container.validate(); container.repaint();
-		 * Jframe.setVisible(false); frame.setVisible(true); player.getShelf().print();
-		 * } });
-		 * 
-		 * panelLabel.add(label);
-		 */
 		Jframe.add(panelLabel);
 		Jframe.pack();
 		Jframe.setLocationRelativeTo(null);
 
 		return Jframe;
-
-		//
 	}
 
 	public int chooseCol() {

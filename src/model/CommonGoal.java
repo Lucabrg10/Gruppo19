@@ -3,7 +3,7 @@ package model;
 import java.awt.PageAttributes.ColorType;
 import java.util.ArrayList;
 
-public class CommonGoal extends Goal {
+public class CommonGoal {
 	private final int columns = 5;
 	private final int rows = 6;
 	private int numOfPlayer;

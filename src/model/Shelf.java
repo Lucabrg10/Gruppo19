@@ -10,6 +10,14 @@ public class Shelf extends AbstractTableModel {
 
 	private final String[] columnNames = { "0", "1", "2", "3", "4" };
 
+
+	public Shelf() {
+		// player number
+		this.shelf = new Tile[rows][columns];
+		initialize();
+		fireTableDataChanged();
+	}
+	
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
@@ -20,11 +28,6 @@ public class Shelf extends AbstractTableModel {
 		return columnNames[columnIndex];
 	}
 
-	public Shelf() {
-		// player number
-		this.shelf = new Tile[rows][columns];
-		fireTableDataChanged();
-	}
 
 	public Tile[][] getShelf() {
 		return shelf;
@@ -49,7 +52,7 @@ public class Shelf extends AbstractTableModel {
 		System.out.println("Shelf Print");
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				System.out.print(" | " + shelf[i][j] + " | ");
+				System.out.print(" | " + shelf[i][j].getColor() + " | ");
 			}
 			System.out.println("\n");
 		}
@@ -64,7 +67,7 @@ public class Shelf extends AbstractTableModel {
 	 * @return false Si possono inserire
 	 */
 
-	public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
+	/*public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
 
 		int notFree = 0;
 		boolean control = false;
@@ -81,7 +84,7 @@ public class Shelf extends AbstractTableModel {
 			control = true;
 		}
 		return control;
-	}
+	}*/
 
 	/**
 	 * Aggiunge la carta alla colonna
@@ -97,7 +100,7 @@ public class Shelf extends AbstractTableModel {
 		int i;
 		for (i = 5; i >= 0; i--) {
 
-			if (shelf[i][columnSelection] == null) {
+			if (shelf[i][columnSelection].getColor() == ColorTile.EMPTY) {
 				shelf[i][columnSelection] = card;
 				aggiunto = true;
 				break;
@@ -128,6 +131,10 @@ public class Shelf extends AbstractTableModel {
 		return null;
 
 	}
+	public Tile getValueOfTileAt(int rowIndex, int columnIndex) {
+		return shelf[rowIndex][columnIndex];
+	}
+	
 
 	@Override
 	public Class getColumnClass(int col) {

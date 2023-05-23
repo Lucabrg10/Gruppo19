@@ -38,6 +38,8 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -59,6 +61,8 @@ public class MainFrame extends JFrame {
 	private JLabel lbMyShelfieTitle;
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane_1;
+	private JPanel panel_3;
+	private JLabel lbPoints;
 
 	public JTable getShelfTable() {
 		return shelfTable;
@@ -162,10 +166,23 @@ public class MainFrame extends JFrame {
 		shelfPanel.add(splitPane);
 		splitPane.setEnabled(false);
 		
+		scrollPane_1 = new JScrollPane();
+		splitPane.setRightComponent(scrollPane_1);
+		this.tableBoard = new JTable();
+		scrollPane_1.setViewportView(tableBoard);
+		tableBoard.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		tableBoard.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableBoard.setPreferredScrollableViewportSize(tableBoard.getPreferredSize());
+		tableBoard.setFillsViewportHeight(true);
+		
+		panel_3 = new JPanel();
+		splitPane.setLeftComponent(panel_3);
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
 		scrollPane = new JScrollPane();
+		panel_3.add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		splitPane.setLeftComponent(scrollPane);
 		
 		
 		
@@ -184,14 +201,8 @@ public class MainFrame extends JFrame {
 		shelfTable.setForeground(Color.BLACK);
 		shelfTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
-		scrollPane_1 = new JScrollPane();
-		splitPane.setRightComponent(scrollPane_1);
-		this.tableBoard = new JTable();
-		scrollPane_1.setViewportView(tableBoard);
-		tableBoard.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		tableBoard.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableBoard.setPreferredScrollableViewportSize(tableBoard.getPreferredSize());
-		tableBoard.setFillsViewportHeight(true);
+		lbPoints = new JLabel("");
+		panel_3.add(lbPoints, BorderLayout.SOUTH);
 		
 		panel_2 = new JPanel();
 		panel_2.setBackground(Color.DARK_GRAY);
@@ -203,6 +214,22 @@ public class MainFrame extends JFrame {
 		panel_2.add(lbMyShelfieTitle);
 		//Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		//setSize(size);
+	}
+
+	public JButton getBtnPersonalGoal() {
+		return btnPersonalGoal;
+	}
+
+	public void setBtnPersonalGoal(JButton btnPersonalGoal) {
+		this.btnPersonalGoal = btnPersonalGoal;
+	}
+
+	public JLabel getLbPoints() {
+		return lbPoints;
+	}
+
+	public void setLbPoints(JLabel lbPoints) {
+		this.lbPoints = lbPoints;
 	}
 
 	public JLabel getLbPlayerName() {

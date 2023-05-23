@@ -8,7 +8,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -47,9 +49,30 @@ public class MainframeController {
 		assignTableController();
 		assignBtnChooseController();
 		assignShelfTableController();
+		assignBtnPersonalGoal();
 		// assignBtnShelfController();
 	}
 	
+
+	private void assignBtnPersonalGoal() {
+		// TODO Auto-generated method stub
+		frame.getBtnPersonalGoal().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFrame frame = new JFrame("Player "+playerC.getPlayer().getPlayerName());
+				JPanel jPanel= new JPanel();
+				JLabel label = new JLabel();
+				jPanel.add(label);
+				label.setIcon(playerC.getPlayer().getPersonalGoal().getImgGoal());
+				frame.add(jPanel);
+				frame.pack();
+				frame.setVisible(true);
+			}
+		});
+	}
+
 
 	private void assignBtnChooseController() {
 		// TODO Auto-generated method stub

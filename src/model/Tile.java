@@ -28,23 +28,23 @@ public class Tile {
 
 		}
 			break;
-		case YELLOW: {
+		case CYAN: {
 			this.img = new ImageIcon( "assets/myshelfie/item_tiles/Trofei1." + RandomizeImages() + ".png");
 		}
 			break;
-		case CYAN: {
+		case GREEN: {
 			this.img = new ImageIcon("assets/myshelfie/item_tiles/Gatti1." + RandomizeImages() + ".png");
 		}
 			break;
-		case GREEN: {
+		case PINK: {
 			this.img = new ImageIcon("assets/myshelfie/item_tiles/Piante1." + RandomizeImages() + ".png");
 		}
 			break;
-		case PINK: {
+		case WHITE: {
 			this.img = new ImageIcon( "assets/myshelfie/item_tiles/Libri1." + RandomizeImages() + ".png");
 		}
 			break;
-		case WHITE: {
+		case YELLOW: {
 			this.img = new ImageIcon("assets/myshelfie/item_tiles/Giochi1." + RandomizeImages() + ".png");
 		}
 			break;
