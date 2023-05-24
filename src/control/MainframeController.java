@@ -45,7 +45,7 @@ public class MainframeController {
 		this.playerC.setPlayer(players.get(0));
 		this.shelfTable = frame.getShelfTable();
 		shelfTable.setModel(players.get(0).getShelf());
-		frame.getLbPoints().setText("Punteggio: " + playerC.getPlayer().getPoints());
+		frame.getLbPoints().setText("Punteggio di " +player.getPlayer().getPlayerName()+ ": " + playerC.getPlayer().getPoints());
 		frame.getLbTileClicked().setText("");
 		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();

@@ -24,26 +24,60 @@ public class MainController {
 	private ArrayList<Player> listOfPlayers = new ArrayList<>();
 	boolean gameIsOver = false;
 	private PlayerController playerController;
+	private static ArrayList<Integer> selectedNumbers = new ArrayList<>();
 
 	public MainController(MainFrame f) {
 		// this.numOfPlayers=numOfPlayers;
 		this.frame = f;
 
-		int numberOfPlayers = Integer
-				.parseInt(JOptionPane.showInputDialog(null, "inserisci il numero di giocatori", "My Shelfie", 1));
+		int numberOfPlayers = 0;
+		
+		boolean invalid = false;
+		do {
+			try {
+				numberOfPlayers= Integer.parseInt(JOptionPane.showInputDialog(null, "inserisci il numero di giocatori", "My Shelfie", 1));
+				invalid = false;
+				if(numberOfPlayers < 2 || numberOfPlayers > 4) {
+					invalid = true;
+					showMessageError("Il numero di giocatori deve essere compreso tra 2 e 4.");
+				}
+			}
+			catch(NumberFormatException e){
+				invalid = true;
+				showMessageError("Il numero di giocatori deve essere un intero.");
+			}
+			
+		}while(invalid);
 
 		String username;
-		int numOfPersonalGoal;
-		Random rnd = new Random();
+		int numOfPersonalGoal=0;
+		
 		for (int i = 0; i < numberOfPlayers; i++) {
-
-			username = JOptionPane.showInputDialog(null, "Inserisci l'username del giocatore "+(i+1), "Username", 1);
 			
-			
-			numOfPersonalGoal=rnd.nextInt(12);
+			numOfPersonalGoal = noDuplicatesRandomNumber();
 			System.out.println(numOfPersonalGoal);
-			listOfPlayers.add(new Player(username, new PersonalGoal(numOfPersonalGoal)));
+				
+			
+			invalid = false;
+			do{
+	
+				try {
+					username = JOptionPane.showInputDialog(null, "Inserisci l'username del giocatore "+(i+1), "Username", 1);
+					listOfPlayers.add(new Player(username, new PersonalGoal(numOfPersonalGoal)));
+					invalid = false;
+				}
+				catch(IllegalArgumentException e){
+					invalid = true;
+					
+					//this should be modified
+					//System.out.println("ERRORE: nome non valido.");
+					showMessageError("Nome non valido: esiste gi\u00E0 un player con lo stesso username.");
+				}
+			}while(invalid);
+			
 		}
+		
+		
 		this.board = new BoardController(frame, new Board(numberOfPlayers));
 		this.playerController = new PlayerController(f, board);
 		this.frameController = new MainframeController(f, board, playerController, board.getBoard(), listOfPlayers);
@@ -60,5 +94,28 @@ public class MainController {
 		frame.setResizable(false);
 
 	}
+	
+	public void showMessageError(String message) {
+		JOptionPane pane = new JOptionPane();
+		pane.showMessageDialog(frame, message);
+	}
 
+	public int noDuplicatesRandomNumber() {
+		Random rnd = new Random();
+		int number;
+		boolean invalid = false;
+		do {
+			invalid = false;
+			number = rnd.nextInt(12);
+			for(int i = 0; i < selectedNumbers.size(); i++) {
+				if(selectedNumbers.get(i) == number) {
+					invalid = true;
+				}
+			}
+		}while(invalid);
+		
+		
+		selectedNumbers.add(number);
+		return number;
+	}
 }
