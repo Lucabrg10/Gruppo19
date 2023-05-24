@@ -2,6 +2,7 @@ package control;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -9,9 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -62,14 +67,15 @@ public class PlayerController {
 	 *                     player che le aggiungerà nella colonna desiderata
 	 * 
 	 */
-	public JFrame selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext) {
+	public JDialog selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext) {
 
 		int col = chooseCol();
 
 		this.tilesChoosen = tilesChoosen;
 		ArrayList<Integer> positions = new ArrayList<>();
 
-		JFrame Jframe = new JFrame();
+		JDialog Jframe = new JDialog(new JFrame(),"Scegli l'ordine delle carte");
+		Jframe.setMinimumSize(new Dimension(300,80));
 		JPanel panelLabel = new JPanel(new FlowLayout());
 
 		for (int i = 0; i < tilesChoosen.size(); i++) {
@@ -93,10 +99,11 @@ public class PlayerController {
 						container.repaint();
 						// player.getShelf().print();
 						board.getBoard().removeTile(label.getTile());
-						System.out.println(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
+						// System.out.println(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
 						player.setPoints(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
-						System.out.println("Punteggio "+player.getPlayerName()+" : "+player.getPoints());
-						frame.getLbPoints().setText("Punteggio: "+player.getPoints());
+						// System.out.println("Punteggio "+player.getPlayerName()+" :
+						// "+player.getPoints());
+						frame.getLbPoints().setText("Punteggio: " + player.getPoints());
 					}
 
 					else {
@@ -110,7 +117,6 @@ public class PlayerController {
 			panelLabel.add(label);
 		}
 
-		
 		/**
 		 * Al click sul button si passa al giocatore successivo
 		 */
@@ -125,21 +131,27 @@ public class PlayerController {
 				Jframe.setVisible(false);
 				frame.setVisible(true);
 				frame.getShelfTable().setModel(player.getShelf());
-				if(board.getBoard().checkForRefill()) {
+				if (board.getBoard().checkForRefill()) {
 					board.getBoard().refillBoard();
-					
-				}
-				frame.getLbPoints().setText("Punteggio: "+player.getPoints());
-				//frame.getLbPlayerName().setText(player.getPlayerName());
 
-				// player.getShelf().fireTableDataChanged();
+				}
+				frame.getLbPoints().setText("Punteggio: " + player.getPoints());
 			}
 		});
 		panelLabel.add(button);
 		Jframe.add(panelLabel);
 		Jframe.pack();
 		Jframe.setLocationRelativeTo(null);
-
+		Jframe.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		Jframe.addWindowListener(new WindowAdapter() {
+			  @Override
+	            public void windowClosing(WindowEvent e) {
+	                // Display a message to indicate that the window can only be closed using the button
+	                JOptionPane.showMessageDialog(frame, "Premi passa per passare il turno.");
+	            }
+		});
+		
+		
 		return Jframe;
 	}
 

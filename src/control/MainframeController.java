@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ public class MainframeController {
 	private MainFrame frame;
 	private JTable table;
 	private JTable shelfTable;
-	private BoardController boardC;
+	//private BoardController boardC;
 	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
 	private ArrayList<Player> players;
@@ -44,7 +45,7 @@ public class MainframeController {
 		this.playerC.setPlayer(players.get(0));
 		this.shelfTable = frame.getShelfTable();
 		shelfTable.setModel(players.get(0).getShelf());
-
+		frame.getLbPoints().setText("Punteggio: " + playerC.getPlayer().getPoints());
 		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();
 		assignBtnChooseController();
@@ -84,7 +85,7 @@ public class MainframeController {
 
 				cont++;
 				cont = (cont) % board.getNumOfPlayers();
-				JFrame jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
+				JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
 				/*	
 				*/
 				tilesChoosen.clear();
@@ -113,9 +114,9 @@ public class MainframeController {
 		});
 	}
 
-	public void showMessageError() {
+	public void showMessageError(String message) {
 		JOptionPane pane = new JOptionPane();
-		pane.showMessageDialog(frame, "Le tiles devono essere allineate");
+		pane.showMessageDialog(frame, message);
 	}
 
 	public boolean checkIfIsNext(boolean isRow, int row, int column) {
@@ -176,7 +177,7 @@ public class MainframeController {
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 											} else {
 												System.out.println("Le tiles devono essere allineate");
-												showMessageError();
+												showMessageError("Le tiles devono essere allineate");
 											}
 
 										} else if (column == prevCol) {
@@ -188,16 +189,15 @@ public class MainframeController {
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 											} else {
 												System.out.println("Le tiles devono essere allineate");
-												showMessageError();
+												
 											}
 
 										} else {
 											System.out.println("Le tiles devono essere allineate");
-											showMessageError();
+											showMessageError("Le tiles devono essere allineate");
 										}
 									} else {
-										JOptionPane pane = new JOptionPane();
-										pane.showMessageDialog(frame, "Non puoi pescare la stessa carta");
+										showMessageError("Non puoi pescare la stessa tile");
 									}
 
 								}
@@ -205,10 +205,12 @@ public class MainframeController {
 
 						} else {
 							System.out.println("La cella non \u00E8 disponibile");
+							showMessageError("La cella non \u00E8 disponibile");
 						}
 
 					} else {
 						System.out.println("error");
+						showMessageError("La cella \u00E8 vuota");
 					}
 
 					System.out.println("Cliccato" + row + " - " + column);

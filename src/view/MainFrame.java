@@ -202,6 +202,7 @@ public class MainFrame extends JFrame {
 		shelfTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		lbPoints = new JLabel("");
+		lbPoints.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		panel_3.add(lbPoints, BorderLayout.SOUTH);
 		
 		panel_2 = new JPanel();
