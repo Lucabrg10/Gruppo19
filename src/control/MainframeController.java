@@ -46,6 +46,7 @@ public class MainframeController {
 		this.shelfTable = frame.getShelfTable();
 		shelfTable.setModel(players.get(0).getShelf());
 		frame.getLbPoints().setText("Punteggio: " + playerC.getPlayer().getPoints());
+		frame.getLbTileClicked().setText("");
 		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();
 		assignBtnChooseController();
@@ -214,8 +215,8 @@ public class MainframeController {
 						System.out.println("error");
 						showMessageError("La cella \u00E8 vuota");
 					}
-
-					System.out.println("Cliccato" + row + " - " + column);
+					frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
+					//System.out.println();
 				}
 			}
 		});

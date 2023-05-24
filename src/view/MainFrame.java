@@ -63,6 +63,15 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane_1;
 	private JPanel panel_3;
 	private JLabel lbPoints;
+	private JLabel lbTileClicked;
+
+	public JLabel getLbTileClicked() {
+		return lbTileClicked;
+	}
+
+	public void setLbTileClicked(JLabel lbTileClicked) {
+		this.lbTileClicked = lbTileClicked;
+	}
 
 	public JTable getShelfTable() {
 		return shelfTable;
@@ -126,6 +135,12 @@ public class MainFrame extends JFrame {
 		
 		btnChooseTiles = new JButton("Pesca");
 		panel.add(btnChooseTiles);
+		
+		lbTileClicked = new JLabel("New label");
+		lbTileClicked.setHorizontalAlignment(SwingConstants.CENTER);
+		lbTileClicked.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lbTileClicked.setForeground(new Color(255, 255, 255));
+		panel.add(lbTileClicked);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
