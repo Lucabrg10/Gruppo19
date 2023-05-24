@@ -3,17 +3,18 @@ package model;
 import java.awt.PageAttributes.ColorType;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 public class CommonGoal {
 	private final int columns = 5;
 	private final int rows = 6;
-	private int numOfPlayer;
 	private int goalNumber;
+	private ImageIcon imageGoal;
 
-	private Tile [][] playerShelf= new Tile[rows][columns];
-	
 
-	public CommonGoal(int numOfPlayer) {
-		this.numOfPlayer = numOfPlayer;
+	public CommonGoal(int goalNumber) {
+		this.goalNumber = goalNumber;
+		this.imageGoal = new ImageIcon("./assets/myshelfie/common_goal/"+goalNumber+".jpg");
 	}
 
 	public boolean controlGoal1(Shelf playerShelf) {
@@ -25,7 +26,8 @@ public class CommonGoal {
 			}
 			for (int i = 1; i < playerShelf.getShelf().length; ++i) {
 				for (int j = 1; j < playerShelf.getShelf()[i].length; ++j) {
-					if (playerShelf.getShelf()[i][j].getColor().equals(cards) && playerShelf.getShelf()[i][j - 1].getColor().equals(cards)
+					if (playerShelf.getShelf()[i][j].getColor().equals(cards)
+							&& playerShelf.getShelf()[i][j - 1].getColor().equals(cards)
 							&& playerShelf.getShelf()[i - 1][j].getColor().equals(cards)
 							&& playerShelf.getShelf()[i - 1][j - 1].getColor().equals(cards)) {
 						if (i < 3 && j < 4) {
@@ -101,20 +103,24 @@ public class CommonGoal {
 			}
 
 			for (int i = 0; i < columns; ++i) {
-				if (((playerShelf.getShelf()[0][i].getColor().equals(cards) && playerShelf.getShelf()[1][i].getColor().equals(cards)
-						&& playerShelf.getShelf()[2][i].getColor().equals(cards) && playerShelf.getShelf()[3][i].getColor().equals(cards))
+				if (((playerShelf.getShelf()[0][i].getColor().equals(cards)
+						&& playerShelf.getShelf()[1][i].getColor().equals(cards)
+						&& playerShelf.getShelf()[2][i].getColor().equals(cards)
+						&& playerShelf.getShelf()[3][i].getColor().equals(cards))
 						&& !(playerShelf.getShelf()[0][i + 1].getColor().equals(cards)
 								&& playerShelf.getShelf()[1][i + 1].getColor().equals(cards)
 								&& playerShelf.getShelf()[2][i + 1].getColor().equals(cards)
 								&& playerShelf.getShelf()[3][i + 1].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[1][i].getColor().equals(cards) && playerShelf.getShelf()[2][i].getColor().equals(cards)
+						|| ((playerShelf.getShelf()[1][i].getColor().equals(cards)
+								&& playerShelf.getShelf()[2][i].getColor().equals(cards)
 								&& playerShelf.getShelf()[3][i].getColor().equals(cards)
 								&& playerShelf.getShelf()[4][i].getColor().equals(cards))
 								&& !(playerShelf.getShelf()[1][i + 1].getColor().equals(cards)
 										&& playerShelf.getShelf()[2][i + 1].getColor().equals(cards)
 										&& playerShelf.getShelf()[3][i + 1].getColor().equals(cards)
 										&& playerShelf.getShelf()[4][i + 1].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[2][i].getColor().equals(cards) && playerShelf.getShelf()[3][i].getColor().equals(cards)
+						|| ((playerShelf.getShelf()[2][i].getColor().equals(cards)
+								&& playerShelf.getShelf()[3][i].getColor().equals(cards)
 								&& playerShelf.getShelf()[4][i].getColor().equals(cards)
 								&& playerShelf.getShelf()[5][i].getColor().equals(cards))
 								&& !(playerShelf.getShelf()[2][i + 1].getColor().equals(cards)
@@ -126,13 +132,16 @@ public class CommonGoal {
 			}
 
 			for (int j = 0; j < rows; ++j) {
-				if (((playerShelf.getShelf()[j][0].getColor().equals(cards) && playerShelf.getShelf()[j][1].getColor().equals(cards)
-						&& playerShelf.getShelf()[j][2].getColor().equals(cards) && playerShelf.getShelf()[j][3].getColor().equals(cards))
+				if (((playerShelf.getShelf()[j][0].getColor().equals(cards)
+						&& playerShelf.getShelf()[j][1].getColor().equals(cards)
+						&& playerShelf.getShelf()[j][2].getColor().equals(cards)
+						&& playerShelf.getShelf()[j][3].getColor().equals(cards))
 						&& !(playerShelf.getShelf()[0][j + 1].getColor().equals(cards)
 								&& playerShelf.getShelf()[j + 1][1].getColor().equals(cards)
 								&& playerShelf.getShelf()[j + 1][2].getColor().equals(cards)
 								&& playerShelf.getShelf()[j + 1][3].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[1][j].getColor().equals(cards) && playerShelf.getShelf()[j][2].getColor().equals(cards)
+						|| ((playerShelf.getShelf()[1][j].getColor().equals(cards)
+								&& playerShelf.getShelf()[j][2].getColor().equals(cards)
 								&& playerShelf.getShelf()[j][3].getColor().equals(cards)
 								&& playerShelf.getShelf()[j][4].getColor().equals(cards))
 								&& !(playerShelf.getShelf()[j + 1][1].getColor().equals(cards)
@@ -158,8 +167,9 @@ public class CommonGoal {
 			for (int i = 0; i < columns; ++i) {
 				for (int j = 0; j < rows; ++j) {
 					if (i < columns - 1 && j < rows - 1) {
-						if (playerShelf.getShelf()[j][i].getColor() == cards && (playerShelf.getShelf()[j][i + 1].getColor() == cards
-								^ playerShelf.getShelf()[j + 1][i].getColor() == cards)) {
+						if (playerShelf.getShelf()[j][i].getColor() == cards
+								&& (playerShelf.getShelf()[j][i + 1].getColor() == cards
+										^ playerShelf.getShelf()[j + 1][i].getColor() == cards)) {
 							couple++;
 						}
 					} else {
@@ -181,7 +191,7 @@ public class CommonGoal {
 	}
 
 	public boolean controlGoal5(Shelf playerShelf) {
-		
+
 		int counter;
 		int column = 0;
 		ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
@@ -265,7 +275,7 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	public boolean controlGoal7(Shelf playerShelf) {
 		int counter;
 		int column = 0;
@@ -316,7 +326,8 @@ public class CommonGoal {
 				break;
 			}
 			if (playerShelf.getShelf()[0][0].getColor() == cards && playerShelf.getShelf()[5][0].getColor() == cards
-					&& playerShelf.getShelf()[0][4].getColor() == cards && playerShelf.getShelf()[5][4].getColor() == cards) {
+					&& playerShelf.getShelf()[0][4].getColor() == cards
+					&& playerShelf.getShelf()[5][4].getColor() == cards) {
 				return true;
 			}
 		}
@@ -351,7 +362,8 @@ public class CommonGoal {
 			}
 			for (int i = 1; i < 4; ++i) {
 				for (int j = 1; j < 5; ++j) {
-					if (playerShelf.getShelf()[j][i].getColor().equals(cards) && playerShelf.getShelf()[j + 1][i + 1].getColor().equals(cards)
+					if (playerShelf.getShelf()[j][i].getColor().equals(cards)
+							&& playerShelf.getShelf()[j + 1][i + 1].getColor().equals(cards)
 							&& playerShelf.getShelf()[j - 1][i - 1].getColor().equals(cards)
 							&& playerShelf.getShelf()[j + 1][i - 1].getColor().equals(cards)
 							&& playerShelf.getShelf()[j - 1][i + 1].getColor().equals(cards)) {
@@ -368,23 +380,31 @@ public class CommonGoal {
 			if (cards == ColorTile.EMPTY) {
 				break;
 			}
-			if (playerShelf.getShelf()[0][0].getColor().equals(cards) && playerShelf.getShelf()[1][1].getColor().equals(cards)
-					&& playerShelf.getShelf()[2][2].getColor().equals(cards) && playerShelf.getShelf()[3][3].getColor().equals(cards)
+			if (playerShelf.getShelf()[0][0].getColor().equals(cards)
+					&& playerShelf.getShelf()[1][1].getColor().equals(cards)
+					&& playerShelf.getShelf()[2][2].getColor().equals(cards)
+					&& playerShelf.getShelf()[3][3].getColor().equals(cards)
 					&& playerShelf.getShelf()[4][4].getColor().equals(cards)) {
 				return true;
 			}
-			if (playerShelf.getShelf()[1][0].getColor().equals(cards) && playerShelf.getShelf()[2][1].getColor().equals(cards)
-					&& playerShelf.getShelf()[3][2].getColor().equals(cards) && playerShelf.getShelf()[4][3].getColor().equals(cards)
+			if (playerShelf.getShelf()[1][0].getColor().equals(cards)
+					&& playerShelf.getShelf()[2][1].getColor().equals(cards)
+					&& playerShelf.getShelf()[3][2].getColor().equals(cards)
+					&& playerShelf.getShelf()[4][3].getColor().equals(cards)
 					&& playerShelf.getShelf()[5][4].getColor().equals(cards)) {
 				return true;
 			}
-			if (playerShelf.getShelf()[4][0].getColor().equals(cards) && playerShelf.getShelf()[3][1].getColor().equals(cards)
-					&& playerShelf.getShelf()[2][2].getColor().equals(cards) && playerShelf.getShelf()[1][3].getColor().equals(cards)
+			if (playerShelf.getShelf()[4][0].getColor().equals(cards)
+					&& playerShelf.getShelf()[3][1].getColor().equals(cards)
+					&& playerShelf.getShelf()[2][2].getColor().equals(cards)
+					&& playerShelf.getShelf()[1][3].getColor().equals(cards)
 					&& playerShelf.getShelf()[0][4].getColor().equals(cards)) {
 				return true;
 			}
-			if (playerShelf.getShelf()[5][0].getColor().equals(cards) && playerShelf.getShelf()[4][1].getColor().equals(cards)
-					&& playerShelf.getShelf()[3][2].getColor().equals(cards) && playerShelf.getShelf()[2][3].getColor().equals(cards)
+			if (playerShelf.getShelf()[5][0].getColor().equals(cards)
+					&& playerShelf.getShelf()[4][1].getColor().equals(cards)
+					&& playerShelf.getShelf()[3][2].getColor().equals(cards)
+					&& playerShelf.getShelf()[2][3].getColor().equals(cards)
 					&& playerShelf.getShelf()[1][4].getColor().equals(cards)) {
 				return true;
 			}
