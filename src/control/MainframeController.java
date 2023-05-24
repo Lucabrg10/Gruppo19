@@ -26,7 +26,7 @@ public class MainframeController {
 	private MainFrame frame;
 	private JTable table;
 	private JTable shelfTable;
-	//private BoardController boardC;
+	// private BoardController boardC;
 	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
 	private ArrayList<Player> players;
@@ -53,17 +53,16 @@ public class MainframeController {
 		assignBtnPersonalGoal();
 		// assignBtnShelfController();
 	}
-	
 
 	private void assignBtnPersonalGoal() {
-		// TODO Auto-generated method stub
+
 		frame.getBtnPersonalGoal().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				JFrame frame = new JFrame("Player "+playerC.getPlayer().getPlayerName());
-				JPanel jPanel= new JPanel();
+				JFrame frame = new JFrame("Player " + playerC.getPlayer().getPlayerName());
+				JPanel jPanel = new JPanel();
 				JLabel label = new JLabel();
 				jPanel.add(label);
 				label.setIcon(playerC.getPlayer().getPersonalGoal().getImgGoal());
@@ -73,7 +72,6 @@ public class MainframeController {
 			}
 		});
 	}
-
 
 	private void assignBtnChooseController() {
 		// TODO Auto-generated method stub
@@ -123,16 +121,20 @@ public class MainframeController {
 
 		if (isRow) {
 			for (Tile tile2 : tilesChoosen) {
-				if (board.getValueOfTileAt(row, column + 1) == tile2
-						|| board.getValueOfTileAt(row, column - 1) == tile2) {
+				if (column + 1 <= 8 && board.getValueOfTileAt(row, column + 1) == tile2) {
+					return true;
+				} else if (column - 1 >= 0 && board.getValueOfTileAt(row, column - 1) == tile2) {
 					return true;
 				}
+
 			}
 
 		} else {
 			for (Tile tile2 : tilesChoosen) {
-				if (board.getValueOfTileAt(row + 1, column) == tile2
-						|| board.getValueOfTileAt(row - 1, column) == tile2) {
+				if (row + 1 <= 8 && board.getValueOfTileAt(row + 1, column) == tile2) {
+					return true;
+				}
+				if (row - 1 >= 0 && board.getValueOfTileAt(row - 1, column) == tile2) {
 					return true;
 				}
 			}
@@ -185,11 +187,11 @@ public class MainframeController {
 											if (checkIfIsNext(isRow, row, column)) {
 												// prevCol = column;
 												// prevRow = row;
-												
+
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 											} else {
 												System.out.println("Le tiles devono essere allineate");
-												
+
 											}
 
 										} else {
