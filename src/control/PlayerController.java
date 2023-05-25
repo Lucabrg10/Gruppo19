@@ -156,9 +156,37 @@ public class PlayerController {
 	}
 
 	public int chooseCol() {
-
-		int col = Integer.parseInt(JOptionPane.showInputDialog(null, "inserisci la colonna", "My Shelfie", 1));
+		int col = 0;
+		boolean invalid = false;
+		do {
+			try {
+				col = Integer.parseInt(JOptionPane.showInputDialog(null, "inserisci la colonna", "My Shelfie", 1));
+				invalid = false;
+				if(col<0 || col >4) {
+					invalid = true;
+					showMessageError("La colonna deve essere compresa tra 0 e 4.");
+				}
+			}
+			catch(NumberFormatException e) {
+				invalid = true;
+				showMessageError("La colonna deve essere un intero.");
+			}
+		}while(invalid);
 		return col;
+	}
+	
+	public void showMessageError(String message) {
+		JOptionPane pane = new JOptionPane();
+		pane.showMessageDialog(frame, message);
 	}
 
 }
+
+
+
+
+
+
+
+
+
