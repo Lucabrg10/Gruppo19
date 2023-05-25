@@ -260,3 +260,13 @@ public class Board extends AbstractTableModel {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
