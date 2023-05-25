@@ -78,21 +78,26 @@ public class MainframeController {
 		// TODO Auto-generated method stub
 		frame.getBtnChooseTiles().addActionListener(new ActionListener() {
 
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
-				cont++;
-				cont = (cont) % board.getNumOfPlayers();
-				JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
-				/*	
-				*/
-				tilesChoosen.clear();
-				// playerC.getPlayer().getShelf().fireTableDataChanged();
-				/*
-				 * if(board.checkForRefill()) { board.refillBoard(); }
-				 */
-				jframe.setVisible(true);
+				if(tilesChoosen.size()>0) {
+					cont++;
+					cont = (cont) % board.getNumOfPlayers();
+					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
+					/*	
+					*/
+					tilesChoosen.clear();
+					// playerC.getPlayer().getShelf().fireTableDataChanged();
+					/*
+					 * if(board.checkForRefill()) { board.refillBoard(); }
+					 */
+					jframe.setVisible(true);
+				}else {
+					showMessageError("Devi pescare almeno una tile!");
+				}
+				
 
 			}
 

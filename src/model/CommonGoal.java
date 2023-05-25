@@ -16,8 +16,7 @@ public class CommonGoal {
 		this.goalNumber = goalNumber;
 		this.imageGoal = new ImageIcon("./assets/myshelfie/common_goal/"+goalNumber+".jpg");
 	}
-
-	public boolean controlGoal1(Shelf playerShelf) {
+ boolean controlGoal1(Shelf playerShelf) {
 		int square = 0;
 		ColorTile prevcard = null;
 		for (ColorTile cards : ColorTile.values()) {
