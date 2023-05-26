@@ -52,6 +52,7 @@ public class MainFrame extends JFrame {
 
 	private JButton btnPersonalGoal;
 	private JButton btnCommonGoal;
+	
 	private JPanel shelfPanel;
 	private JTable shelfTable;
 	private JLabel lbBoard;
@@ -64,6 +65,15 @@ public class MainFrame extends JFrame {
 	private JPanel panel_3;
 	private JLabel lbPoints;
 	private JLabel lbTileClicked;
+
+	
+	public JButton getBtnCommonGoal() {
+		return btnCommonGoal;
+	}
+
+	public void setBtnCommonGoal(JButton btnCommonGoal) {
+		this.btnCommonGoal = btnCommonGoal;
+	}
 
 	public JLabel getLbTileClicked() {
 		return lbTileClicked;

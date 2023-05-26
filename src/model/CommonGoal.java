@@ -12,6 +12,12 @@ public class CommonGoal {
 	private ImageIcon imageGoal;
 
 
+	public ImageIcon getImageGoal() {
+		return imageGoal;
+	}
+	public void setImageGoal(ImageIcon imageGoal) {
+		this.imageGoal = imageGoal;
+	}
 	public CommonGoal(int goalNumber) {
 		this.goalNumber = goalNumber;
 		this.imageGoal = new ImageIcon("./assets/myshelfie/common_goal/"+goalNumber+".jpg");

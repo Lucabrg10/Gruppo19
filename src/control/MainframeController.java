@@ -6,12 +6,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -20,12 +22,14 @@ import model.Board;
 import model.Player;
 import model.Tile;
 import view.MainFrame;
+import model.CommonGoal;
 
 public class MainframeController {
 
 	private MainFrame frame;
 	private JTable table;
 	private JTable shelfTable;
+	private List<CommonGoal> commonGoalsList;
 	// private BoardController boardC;
 	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
@@ -36,7 +40,7 @@ public class MainframeController {
 	int cont = 0;
 
 	public MainframeController(MainFrame frame, BoardController boardC, PlayerController player, Board board,
-			ArrayList<Player> players) {
+			ArrayList<Player> players, List<CommonGoal> commonGoalsList) {
 		this.frame = frame;
 		this.playerC = player;
 		this.board = board;
@@ -44,18 +48,45 @@ public class MainframeController {
 		this.players = players;
 		this.playerC.setPlayer(players.get(0));
 		this.shelfTable = frame.getShelfTable();
+		this.commonGoalsList = commonGoalsList;
 		shelfTable.setModel(players.get(0).getShelf());
-		frame.getLbPoints().setText("Punteggio di " +player.getPlayer().getPlayerName()+ ": " + playerC.getPlayer().getPoints());
+		frame.getLbPoints()
+				.setText("Punteggio di " + player.getPlayer().getPlayerName() + ": " + playerC.getPlayer().getPoints());
 		frame.getLbTileClicked().setText("");
 		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();
 		assignBtnChooseController();
 		assignShelfTableController();
-		assignBtnPersonalGoal();
+		assignBtnPersonalGoalController();
+		assignBtnCommonGoalController();
 		// assignBtnShelfController();
 	}
 
-	private void assignBtnPersonalGoal() {
+	private void assignBtnCommonGoalController() {
+		frame.getBtnCommonGoal().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFrame frame = new JFrame("Common Goals");
+				JPanel jPanel = new JPanel();
+				
+				JLabel label1 = new JLabel();
+				JLabel label2 = new JLabel();
+				JSplitPane jSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,label1,label2);
+				jPanel.add(jSplitPane);
+				label1.setIcon(commonGoalsList.get(0).getImageGoal());
+				label2.setIcon(commonGoalsList.get(1).getImageGoal());
+				frame.add(jPanel);
+				frame.pack();
+				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
+			}
+		});
+
+	}
+
+	private void assignBtnPersonalGoalController() {
 
 		frame.getBtnPersonalGoal().addActionListener(new ActionListener() {
 
@@ -70,6 +101,7 @@ public class MainframeController {
 				frame.add(jPanel);
 				frame.pack();
 				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
 			}
 		});
 	}
@@ -78,11 +110,10 @@ public class MainframeController {
 		// TODO Auto-generated method stub
 		frame.getBtnChooseTiles().addActionListener(new ActionListener() {
 
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(tilesChoosen.size()>0) {
+				if (tilesChoosen.size() > 0) {
 					cont++;
 					cont = (cont) % board.getNumOfPlayers();
 					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
@@ -94,10 +125,9 @@ public class MainframeController {
 					 * if(board.checkForRefill()) { board.refillBoard(); }
 					 */
 					jframe.setVisible(true);
-				}else {
+				} else {
 					showMessageError("Devi pescare almeno una tile!");
 				}
-				
 
 			}
 
@@ -170,11 +200,13 @@ public class MainframeController {
 					if (!board.isTileEmpty(row, column)) {
 						if (board.isTileAvailable(row, column)) {
 							if (tilesChoosen.size() < 3) {
+								
 								// check if the tiles are aligned on the same column or row
 								if (tilesChoosen.size() == 0) {
 									prevRow = row;
 									prevCol = column;
 									tilesChoosen.add(board.getValueOfTileAt(row, column));
+									frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
 								} else {
 									if (!tileIsInTiles(board.getValueOfTileAt(row, column))) {
 										if (row == prevRow && isRow) {
@@ -183,6 +215,7 @@ public class MainframeController {
 												// prevCol = column;
 												isRow = true;
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
+												frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
 											} else {
 												System.out.println("Le tiles devono essere allineate");
 												showMessageError("Le tiles devono essere allineate");
@@ -195,6 +228,7 @@ public class MainframeController {
 												// prevRow = row;
 
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
+												frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
 											} else {
 												System.out.println("Le tiles devono essere allineate");
 
@@ -209,6 +243,8 @@ public class MainframeController {
 									}
 
 								}
+							} else {
+								showMessageError("Non puoi pescare più di tre tile");
 							}
 
 						} else {
@@ -220,8 +256,9 @@ public class MainframeController {
 						System.out.println("error");
 						showMessageError("La cella \u00E8 vuota");
 					}
-					frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
-					//System.out.println();
+
+					
+					// System.out.println();
 				}
 			}
 		});

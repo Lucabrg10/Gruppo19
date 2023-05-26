@@ -1,6 +1,7 @@
 package control;
 
 import model.Board;
+import model.CommonGoal;
 import model.PersonalGoal;
 import model.Player;
 import view.MainFrame;
@@ -22,10 +23,12 @@ public class MainController {
 	private MainframeController frameController;
 	private BoardController board;
 	private ArrayList<Player> listOfPlayers = new ArrayList<>();
-	boolean gameIsOver = false;
+	private boolean gameIsOver = false;
 	private PlayerController playerController;
 	private static ArrayList<Integer> selectedNumbers = new ArrayList<>();
-
+	private int numberOfCommonGoals=2;
+	private List<CommonGoal> listOfCommonGoals= new ArrayList<CommonGoal>();
+	
 	public MainController(MainFrame f) {
 		// this.numOfPlayers=numOfPlayers;
 		this.frame = f;
@@ -49,6 +52,8 @@ public class MainController {
 			
 		}while(invalid);
 
+		
+		
 		String username;
 		int numOfPersonalGoal=0;
 		
@@ -77,10 +82,17 @@ public class MainController {
 			
 		}
 		
+		this.selectedNumbers.clear();
+		int numOfCommonGoal;
+		for(int i=0; i<numberOfCommonGoals;i++) {
+			numOfCommonGoal= noDuplicatesRandomNumber();
+			listOfCommonGoals.add(new CommonGoal(numOfCommonGoal));
+		}
+		
 		
 		this.board = new BoardController(frame, new Board(numberOfPlayers));
 		this.playerController = new PlayerController(f, board);
-		this.frameController = new MainframeController(f, board, playerController, board.getBoard(), listOfPlayers);
+		this.frameController = new MainframeController(f, board, playerController, board.getBoard(), listOfPlayers, listOfCommonGoals);
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
