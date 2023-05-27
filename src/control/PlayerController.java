@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -26,6 +27,7 @@ import javax.swing.JTextField;
 
 import model.Player;
 import model.Tile;
+import model.CommonGoal;
 import view.LabelTile;
 import view.MainFrame;
 
@@ -36,10 +38,23 @@ public class PlayerController {
 	private Player player;
 	private ArrayList<Tile> tilesChoosen;
 	private ArrayList<Tile> tilesSorted;
-
+	private ArrayList<Integer> commonGoalPoints1 = new ArrayList<>();
+	private int cont1 = 0;
+	private ArrayList<Integer> commonGoalPoints2 = new ArrayList<>();
+	private int cont2 = 0;
+	
 	public PlayerController(MainFrame frame, BoardController board) {
 		this.frame = frame;
 		this.board = board;
+		commonGoalPoints1.add(8);
+		commonGoalPoints1.add(6);
+		commonGoalPoints1.add(4);
+		commonGoalPoints1.add(2);
+
+		commonGoalPoints2.add(8);
+		commonGoalPoints2.add(6);
+		commonGoalPoints2.add(4);
+		commonGoalPoints2.add(2);
 
 	}
 
@@ -67,7 +82,7 @@ public class PlayerController {
 	 *                     player che le aggiungerà nella colonna desiderata
 	 * 
 	 */
-	public JDialog selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext) {
+	public JDialog selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext, List<CommonGoal>commonGoalsList) {
 
 		int col = chooseCol();
 
@@ -80,7 +95,7 @@ public class PlayerController {
 
 		for (int i = 0; i < tilesChoosen.size(); i++) {
 			LabelTile label = new LabelTile(tilesChoosen.get(i));
-			System.out.println(tilesChoosen.get(i));
+			//System.out.println(tilesChoosen.get(i));
 			label.setIcon(tilesChoosen.get(i).getImg());
 			label.addMouseListener(new MouseAdapter() {
 				/**
@@ -100,10 +115,23 @@ public class PlayerController {
 						// player.getShelf().print();
 						board.getBoard().removeTile(label.getTile());
 						// System.out.println(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
-						player.setPoints(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
+						player.addPointsPersonalGoal(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
 						// System.out.println("Punteggio "+player.getPlayerName()+" :
 						// "+player.getPoints());
-						frame.getLbPoints().setText("Punteggio: " + player.getPoints());
+						if (commonGoalsList.get(0).controlGoal(player.getShelf())) {
+							System.out.println("prova0 "+commonGoalPoints1.get(0));
+							if (player.addPoints(commonGoalPoints1.get(0), 0))
+								commonGoalPoints1.remove(0);
+							System.out.println("Punti del player " + player.getPoints());
+							System.out.println(commonGoalPoints1.get(0));
+						}
+						if (commonGoalsList.get(1).controlGoal(player.getShelf())) {
+							System.out.println("prova1 "+commonGoalPoints2.get(0));
+							if (player.addPoints(commonGoalPoints2.get(0), 1))
+								commonGoalPoints2.remove(0);
+						}
+						frame.getLbPoints().setText("Punteggio: " + player.getPoints());	
+						
 					}
 
 					else {

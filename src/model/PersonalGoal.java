@@ -70,15 +70,10 @@ public class PersonalGoal {
 			cardsOk++;
 		}
 
-		playerShelf.print();
-		System.out.println(cardsOk);
-		return countPoint(cardsOk);
+		//playerShelf.print();
+	//	System.out.println(cardsOk);
+		return cardsOk;
 	}
 
-	private int countPoint(int cards) {
-		int array[] = { 0, 1, 2, 4, 6, 9, 12 };
-		return array[cards];
-
-	}
 
 }

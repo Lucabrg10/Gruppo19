@@ -85,7 +85,8 @@ public class MainController {
 		this.selectedNumbers.clear();
 		int numOfCommonGoal;
 		for(int i=0; i<numberOfCommonGoals;i++) {
-			numOfCommonGoal= noDuplicatesRandomNumber();
+			numOfCommonGoal= noDuplicatesRandomNumber()+1;
+		//	System.out.println("Commongoal -- "+i+" : "+(6+i));
 			listOfCommonGoals.add(new CommonGoal(numOfCommonGoal));
 		}
 		

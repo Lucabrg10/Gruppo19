@@ -3,6 +3,7 @@ package model;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class Player {
 	private int playerId;
@@ -10,8 +11,8 @@ public class Player {
 	private int points = 0;
 	private Shelf shelf;
 	private PersonalGoal personalGoal;
-	
-
+	private boolean[] commonGoalListCheck= {false,false};
+	private int array[] = { 0, 1, 1, 2, 2, 3, 3 };
 
 	private int idcount = 1;
 	private static Set<String> existingNames = new HashSet<String>();
@@ -45,9 +46,9 @@ public class Player {
 
 	
 	
-	public void setPoints(int points) {
+	/*public void setPoints(int points) {
 		this.points = points;
-	}
+	}*/ 
 
 	public Shelf getShelf() {
 		return shelf;
@@ -68,6 +69,20 @@ public class Player {
 	public int getPoints() {
 		return points;
 	}
+	
+	public void addPoints(int points) {
+		this.points += points;
+	}
+	public boolean addPoints(int points, int numOfCommonGoal) {
+		//System.out.println("va");
+		if(commonGoalListCheck[numOfCommonGoal]==false ) {
+			this.points += points;
+		//	System.out.println("dentro");
+			this.commonGoalListCheck[numOfCommonGoal]=true;
+			return true;
+		}
+		return false;
+	}
 
 	public boolean addTile(Tile tile, int col) {
 		boolean aggiunto = false;
@@ -75,6 +90,11 @@ public class Player {
 		aggiunto = this.shelf.addCard(col, tile);
 		return aggiunto;
 
+	}
+	public void addPointsPersonalGoal(int correctCards) {
+		this.points+=array[correctCards];
+		array[correctCards]=0;
+		
 	}
 
 }

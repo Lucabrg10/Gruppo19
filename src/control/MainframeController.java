@@ -34,6 +34,7 @@ public class MainframeController {
 	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
 	private ArrayList<Player> players;
+
 	private Board board;
 	int prevRow;
 	int prevCol;
@@ -49,6 +50,8 @@ public class MainframeController {
 		this.playerC.setPlayer(players.get(0));
 		this.shelfTable = frame.getShelfTable();
 		this.commonGoalsList = commonGoalsList;
+
+
 		shelfTable.setModel(players.get(0).getShelf());
 		frame.getLbPoints()
 				.setText("Punteggio di " + player.getPlayer().getPlayerName() + ": " + playerC.getPlayer().getPoints());
@@ -70,10 +73,10 @@ public class MainframeController {
 				// TODO Auto-generated method stub
 				JFrame frame = new JFrame("Common Goals");
 				JPanel jPanel = new JPanel();
-				
+
 				JLabel label1 = new JLabel();
 				JLabel label2 = new JLabel();
-				JSplitPane jSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,label1,label2);
+				JSplitPane jSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, label1, label2);
 				jPanel.add(jSplitPane);
 				label1.setIcon(commonGoalsList.get(0).getImageGoal());
 				label2.setIcon(commonGoalsList.get(1).getImageGoal());
@@ -116,7 +119,9 @@ public class MainframeController {
 				if (tilesChoosen.size() > 0) {
 					cont++;
 					cont = (cont) % board.getNumOfPlayers();
-					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont));
+					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont),commonGoalsList);
+					//System.out.println(commonGoalsList.get(0).getGoalNumber());
+				
 					/*	
 					*/
 					tilesChoosen.clear();
@@ -142,7 +147,7 @@ public class MainframeController {
 					JTable target = (JTable) e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
-					System.out.println(shelfTable.getValueAt(row, column));
+				//	System.out.println(shelfTable.getValueAt(row, column));
 				}
 			}
 		});
@@ -200,7 +205,7 @@ public class MainframeController {
 					if (!board.isTileEmpty(row, column)) {
 						if (board.isTileAvailable(row, column)) {
 							if (tilesChoosen.size() < 3) {
-								
+
 								// check if the tiles are aligned on the same column or row
 								if (tilesChoosen.size() == 0) {
 									prevRow = row;
@@ -215,7 +220,8 @@ public class MainframeController {
 												// prevCol = column;
 												isRow = true;
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
-												frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
+												frame.getLbTileClicked()
+														.setText("Tile selezionata: " + row + " - " + column);
 											} else {
 												System.out.println("Le tiles devono essere allineate");
 												showMessageError("Le tiles devono essere allineate");
@@ -228,7 +234,8 @@ public class MainframeController {
 												// prevRow = row;
 
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
-												frame.getLbTileClicked().setText("Tile selezionata: " + row + " - " + column);
+												frame.getLbTileClicked()
+														.setText("Tile selezionata: " + row + " - " + column);
 											} else {
 												System.out.println("Le tiles devono essere allineate");
 
@@ -257,7 +264,6 @@ public class MainframeController {
 						showMessageError("La cella \u00E8 vuota");
 					}
 
-					
 					// System.out.println();
 				}
 			}
