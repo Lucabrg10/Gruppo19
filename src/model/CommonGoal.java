@@ -492,31 +492,29 @@ public class CommonGoal {
 	}
 
 	public boolean controlGoal12(Shelf playerShelf) {
-		for (int i = 1; i < 5; ++i) {
-			if (playerShelf.getShelf()[0][0].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[1][1].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[2][2].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[3][3].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[4][4].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[0][1].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[1][2].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[2][3].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[3][4].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[4][5].getColor().equals(ColorTile.EMPTY)) {
-				return true;
-			}
-			if (playerShelf.getShelf()[0][4].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[1][3].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[2][2].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[3][1].getColor().equals(ColorTile.EMPTY)
-					&& playerShelf.getShelf()[4][0].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[0][4].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[1][3].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[2][2].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[3][1].getColor().equals(ColorTile.EMPTY)
-					&& !playerShelf.getShelf()[4][0].getColor().equals(ColorTile.EMPTY)) {
-				return true;
-			}
+		if (playerShelf.getShelf()[0][0].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[1][1].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[2][2].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[3][3].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[4][4].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[1][0].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[2][1].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[3][2].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[4][3].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[5][4].getColor().equals(ColorTile.EMPTY)) {
+			return true;
+		}
+		if (playerShelf.getShelf()[0][4].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[1][3].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[2][2].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[3][1].getColor().equals(ColorTile.EMPTY)
+				&& playerShelf.getShelf()[4][0].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[1][4].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[2][3].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[3][2].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[4][1].getColor().equals(ColorTile.EMPTY)
+				&& !playerShelf.getShelf()[5][0].getColor().equals(ColorTile.EMPTY)) {
+			return true;
 		}
 		return false;
 	}

@@ -140,5 +140,18 @@ public class Shelf extends AbstractTableModel {
 	public Class getColumnClass(int col) {
 		return ImageIcon.class;
 	}
+	
+	
+	public boolean isShelfFull() {
+		boolean full = true;
+		for(int i = 0; i< rows; i++) {
+			for(int j = 0; j < columns; j++) {
+				if(this.getValueOfTileAt(i,j).getColor() == ColorTile.EMPTY) {
+					full = false;
+				}
+			}
+		}
+		return full;
+	}
 
 }
