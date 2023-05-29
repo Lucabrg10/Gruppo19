@@ -40,6 +40,13 @@ public class Shelf extends AbstractTableModel {
 	// Set all shelf cell to empty
 
 	public void initialize() {
+	/*	for (int i = 0; i < shelf.length; ++i) {
+			for (int j = 0; j < shelf[i].length; ++j) {
+				shelf[i][j] = new Tile(ColorTile.YELLOW);
+			}
+		}
+		shelf[0][0]=new Tile(ColorTile.EMPTY);*/
+		
 		ColorTile[] control = new ColorTile[6];
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {

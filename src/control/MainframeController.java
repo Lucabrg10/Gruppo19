@@ -6,6 +6,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -21,6 +24,7 @@ import javax.swing.table.TableColumnModel;
 import model.Board;
 import model.Player;
 import model.Tile;
+import view.FinalFrame;
 import view.MainFrame;
 import model.CommonGoal;
 
@@ -119,17 +123,16 @@ public class MainframeController {
 				if (tilesChoosen.size() > 0) {
 					cont++;
 					cont = (cont) % board.getNumOfPlayers();
-					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont),commonGoalsList);
-					//System.out.println(commonGoalsList.get(0).getGoalNumber());
+					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont),commonGoalsList,cont, players);
+	
 				
-					/*	
-					*/
-					tilesChoosen.clear();
-					// playerC.getPlayer().getShelf().fireTableDataChanged();
-					/*
-					 * if(board.checkForRefill()) { board.refillBoard(); }
-					 */
-					jframe.setVisible(true);
+						tilesChoosen.clear();
+						// playerC.getPlayer().getShelf().fireTableDataChanged();
+						/*
+						 * if(board.checkForRefill()) { board.refillBoard(); }
+						 */
+						jframe.setVisible(true);
+					
 				} else {
 					showMessageError("Devi pescare almeno una tile!");
 				}
@@ -193,6 +196,8 @@ public class MainframeController {
 		return false;
 	}
 
+	
+	
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

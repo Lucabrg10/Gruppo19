@@ -60,7 +60,7 @@ public class MainController {
 		for (int i = 0; i < numberOfPlayers; i++) {
 			
 			numOfPersonalGoal = noDuplicatesRandomNumber();
-			System.out.println(numOfPersonalGoal);
+		//	System.out.println(numOfPersonalGoal);
 				
 			
 			invalid = false;
@@ -86,7 +86,8 @@ public class MainController {
 		int numOfCommonGoal;
 		for(int i=0; i<numberOfCommonGoals;i++) {
 			numOfCommonGoal= noDuplicatesRandomNumber()+1;
-		//	System.out.println("Commongoal -- "+i+" : "+(6+i));
+			//numOfCommonGoal=10+i;
+			System.out.println("Commongoal -- "+numOfCommonGoal);
 			listOfCommonGoals.add(new CommonGoal(numOfCommonGoal));
 		}
 		
