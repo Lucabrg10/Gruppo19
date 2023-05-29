@@ -9,7 +9,6 @@ public class CommonGoal {
 	private final int columns = 5;
 	private final int rows = 6;
 	private int goalNumber;
-	
 
 	private ImageIcon imageGoal;
 
@@ -17,7 +16,7 @@ public class CommonGoal {
 		this.goalNumber = goalNumber;
 		this.imageGoal = new ImageIcon("./assets/myshelfie/common_goal/" + goalNumber + ".jpg");
 	}
-	
+
 	public int getGoalNumber() {
 		return goalNumber;
 	}
@@ -25,6 +24,7 @@ public class CommonGoal {
 	public void setGoalNumber(int goalNumber) {
 		this.goalNumber = goalNumber;
 	}
+
 	public ImageIcon getImageGoal() {
 		return imageGoal;
 	}
@@ -33,62 +33,60 @@ public class CommonGoal {
 		this.imageGoal = imageGoal;
 	}
 
-
-
 	public boolean controlGoal(Shelf playerShelf) {
 
 		boolean val;
 		switch (goalNumber) {
 		case 1: {
-			val=controlGoal1(playerShelf);
+			val = controlGoal1(playerShelf);
 		}
 			break;
 		case 2: {
-			val=controlGoal2(playerShelf);
+			val = controlGoal2(playerShelf);
 		}
 			break;
 		case 3: {
-			val=controlGoal3(playerShelf);
+			val = controlGoal3(playerShelf);
 		}
 			break;
 		case 4: {
-			val=controlGoal4(playerShelf);
+			val = controlGoal4(playerShelf);
 		}
 			break;
 		case 5: {
-			val=controlGoal5(playerShelf);
+			val = controlGoal5(playerShelf);
 		}
 			break;
 		case 6: {
-			val=controlGoal6(playerShelf);
+			val = controlGoal6(playerShelf);
 		}
 			break;
 		case 7: {
-			val=controlGoal7(playerShelf);
+			val = controlGoal7(playerShelf);
 		}
 			break;
 		case 8: {
-			val=controlGoal8(playerShelf);
+			val = controlGoal8(playerShelf);
 		}
 			break;
 		case 9: {
-			val=controlGoal9(playerShelf);
+			val = controlGoal9(playerShelf);
 		}
 			break;
 		case 10: {
-			val=controlGoal10(playerShelf);
+			val = controlGoal10(playerShelf);
 		}
 			break;
 		case 11: {
-			val=controlGoal11(playerShelf);
+			val = controlGoal11(playerShelf);
 		}
 			break;
 		case 12: {
-			val=controlGoal12(playerShelf);
+			val = controlGoal12(playerShelf);
 		}
 			break;
 		default:
-			val=false;
+			val = false;
 			break;
 		}
 		return val;
@@ -101,41 +99,31 @@ public class CommonGoal {
 			if (cards == ColorTile.EMPTY) {
 				break;
 			}
-			for (int i = 1; i < playerShelf.getShelf().length; ++i) {
-				for (int j = 1; j < playerShelf.getShelf()[i].length; ++j) {
-					if (playerShelf.getShelf()[i][j].getColor().equals(cards)
-							&& playerShelf.getShelf()[i][j - 1].getColor().equals(cards)
-							&& playerShelf.getShelf()[i - 1][j].getColor().equals(cards)
-							&& playerShelf.getShelf()[i - 1][j - 1].getColor().equals(cards)) {
-						if (i < 3 && j < 4) {
-							if (!playerShelf.getShelf()[i + 1][j].getColor().equals(cards)
-									&& !playerShelf.getShelf()[i][j + 1].getColor().equals(cards)) {
+			for (int i = 0; i < playerShelf.getShelf().length-1; ++i) {
+				for (int j = 0; j < playerShelf.getShelf()[i].length-1; ++j) {
+						if (playerShelf.getShelf()[i][j].getColor().equals(cards)
+							&& playerShelf.getShelf()[i][j + 1].getColor().equals(cards)
+							&& playerShelf.getShelf()[i + 1][j].getColor().equals(cards)
+							&& playerShelf.getShelf()[i + 1][j + 1].getColor().equals(cards)) {
 								square++;
 							}
-						} else {
-							if (!playerShelf.getShelf()[i - 2][j].equals(cards)
-									&& !playerShelf.getShelf()[i][j - 2].equals(cards)) {
-								square++;
-							}
-						}
+						} 
 						if (square == 2 && cards == prevcard) {
 							return true;
 						}
 						prevcard = cards;
 					}
 				}
-			}
-		}
 		return false;
 	}
 
 	public boolean controlGoal2(Shelf playerShelf) {
 		int column = 0;
 		boolean bool = true;
-		for (int i = 0; i < 5; ++i) {
-			for (int j = 0; j < 6; ++j) {
+		for (int i = 0; i < rows; ++i) {
+			for (int j = 0; j < columns; ++j) {
 
-				bool = isColorInColumn(playerShelf.getShelf()[i][j], j, playerShelf.getShelf());
+				bool = isColorInColumn(playerShelf.getShelf()[i][j], i, playerShelf.getShelf());
 				if (!bool) {
 					break;
 				}
@@ -157,16 +145,16 @@ public class CommonGoal {
 		ColorTile[] array = new ColorTile[6];
 		for (int i = 0; i < 6; ++i) {
 			array[i] = tiles[i][r].getColor();
-		//	System.out.println(array[i]);
+			// System.out.println(array[i]);
 		}
 		int cont = 0;
 		for (int i = 0; i < tiles.length; i++) {
 			if (tile.getColor() == array[i]) {
 				cont++;
-			//	System.out.println(cont);
+				 System.out.println("cont"+cont);
 			}
 		}
-		if (cont == 1) {
+		if (cont < 2) {
 			return true;
 		}
 		return false;
@@ -213,11 +201,11 @@ public class CommonGoal {
 						&& playerShelf.getShelf()[j][1].getColor().equals(cards)
 						&& playerShelf.getShelf()[j][2].getColor().equals(cards)
 						&& playerShelf.getShelf()[j][3].getColor().equals(cards))
-						&& !(playerShelf.getShelf()[0][j + 1].getColor().equals(cards)
+						&& !(playerShelf.getShelf()[j + 1][0].getColor().equals(cards)
 								&& playerShelf.getShelf()[j + 1][1].getColor().equals(cards)
 								&& playerShelf.getShelf()[j + 1][2].getColor().equals(cards)
 								&& playerShelf.getShelf()[j + 1][3].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[1][j].getColor().equals(cards)
+						|| ((playerShelf.getShelf()[j][1].getColor().equals(cards)
 								&& playerShelf.getShelf()[j][2].getColor().equals(cards)
 								&& playerShelf.getShelf()[j][3].getColor().equals(cards)
 								&& playerShelf.getShelf()[j][4].getColor().equals(cards))
@@ -283,7 +271,7 @@ public class CommonGoal {
 				}
 			}
 			if (controller.size() < 4 && controller.size() > 0) {
-			//	System.out.println(controller.toString());
+				// System.out.println(controller.toString());
 				column++;
 				controller.clear();
 			}
@@ -306,7 +294,7 @@ public class CommonGoal {
 		for (int i = 0; i < tiles.length; i++) {
 			if (color == array[i]) {
 				cont++;
-				//System.out.println(cont);
+				System.out.println("cont" + cont);
 			}
 		}
 		return cont;
@@ -317,7 +305,7 @@ public class CommonGoal {
 		boolean bool = true;
 		for (int i = 0; i < 6; ++i) {
 			for (int j = 0; j < 5; ++j) {
-				bool = isColorInRow(playerShelf.getShelf()[i][j], i, playerShelf.getShelf());
+				bool = isColorInRow(playerShelf.getShelf()[i][j], j, playerShelf.getShelf());
 				if (!bool) {
 					break;
 				}
@@ -341,18 +329,18 @@ public class CommonGoal {
 			array[i] = tiles[r][i].getColor();
 		}
 		int cont = 0;
-	//	System.out.println(tiles[r].length);
+		// System.out.println(tiles[r].length);
 		for (int i = 0; i < tiles[r].length; i++) {
 			if (tile.getColor() == array[i]) {
 				cont++;
-				//System.out.println(cont);
 			}
 		}
-		if (cont == 1) {
+		if (cont < 2) {
 			return true;
 		}
 		return false;
 	}
+
 	public boolean controlGoal7(Shelf playerShelf) {
 		int counter;
 		int column = 0;
@@ -368,7 +356,7 @@ public class CommonGoal {
 				}
 			}
 			if (controller.size() < 4 && controller.size() > 0) {
-				//System.out.println(controller.toString());
+				// System.out.println(controller.toString());
 				column++;
 				controller.clear();
 			}
@@ -388,11 +376,10 @@ public class CommonGoal {
 			array[i] = tiles[r][i].getColor();
 		}
 		int cont = 0;
-		//System.out.println(tiles[0].length);
+		// System.out.println(tiles[0].length);
 		for (int i = 0; i < tiles[0].length; i++) {
 			if (color == array[i]) {
 				cont++;
-				//System.out.println(cont);
 			}
 		}
 		return cont;
@@ -430,7 +417,7 @@ public class CommonGoal {
 			}
 			cells = 0;
 		}
-	//	System.out.println(cells);
+		// System.out.println(cells);
 		return false;
 	}
 
