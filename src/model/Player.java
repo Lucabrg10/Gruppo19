@@ -18,7 +18,7 @@ public class Player {
 	private static Set<String> existingNames = new HashSet<String>();
 
 	public Player(String playerName, PersonalGoal goal) {
-		if (playerName == "") {
+		if (playerName.isBlank()) {
 			throw new IllegalArgumentException("Il nome del giocatore non può essere vuoto.");
 		}
 		if (existingNames.contains(playerName)) {

@@ -47,6 +47,7 @@ public class PlayerController {
 	private int cont2 = 0;
 	boolean endGame=false;
 	boolean showFinalFrame=false;
+	boolean finalPoint=true;
 	
 	public PlayerController(MainFrame frame, BoardController board) {
 		this.frame = frame;
@@ -162,6 +163,10 @@ public class PlayerController {
 				// TODO Auto-generated method stub
 				if(player.getShelf().isShelfFull()) {
 					endGame=true;
+					if(finalPoint) {
+						player.addPoints(1);
+						finalPoint=false;
+					}
 				//	System.out.println("finito1");
 				}
 				if(endGame) {
@@ -198,6 +203,7 @@ public class PlayerController {
 			}
 		});
 		panelLabel.add(button);
+		Jframe.setModal(true);
 		Jframe.add(panelLabel);
 		Jframe.pack();
 		Jframe.setLocationRelativeTo(null);

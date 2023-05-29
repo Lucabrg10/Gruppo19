@@ -23,7 +23,6 @@ public class MainController {
 	private MainframeController frameController;
 	private BoardController board;
 	private ArrayList<Player> listOfPlayers = new ArrayList<>();
-	private boolean gameIsOver = false;
 	private PlayerController playerController;
 	private static ArrayList<Integer> selectedNumbers = new ArrayList<>();
 	private int numberOfCommonGoals=2;
@@ -76,7 +75,7 @@ public class MainController {
 					
 					//this should be modified
 					//System.out.println("ERRORE: nome non valido.");
-					showMessageError("Nome non valido: esiste gi\u00E0 un player con lo stesso username.");
+					showMessageError(e.getMessage());
 				}
 			}while(invalid);
 			
