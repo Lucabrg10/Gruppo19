@@ -125,13 +125,14 @@ public class PlayerController {
 						// System.out.println("Punteggio "+player.getPlayerName()+" :
 						// "+player.getPoints());
 						if (commonGoalsList.get(0).controlGoal(player.getShelf())) {
+
 						//	System.out.println("prova0 "+commonGoalPoints1.get(0));
 							try {
 								if (player.addPoints(commonGoalPoints1.get(0), 0))
 									commonGoalPoints1.remove(0);
 							} catch (Exception e2) {
 							}
-							
+
 						//	System.out.println("Punti del player " + player.getPoints());
 						//	System.out.println(commonGoalPoints1.get(0));
 						}
@@ -142,7 +143,6 @@ public class PlayerController {
 									commonGoalPoints2.remove(0);
 							} catch (Exception e2) {
 							}
-						
 						}
 						frame.getLbPoints().setText("Punteggio di "+player.getPlayerName()+": " + player.getPoints());	
 						

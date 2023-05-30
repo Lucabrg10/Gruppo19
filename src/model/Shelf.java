@@ -40,15 +40,20 @@ public class Shelf extends AbstractTableModel {
 	// Set all shelf cell to empty
 
 	public void initialize() {
-	/*	for (int i = 0; i < shelf.length; ++i) {
+		/*for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
 				shelf[i][j] = new Tile(ColorTile.PINK);
 			}
 		}
 		shelf[0][0]=new Tile(ColorTile.EMPTY);
-		shelf[1][0]=new Tile(ColorTile.EMPTY);*/
-		
+		shelf[1][0]=new Tile(ColorTile.EMPTY);
 		ColorTile[] control = new ColorTile[6];
+		shelf[0][1]=new Tile(ColorTile.EMPTY);
+		shelf[0][2]=new Tile(ColorTile.EMPTY);
+		shelf[0][3]=new Tile(ColorTile.EMPTY);
+		*/
+		ColorTile[] control = new ColorTile[6];
+
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
 				shelf[i][j] = new Tile(ColorTile.EMPTY);
@@ -160,6 +165,26 @@ public class Shelf extends AbstractTableModel {
 			}
 		}
 		return full;
+	}
+	
+	public boolean isRowFull(int r) {
+		for (int i=0; i<columns; i++)
+		{
+			if (shelf[r][i].getColor()==ColorTile.EMPTY) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean isColumnFull(int c) {
+		for (int i=0; i<rows; i++)
+		{
+			if (shelf[i][c].getColor()==ColorTile.EMPTY) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
