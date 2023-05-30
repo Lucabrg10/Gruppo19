@@ -21,6 +21,7 @@ Istruzioni per giocare:
   
   BUTTON VEDI OBIETTIVI COMUNI-> permette di vedere gli obiettivi comuni
   BUTTON VEDI OBIETTIVO PERSONALE-> permette di vedere l'obiettivo personale
+  BUTTON DESELEZIONA TILES-> permette di deselezionare le tiles pescate se avete sbagliato a pescarle
   
   Le regole sono le stesse del gioco in scatola, ex. non si possono pescare tiles non adiacenti.
   
