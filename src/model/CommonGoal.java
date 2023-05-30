@@ -11,6 +11,8 @@ public class CommonGoal {
 	private int goalNumber;
 	ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
 	private ImageIcon imageGoal;
+	ColorTile[] arrayC = new ColorTile[6];
+	ColorTile[] arrayR = new ColorTile[5];
 
 	public CommonGoal(int goalNumber) {
 		this.goalNumber = goalNumber;
@@ -120,16 +122,21 @@ public class CommonGoal {
 	public boolean controlGoal2(Shelf playerShelf) {
 		int column = 0;
 		boolean bool = true;
-		for (int i = 0; i < rows; ++i) {
-			for (int j = 0; j < columns; ++j) {
-
-				bool = isColorInColumn(playerShelf.getShelf()[i][j], i, playerShelf.getShelf());
+		for (int i = 0; i < columns; ++i) {
+			for (int j = 0; j < rows; ++j) {
+				
+				bool = isColorInColumn(playerShelf.getShelf()[j][i], i, playerShelf.getShelf());
+				
 				if (!bool) {
 					break;
 				}
 			}
 			if (bool) {
+				System.out.println("colonne" + column);
 				column++;
+				for (int x=0; x < arrayC.length; x++) {
+					arrayC[x]=null;
+				}
 			}
 		}
 		if (column >= 2) {
@@ -138,23 +145,23 @@ public class CommonGoal {
 		return false;
 	}
 
-	public boolean isColorInColumn(Tile tile, int r, Tile[][] tiles) {
+	public boolean isColorInColumn(Tile tile, int c, Tile[][] tiles) {
 		if (tile.getColor() == ColorTile.EMPTY) {
 			return false;
 		}
-		ColorTile[] array = new ColorTile[6];
 		for (int i = 0; i < 6; ++i) {
-			array[i] = tiles[i][r].getColor();
-			// System.out.println(array[i]);
+			arrayC[i] = tiles[i][c].getColor();
+			 System.out.println("array" + arrayC[i]);
 		}
 		int cont = 0;
 		for (int i = 0; i < tiles.length; i++) {
-			if (tile.getColor() == array[i]) {
+			if (tile.getColor() == arrayC[i]) {
 				cont++;
 				 System.out.println("cont"+cont);
 			}
 		}
 		if (cont < 2) {
+			System.out.println("ok");
 			return true;
 		}
 		return false;
@@ -167,7 +174,8 @@ public class CommonGoal {
 				break;
 			}
 
-			for (int i = 0; i < columns; ++i) {
+			for (int i = 0; i < columns; i++) {
+				if (i<columns-2){
 				if (((playerShelf.getShelf()[0][i].getColor().equals(cards)
 						&& playerShelf.getShelf()[1][i].getColor().equals(cards)
 						&& playerShelf.getShelf()[2][i].getColor().equals(cards)
@@ -194,9 +202,25 @@ public class CommonGoal {
 										&& playerShelf.getShelf()[5][i + 1].getColor().equals(cards)))) {
 					group++;
 				}
+				}
+				else if ((playerShelf.getShelf()[0][columns-1].getColor().equals(cards)
+						&& playerShelf.getShelf()[1][columns-1].getColor().equals(cards)
+						&& playerShelf.getShelf()[2][columns-1].getColor().equals(cards)
+						&& playerShelf.getShelf()[3][columns-1].getColor().equals(cards))
+						|| (playerShelf.getShelf()[1][columns-1].getColor().equals(cards)
+								&& playerShelf.getShelf()[2][columns-1].getColor().equals(cards)
+								&& playerShelf.getShelf()[3][columns-1].getColor().equals(cards)
+								&& playerShelf.getShelf()[4][columns-1].getColor().equals(cards))
+						|| (playerShelf.getShelf()[2][columns-1].getColor().equals(cards)
+								&& playerShelf.getShelf()[3][columns-1].getColor().equals(cards)
+								&& playerShelf.getShelf()[4][columns-1].getColor().equals(cards)
+								&& playerShelf.getShelf()[5][columns-1].getColor().equals(cards))){
+					group++;
+				}
 			}
 
 			for (int j = 0; j < rows; ++j) {
+				if (j<rows-2){
 				if (((playerShelf.getShelf()[j][0].getColor().equals(cards)
 						&& playerShelf.getShelf()[j][1].getColor().equals(cards)
 						&& playerShelf.getShelf()[j][2].getColor().equals(cards)
@@ -213,6 +237,17 @@ public class CommonGoal {
 										&& playerShelf.getShelf()[j + 1][2].getColor().equals(cards)
 										&& playerShelf.getShelf()[j + 1][3].getColor().equals(cards)
 										&& playerShelf.getShelf()[j + 1][4].getColor().equals(cards)))) {
+					group++;
+				}
+				}
+				else if((playerShelf.getShelf()[rows-1][0].getColor().equals(cards)
+						&& playerShelf.getShelf()[rows-1][1].getColor().equals(cards)
+						&& playerShelf.getShelf()[rows-1][2].getColor().equals(cards)
+						&& playerShelf.getShelf()[rows-1][3].getColor().equals(cards))
+						|| (playerShelf.getShelf()[rows-1][1].getColor().equals(cards)
+								&& playerShelf.getShelf()[rows-1][2].getColor().equals(cards)
+								&& playerShelf.getShelf()[rows-1][3].getColor().equals(cards)
+								&& playerShelf.getShelf()[rows-1][4].getColor().equals(cards))){
 					group++;
 				}
 			}
@@ -304,9 +339,9 @@ public class CommonGoal {
 	public boolean controlGoal6(Shelf playerShelf) {
 		int row = 0;
 		boolean bool = true;
-		for (int i = 0; i < 6; ++i) {
-			for (int j = 0; j < 5; ++j) {
-				bool = isColorInRow(playerShelf.getShelf()[i][j], j, playerShelf.getShelf());
+		for (int i = 0; i < rows; ++i) {
+			for (int j = 0; j < columns; ++j) {
+				bool = isColorInRow(playerShelf.getShelf()[i][j], i, playerShelf.getShelf());
 				if (!bool) {
 					break;
 				}
@@ -325,15 +360,18 @@ public class CommonGoal {
 		if (tile.getColor() == ColorTile.EMPTY) {
 			return false;
 		}
-		ColorTile[] array = new ColorTile[5];
+		
 		for (int i = 0; i < 5; ++i) {
-			array[i] = tiles[r][i].getColor();
+			arrayR[i] = tiles[r][i].getColor();
 		}
 		int cont = 0;
 		// System.out.println(tiles[r].length);
 		for (int i = 0; i < tiles[r].length; i++) {
-			if (tile.getColor() == array[i]) {
+			if (tile.getColor() == arrayR[i]) {
 				cont++;
+				for (int x=0; x < arrayR.length; x++) {
+					arrayR[x]=null;
+				}
 			}
 		}
 		if (cont < 2) {

@@ -42,13 +42,13 @@ public class Shelf extends AbstractTableModel {
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				shelf[i][j] = new Tile(ColorTile.PINK);
+				shelf[i][j] = new Tile(ColorTile.EMPTY);
 			}
 		}
-		shelf[0][0]=new Tile(ColorTile.EMPTY);
+		/*shelf[0][0]=new Tile(ColorTile.EMPTY);
 		shelf[0][1]=new Tile(ColorTile.EMPTY);
 		shelf[0][2]=new Tile(ColorTile.EMPTY);
-		shelf[0][3]=new Tile(ColorTile.EMPTY);
+		shelf[0][3]=new Tile(ColorTile.EMPTY);*/
 		
 		/*ColorTile[] control = new ColorTile[6];
 		for (int i = 0; i < shelf.length; ++i) {
