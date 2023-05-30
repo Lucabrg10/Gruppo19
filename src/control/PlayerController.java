@@ -125,16 +125,24 @@ public class PlayerController {
 						// System.out.println("Punteggio "+player.getPlayerName()+" :
 						// "+player.getPoints());
 						if (commonGoalsList.get(0).controlGoal(player.getShelf())) {
-							System.out.println("prova0 "+commonGoalPoints1.get(0));
-							if (player.addPoints(commonGoalPoints1.get(0), 0))
-								commonGoalPoints1.remove(0);
+
+						//	System.out.println("prova0 "+commonGoalPoints1.get(0));
+							try {
+								if (player.addPoints(commonGoalPoints1.get(0), 0))
+									commonGoalPoints1.remove(0);
+							} catch (Exception e2) {
+							}
+
 						//	System.out.println("Punti del player " + player.getPoints());
 						//	System.out.println(commonGoalPoints1.get(0));
 						}
 						if (commonGoalsList.get(1).controlGoal(player.getShelf())) {
-							System.out.println("prova1 "+commonGoalPoints2.get(0));
-							if (player.addPoints(commonGoalPoints2.get(0), 1))
-								commonGoalPoints2.remove(0);
+							//System.out.println("prova1 "+commonGoalPoints2.get(0));
+							try {
+								if (player.addPoints(commonGoalPoints2.get(0), 1))
+									commonGoalPoints2.remove(0);
+							} catch (Exception e2) {
+							}
 						}
 						frame.getLbPoints().setText("Punteggio di "+player.getPlayerName()+": " + player.getPoints());	
 						
@@ -181,9 +189,8 @@ public class PlayerController {
 						finalFrame.setVisible(true);
 						finalFrame.pack();
 						finalFrame.setLocationRelativeTo(null);
-						finalFrame.setSize(600,600);
 						finalFrame.setResizable(false);
-
+						finalFrame.setSize(600,531 + (players.size()*80));
 					}
 					
 				}

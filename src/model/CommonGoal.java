@@ -157,7 +157,7 @@ public class CommonGoal {
 		for (int i = 0; i < tiles.length; i++) {
 			if (tile.getColor() == arrayC[i]) {
 				cont++;
-				 System.out.println("cont"+cont);
+				// System.out.println("cont"+cont);
 			}
 		}
 		if (cont < 2) {
@@ -306,7 +306,7 @@ public class CommonGoal {
 					}
 				}
 			}
-			System.out.println(controller.toString());
+			//System.out.println(controller.toString());
 			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isColumnFull(i)) {	
 				column++;
 			}
@@ -330,7 +330,7 @@ public class CommonGoal {
 		for (int i = 0; i < tiles.length; i++) {
 			if (color == array[i]) {
 				cont++;
-				System.out.println("cont" + cont);
+				//System.out.println("cont" + cont);
 			}
 		}
 		return cont;
@@ -398,7 +398,7 @@ public class CommonGoal {
 			
 			//System.out.println(controller.toString());
 			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isRowFull(i)) {
-				System.out.println("OK");
+				//System.out.println("OK");
 				row++;
 			}
 			controller.clear();
