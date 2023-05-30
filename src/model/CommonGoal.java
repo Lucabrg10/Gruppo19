@@ -9,7 +9,7 @@ public class CommonGoal {
 	private final int columns = 5;
 	private final int rows = 6;
 	private int goalNumber;
-
+	ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
 	private ImageIcon imageGoal;
 
 	public CommonGoal(int goalNumber) {
@@ -259,22 +259,23 @@ public class CommonGoal {
 
 		int counter;
 		int column = 0;
-		ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
 		for (int i = 0; i < 5; ++i) {
 			for (ColorTile cards : ColorTile.values()) {
 				if (cards == ColorTile.EMPTY) {
 					break;
 				}
+				else {
 				counter = countColorInColumn(cards, i, playerShelf.getShelf());
-				if (counter > 0) {
-					controller.add(cards);
+					if (counter > 0) {
+						controller.add(cards);
+					}
 				}
 			}
-			if (controller.size() < 4 && controller.size() > 0) {
-				// System.out.println(controller.toString());
+			System.out.println(controller.toString());
+			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isColumnFull(i)) {	
 				column++;
-				controller.clear();
 			}
+			controller.clear();
 		}
 		if (column >= 3) {
 			return true;
@@ -343,25 +344,29 @@ public class CommonGoal {
 
 	public boolean controlGoal7(Shelf playerShelf) {
 		int counter;
-		int column = 0;
-		ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
+		int row = 0;
 		for (int i = 0; i < 6; i++) {
 			for (ColorTile card : ColorTile.values()) {
 				if (card == ColorTile.EMPTY) {
 					break;
 				}
+				else {
 				counter = countColorInRow(card, i, playerShelf.getShelf());
 				if (counter > 0) {
 					controller.add(card);
 				}
+				}
 			}
-			if (controller.size() < 4 && controller.size() > 0) {
-				// System.out.println(controller.toString());
-				column++;
-				controller.clear();
+			
+			//System.out.println(controller.toString());
+			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isRowFull(i)) {
+				System.out.println("OK");
+				row++;
 			}
+			controller.clear();
 		}
-		if (column >= 4) {
+		
+		if (row >= 4) {
 			return true;
 		}
 		return false;
@@ -384,7 +389,9 @@ public class CommonGoal {
 		}
 		return cont;
 	}
-
+	
+	
+	
 	public boolean controlGoal8(Shelf playerShelf) {
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
