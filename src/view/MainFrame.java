@@ -65,8 +65,17 @@ public class MainFrame extends JFrame {
 	private JPanel panel_3;
 	private JLabel lbPoints;
 	private JLabel lbTileClicked;
+	private JButton btnDeselectTiles;
 
 	
+	public JButton getBtnDeselectTiles() {
+		return btnDeselectTiles;
+	}
+
+	public void setBtnDeselectTiles(JButton btnDeselectTiles) {
+		this.btnDeselectTiles = btnDeselectTiles;
+	}
+
 	public JButton getBtnCommonGoal() {
 		return btnCommonGoal;
 	}
@@ -145,6 +154,9 @@ public class MainFrame extends JFrame {
 		
 		btnChooseTiles = new JButton("Pesca");
 		panel.add(btnChooseTiles);
+		
+		btnDeselectTiles = new JButton("Deseleziona tiles");
+		panel.add(btnDeselectTiles);
 		
 		lbTileClicked = new JLabel("New label");
 		lbTileClicked.setHorizontalAlignment(SwingConstants.CENTER);

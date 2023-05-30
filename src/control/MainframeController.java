@@ -66,7 +66,21 @@ public class MainframeController {
 		assignShelfTableController();
 		assignBtnPersonalGoalController();
 		assignBtnCommonGoalController();
+		assignBtnDeselctTilesController();
 		// assignBtnShelfController();
+	}
+
+	private void assignBtnDeselctTilesController() {
+		frame.getBtnDeselectTiles().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tilesChoosen.clear();
+				showMessageError("Le tiles sono state deselezionate! Puoi sceglierne altre");
+				
+			}
+		});
+		
 	}
 
 	private void assignBtnCommonGoalController() {
