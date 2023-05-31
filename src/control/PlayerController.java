@@ -197,7 +197,7 @@ public class PlayerController {
 						Jframe.setVisible(false);
 						frame.setVisible(false);
 						System.out.println("funziona");
-						rankPlayers(players);
+						
 						FinalFrame finalFrame = new FinalFrame(players);
 						finalFrame.setVisible(true);
 						finalFrame.pack();
@@ -262,9 +262,7 @@ public class PlayerController {
 		return col;
 	}
 
-	public void rankPlayers(List<Player> players) {
-		Collections.sort(players, Comparator.comparingInt(Player::getPoints).reversed());
-	}
+	
 
 	public void showMessageError(String message) {
 		JOptionPane pane = new JOptionPane();
