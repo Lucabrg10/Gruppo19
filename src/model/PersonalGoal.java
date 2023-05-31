@@ -37,8 +37,6 @@ public class PersonalGoal {
 
 	/**
 	 * Counter for tile in the correct position
-	 * 
-	 * @param personalGoalNum identifier of personal player goal
 	 * @param playerShelf     personal player shelf
 	 * @return number of tile in the correct position
 	 */

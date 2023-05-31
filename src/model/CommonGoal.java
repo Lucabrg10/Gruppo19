@@ -9,32 +9,57 @@ public class CommonGoal {
 	private final int columns = 5;
 	private final int rows = 6;
 	private int goalNumber;
-	ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
 	private ImageIcon imageGoal;
+	ArrayList<ColorTile> controller = new ArrayList<ColorTile>();
 	ColorTile[] arrayC = new ColorTile[6];
 	ColorTile[] arrayR = new ColorTile[5];
 
+	/**
+	 * 
+	 * @param goalNumber
+	 */
 	public CommonGoal(int goalNumber) {
 		this.goalNumber = goalNumber;
 		this.imageGoal = new ImageIcon("./assets/myshelfie/common_goal/" + goalNumber + ".jpg");
 	}
 
+	/**
+	 * Used to get the number of the common goal
+	 * @return number of goal (int)
+	 */
 	public int getGoalNumber() {
 		return goalNumber;
 	}
-
+	
+	/**
+	 * Used to set the number of the goal
+	 * @param goalNumber
+	 */
 	public void setGoalNumber(int goalNumber) {
 		this.goalNumber = goalNumber;
 	}
-
+	
+	/**
+	 * Used to get the image of the common goal
+	 * @return
+	 */
 	public ImageIcon getImageGoal() {
 		return imageGoal;
 	}
-
+	
+	/**
+	 * Used to set the image of the common goal
+	 * @param imageGoal
+	 */
 	public void setImageGoal(ImageIcon imageGoal) {
 		this.imageGoal = imageGoal;
 	}
-
+	
+	/**
+	 * Used to control the goals
+	 * @param playerShelf shelf that has to be controlled
+	 * @return true if one of the goal is successfully controlled
+	 */
 	public boolean controlGoal(Shelf playerShelf) {
 
 		boolean val;
@@ -93,7 +118,12 @@ public class CommonGoal {
 		}
 		return val;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 1
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal1(Shelf playerShelf) {
 		int square = 0;
 		ColorTile prevcard = null;
@@ -118,7 +148,12 @@ public class CommonGoal {
 				}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 2
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal2(Shelf playerShelf) {
 		int column = 0;
 		boolean bool = true;
@@ -144,7 +179,14 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Used to control if a color is present in a column
+	 * @param tile indicate the reference tile
+	 * @param c indicate the number of the column that has to be controlled
+	 * @param tiles import all the shelf like a matrix of Tile
+	 * @return true if the color is present only one time in the column
+	 */
 	public boolean isColorInColumn(Tile tile, int c, Tile[][] tiles) {
 		if (tile.getColor() == ColorTile.EMPTY) {
 			return false;
@@ -161,12 +203,17 @@ public class CommonGoal {
 			}
 		}
 		if (cont < 2) {
-			System.out.println("ok");
+			//System.out.println("ok");
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Controller for Common Goal 3
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal3(Shelf playerShelf) {
 		int group = 0;
 		for (ColorTile cards : ColorTile.values()) {
@@ -257,7 +304,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 4
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal4(Shelf playerShelf) {
 		int couple = 0;
 		for (ColorTile cards : ColorTile.values()) {
@@ -289,7 +341,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 5
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal5(Shelf playerShelf) {
 
 		int counter;
@@ -318,13 +375,20 @@ public class CommonGoal {
 		return false;
 	}
 
-	public int countColorInColumn(ColorTile color, int r, Tile[][] tiles) {
+	/**
+	 * Used to count how many times a color is present in a column
+	 * @param color indicate the reference color
+	 * @param c indicate the number of the column that has to be controlled
+	 * @param tiles import all the shelf like a matrix of Tile
+	 * @return the number of how many times the color is present in the column (int)
+	 */
+	public int countColorInColumn(ColorTile color, int c, Tile[][] tiles) {
 		if (color == ColorTile.EMPTY) {
 			return 0;
 		}
 		ColorTile[] array = new ColorTile[6];
 		for (int i = 0; i < 6; ++i) {
-			array[i] = tiles[i][r].getColor();
+			array[i] = tiles[i][c].getColor();
 		}
 		int cont = 0;
 		for (int i = 0; i < tiles.length; i++) {
@@ -335,7 +399,12 @@ public class CommonGoal {
 		}
 		return cont;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 6
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal6(Shelf playerShelf) {
 		int row = 0;
 		boolean bool = true;
@@ -355,7 +424,14 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Used to control if a color is present in a row
+	 * @param tile indicate the reference tile
+	 * @param r indicate the number of the rows that has to be controlled
+	 * @param tiles import all the shelf like a matrix of Tile
+	 * @return true if the color is present only one time in the row
+	 */
 	public boolean isColorInRow(Tile tile, int r, Tile[][] tiles) {
 		if (tile.getColor() == ColorTile.EMPTY) {
 			return false;
@@ -379,7 +455,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 7
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal7(Shelf playerShelf) {
 		int counter;
 		int row = 0;
@@ -409,7 +490,14 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Used to count how many times a color is present in a row
+	 * @param color indicate the reference color
+	 * @param r indicate the number of the row that has to be controlled
+	 * @param tiles import all the shelf like a matrix of Tile
+	 * @return the number of how many times the color is present in the row (int)
+	 */
 	public int countColorInRow(ColorTile color, int r, Tile[][] tiles) {
 		if (color == ColorTile.EMPTY) {
 			return 0;
@@ -428,8 +516,11 @@ public class CommonGoal {
 		return cont;
 	}
 	
-	
-	
+	/**
+	 * Controller for Common Goal 8
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */	
 	public boolean controlGoal8(Shelf playerShelf) {
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
@@ -443,7 +534,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 9
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal9(Shelf playerShelf) {
 		int cells = 0;
 		for (ColorTile cards : ColorTile.values()) {
@@ -465,7 +561,12 @@ public class CommonGoal {
 		// System.out.println(cells);
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 10
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal10(Shelf playerShelf) {
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
@@ -485,7 +586,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 11
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal11(Shelf playerShelf) {
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
@@ -522,7 +628,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Controller for Common Goal 12
+	 * @param playerShelf player shelf that has to be controlled
+	 * @return true if the goal is correct in the shelf
+	 */
 	public boolean controlGoal12(Shelf playerShelf) {
 		if (playerShelf.getShelf()[0][0].getColor().equals(ColorTile.EMPTY)
 				&& playerShelf.getShelf()[1][1].getColor().equals(ColorTile.EMPTY)

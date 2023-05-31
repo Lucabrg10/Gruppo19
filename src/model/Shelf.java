@@ -37,8 +37,10 @@ public class Shelf extends AbstractTableModel {
 		this.shelf = shelf;
 	}
 
-	// Set all shelf cell to empty
 
+	/**
+	 * Set all shelf cell to empty
+	 */
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
@@ -46,7 +48,10 @@ public class Shelf extends AbstractTableModel {
 			}
 		}
 	}
-
+	
+	/**
+	 * Print all shelf
+	 */
 	public void print() {
 		System.out.println("Shelf Print");
 		for (int i = 0; i < shelf.length; ++i) {
@@ -86,15 +91,13 @@ public class Shelf extends AbstractTableModel {
 	}*/
 
 	/**
-	 * Aggiunge la carta alla colonna
-	 * 
-	 * @param columnSelection Colonna selezionata
-
-	 * @param Tile            Tipo di carta da inserire
+	 * Add the card in the column setted
+	 * @param columnSelection Column selected
+	 * @param Tile            Type of Tile to insert
 	 */
 	public boolean addCard(int columnSelection, Tile card) {
 		// System.out.println(card.getClass() + " " + card.getColor() + " " +
-		// card.getImg());ù
+		// card.getImg());
 		boolean aggiunto = false;
 		int i;
 		for (i = 5; i >= 0; i--) {
@@ -113,12 +116,12 @@ public class Shelf extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
+		
 		return rows;
 	}
 
 	/*
-	 * @Override public int getColumnCount() { // TODO Auto-generated method stub
+	 * @Override public int getColumnCount() { 
 	 * return columns; }
 	 */
 
@@ -140,7 +143,10 @@ public class Shelf extends AbstractTableModel {
 		return ImageIcon.class;
 	}
 	
-	
+	/**
+	 * Used to check if the shelf is full
+	 * @return true if the row is full
+	 */
 	public boolean isShelfFull() {
 		boolean full = true;
 		for(int i = 0; i< rows; i++) {
@@ -153,6 +159,11 @@ public class Shelf extends AbstractTableModel {
 		return full;
 	}
 	
+	/**
+	 * Used to check if a Row is full
+	 * @param r indicate the row to control
+	 * @return true if the row is full
+	 */
 	public boolean isRowFull(int r) {
 		for (int i=0; i<columns; i++)
 		{
@@ -163,6 +174,11 @@ public class Shelf extends AbstractTableModel {
 		return true;
 	}
 	
+	/**
+	 * Used to check if a Column is full
+	 * @param c indicate the column to control
+	 * @return true if the column is full
+	 */
 	public boolean isColumnFull(int c) {
 		for (int i=0; i<rows; i++)
 		{
