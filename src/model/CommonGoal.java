@@ -167,9 +167,7 @@ public class CommonGoal {
 		boolean bool = true;
 		for (int i = 0; i < columns; ++i) {
 			for (int j = 0; j < rows; ++j) {
-
 				bool = isColorInColumn(playerShelf.getShelf()[j][i], i, playerShelf.getShelf());
-
 				if (!bool) {
 					break;
 				}
@@ -208,11 +206,9 @@ public class CommonGoal {
 		for (int i = 0; i < tiles.length; i++) {
 			if (tile.getColor() == arrayC[i]) {
 				cont++;
-				// System.out.println("cont"+cont);
 			}
 		}
 		if (cont < 2) {
-			// System.out.println("ok");
 			return true;
 		}
 		return false;
@@ -227,22 +223,18 @@ public class CommonGoal {
 	public boolean controlGoal3(Shelf playerShelf) {
 		int count = 0;
 		boolean[][] visited = new boolean[rows][columns];
-
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < columns; col++) {
 				if (!visited[row][col] && playerShelf.getValueOfTileAt(row, col).getColor() != ColorTile.EMPTY) {
 					Tile tile = playerShelf.getValueOfTileAt(row, col);
 					List<Tile> group = new ArrayList<>();
 					findAdjacentTiles(playerShelf, visited, row, col, tile, group);
-
 					if (group.size() >= 4) {
-						// System.out.println(count);
 						count++;
 					}
 				}
 			}
 		}
-
 		if (count >= 4) {
 			return true;
 		}
@@ -255,15 +247,13 @@ public class CommonGoal {
 				|| playerShelf.getValueOfTileAt(row, col).getColor() != tile.getColor()) {
 			return;
 		}
-
 		visited[row][col] = true;
 		group.add(playerShelf.getValueOfTileAt(row, col));
-
-		// Ricerca ricorsiva nelle quattro direzioni adiacenti
-		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Sopra
-		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Sotto
-		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Sinistra
-		findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Destra
+		// Recursive search in 4 direction
+		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Up
+		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Down
+		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Left
+		findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Right
 	}
 
 	/**
@@ -275,16 +265,13 @@ public class CommonGoal {
 	public boolean controlGoal4(Shelf playerShelf) {
 		int count = 0;
 		boolean[][] visited = new boolean[rows][columns];
-
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < columns; col++) {
 				if (!visited[row][col] && playerShelf.getValueOfTileAt(row, col).getColor() != ColorTile.EMPTY) {
 					Tile tile = playerShelf.getValueOfTileAt(row, col);
 					List<Tile> group = new ArrayList<>();
 					findAdjacentTiles(playerShelf, visited, row, col, tile, group);
-
 					if (group.size() >= 2) {
-						// System.out.println(count);
 						count++;
 					}
 				}
@@ -318,7 +305,6 @@ public class CommonGoal {
 					}
 				}
 			}
-			// System.out.println(controller.toString());
 			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isColumnFull(i)) {
 				column++;
 			}
@@ -350,7 +336,6 @@ public class CommonGoal {
 		for (int i = 0; i < tiles.length; i++) {
 			if (color == array[i]) {
 				cont++;
-				// System.out.println("cont" + cont);
 			}
 		}
 		return cont;
@@ -394,12 +379,10 @@ public class CommonGoal {
 		if (tile.getColor() == ColorTile.EMPTY) {
 			return false;
 		}
-
 		for (int i = 0; i < 5; ++i) {
 			arrayR[i] = tiles[r][i].getColor();
 		}
 		int cont = 0;
-		// System.out.println(tiles[r].length);
 		for (int i = 0; i < tiles[r].length; i++) {
 			if (tile.getColor() == arrayR[i]) {
 				cont++;
@@ -434,15 +417,11 @@ public class CommonGoal {
 					}
 				}
 			}
-
-			// System.out.println(controller.toString());
 			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isRowFull(i)) {
-				// System.out.println("OK");
 				row++;
 			}
 			controller.clear();
 		}
-
 		if (row >= 4) {
 			return true;
 		}
