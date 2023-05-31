@@ -26,38 +26,43 @@ public class CommonGoal {
 
 	/**
 	 * Used to get the number of the common goal
+	 * 
 	 * @return number of goal (int)
 	 */
 	public int getGoalNumber() {
 		return goalNumber;
 	}
-	
+
 	/**
 	 * Used to set the number of the goal
+	 * 
 	 * @param goalNumber
 	 */
 	public void setGoalNumber(int goalNumber) {
 		this.goalNumber = goalNumber;
 	}
-	
+
 	/**
 	 * Used to get the image of the common goal
+	 * 
 	 * @return
 	 */
 	public ImageIcon getImageGoal() {
 		return imageGoal;
 	}
-	
+
 	/**
 	 * Used to set the image of the common goal
+	 * 
 	 * @param imageGoal
 	 */
 	public void setImageGoal(ImageIcon imageGoal) {
 		this.imageGoal = imageGoal;
 	}
-	
+
 	/**
 	 * Used to control the goals
+	 * 
 	 * @param playerShelf shelf that has to be controlled
 	 * @return true if one of the goal is successfully controlled
 	 */
@@ -119,9 +124,10 @@ public class CommonGoal {
 		}
 		return val;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 1
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -132,26 +138,27 @@ public class CommonGoal {
 			if (cards == ColorTile.EMPTY) {
 				break;
 			}
-			for (int i = 0; i < playerShelf.getShelf().length-1; ++i) {
-				for (int j = 0; j < playerShelf.getShelf()[i].length-1; ++j) {
-						if (playerShelf.getShelf()[i][j].getColor().equals(cards)
+			for (int i = 0; i < playerShelf.getShelf().length - 1; ++i) {
+				for (int j = 0; j < playerShelf.getShelf()[i].length - 1; ++j) {
+					if (playerShelf.getShelf()[i][j].getColor().equals(cards)
 							&& playerShelf.getShelf()[i][j + 1].getColor().equals(cards)
 							&& playerShelf.getShelf()[i + 1][j].getColor().equals(cards)
 							&& playerShelf.getShelf()[i + 1][j + 1].getColor().equals(cards)) {
-								square++;
-							}
-						} 
-						if (square == 2 && cards == prevcard) {
-							return true;
-						}
-						prevcard = cards;
+						square++;
 					}
 				}
+				if (square == 2 && cards == prevcard) {
+					return true;
+				}
+				prevcard = cards;
+			}
+		}
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 2
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -160,9 +167,9 @@ public class CommonGoal {
 		boolean bool = true;
 		for (int i = 0; i < columns; ++i) {
 			for (int j = 0; j < rows; ++j) {
-				
+
 				bool = isColorInColumn(playerShelf.getShelf()[j][i], i, playerShelf.getShelf());
-				
+
 				if (!bool) {
 					break;
 				}
@@ -170,8 +177,8 @@ public class CommonGoal {
 			if (bool) {
 				System.out.println("colonne" + column);
 				column++;
-				for (int x=0; x < arrayC.length; x++) {
-					arrayC[x]=null;
+				for (int x = 0; x < arrayC.length; x++) {
+					arrayC[x] = null;
 				}
 			}
 		}
@@ -180,11 +187,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Used to control if a color is present in a column
-	 * @param tile indicate the reference tile
-	 * @param c indicate the number of the column that has to be controlled
+	 * 
+	 * @param tile  indicate the reference tile
+	 * @param c     indicate the number of the column that has to be controlled
 	 * @param tiles import all the shelf like a matrix of Tile
 	 * @return true if the color is present only one time in the column
 	 */
@@ -194,7 +202,7 @@ public class CommonGoal {
 		}
 		for (int i = 0; i < 6; ++i) {
 			arrayC[i] = tiles[i][c].getColor();
-			 System.out.println("array" + arrayC[i]);
+			System.out.println("array" + arrayC[i]);
 		}
 		int cont = 0;
 		for (int i = 0; i < tiles.length; i++) {
@@ -204,7 +212,7 @@ public class CommonGoal {
 			}
 		}
 		if (cont < 2) {
-			//System.out.println("ok");
+			// System.out.println("ok");
 			return true;
 		}
 		return false;
@@ -212,179 +220,86 @@ public class CommonGoal {
 
 	/**
 	 * Controller for Common Goal 3
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
-	 public boolean controlGoal3(Shelf playerShelf) {
-	        int count = 0;
-	        boolean[][] visited = new boolean[rows][columns];
+	public boolean controlGoal3(Shelf playerShelf) {
+		int count = 0;
+		boolean[][] visited = new boolean[rows][columns];
 
-	        for (int row = 0; row < rows; row++) {
-	            for (int col = 0; col < columns; col++) {
-	                if (!visited[row][col] && playerShelf.getValueOfTileAt(row, col).getColor()!=ColorTile.EMPTY) {
-	                    Tile tile = playerShelf.getValueOfTileAt(row, col);
-	                    List<Tile> group = new ArrayList<>();
-	                    findAdjacentTiles(playerShelf, visited, row, col, tile, group);
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+				if (!visited[row][col] && playerShelf.getValueOfTileAt(row, col).getColor() != ColorTile.EMPTY) {
+					Tile tile = playerShelf.getValueOfTileAt(row, col);
+					List<Tile> group = new ArrayList<>();
+					findAdjacentTiles(playerShelf, visited, row, col, tile, group);
 
-	                    if (group.size() >= 4) {
-	                    	//System.out.println(count);
-	                        count++;
-	                    }
-	                }
-	            }
-	        }
-
-	        if( count>=4) {
-	        	return true;
-	        }
-	        return false;
-	    }
-
-	    public void findAdjacentTiles(Shelf playerShelf, boolean[][] visited, int row, int col, Tile tile, List<Tile> group) {
-	        if (row < 0 || row >= rows || col < 0 || col >= columns || visited[row][col] || playerShelf.getValueOfTileAt(row, col).getColor()!=tile.getColor()) {
-	            return;
-	        }
-
-	        visited[row][col] = true;
-	        group.add(playerShelf.getValueOfTileAt(row, col));
-
-	        // Ricerca ricorsiva nelle quattro direzioni adiacenti
-	        findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Sopra
-	        findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Sotto
-	        findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Sinistra
-	        findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Destra
-	    }
-	
-/*	public boolean controlGoal3(Shelf playerShelf) {
-		int group = 0;
-		for (ColorTile cards : ColorTile.values()) {
-			if (cards == ColorTile.EMPTY) {
-				break;
-			}
-
-			for (int i = 0; i < columns; i++) {
-				if (i<columns-2){
-				if (((playerShelf.getShelf()[0][i].getColor().equals(cards)
-						&& playerShelf.getShelf()[1][i].getColor().equals(cards)
-						&& playerShelf.getShelf()[2][i].getColor().equals(cards)
-						&& playerShelf.getShelf()[3][i].getColor().equals(cards))
-						&& !(playerShelf.getShelf()[0][i + 1].getColor().equals(cards)
-								&& playerShelf.getShelf()[1][i + 1].getColor().equals(cards)
-								&& playerShelf.getShelf()[2][i + 1].getColor().equals(cards)
-								&& playerShelf.getShelf()[3][i + 1].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[1][i].getColor().equals(cards)
-								&& playerShelf.getShelf()[2][i].getColor().equals(cards)
-								&& playerShelf.getShelf()[3][i].getColor().equals(cards)
-								&& playerShelf.getShelf()[4][i].getColor().equals(cards))
-								&& !(playerShelf.getShelf()[1][i + 1].getColor().equals(cards)
-										&& playerShelf.getShelf()[2][i + 1].getColor().equals(cards)
-										&& playerShelf.getShelf()[3][i + 1].getColor().equals(cards)
-										&& playerShelf.getShelf()[4][i + 1].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[2][i].getColor().equals(cards)
-								&& playerShelf.getShelf()[3][i].getColor().equals(cards)
-								&& playerShelf.getShelf()[4][i].getColor().equals(cards)
-								&& playerShelf.getShelf()[5][i].getColor().equals(cards))
-								&& !(playerShelf.getShelf()[2][i + 1].getColor().equals(cards)
-										&& playerShelf.getShelf()[3][i + 1].getColor().equals(cards)
-										&& playerShelf.getShelf()[4][i + 1].getColor().equals(cards)
-										&& playerShelf.getShelf()[5][i + 1].getColor().equals(cards)))) {
-					group++;
-				}
-				}
-				else if ((playerShelf.getShelf()[0][columns-1].getColor().equals(cards)
-						&& playerShelf.getShelf()[1][columns-1].getColor().equals(cards)
-						&& playerShelf.getShelf()[2][columns-1].getColor().equals(cards)
-						&& playerShelf.getShelf()[3][columns-1].getColor().equals(cards))
-						|| (playerShelf.getShelf()[1][columns-1].getColor().equals(cards)
-								&& playerShelf.getShelf()[2][columns-1].getColor().equals(cards)
-								&& playerShelf.getShelf()[3][columns-1].getColor().equals(cards)
-								&& playerShelf.getShelf()[4][columns-1].getColor().equals(cards))
-						|| (playerShelf.getShelf()[2][columns-1].getColor().equals(cards)
-								&& playerShelf.getShelf()[3][columns-1].getColor().equals(cards)
-								&& playerShelf.getShelf()[4][columns-1].getColor().equals(cards)
-								&& playerShelf.getShelf()[5][columns-1].getColor().equals(cards))){
-					group++;
-				}
-			}
-
-			for (int j = 0; j < rows; ++j) {
-				if (j<rows-2){
-				if (((playerShelf.getShelf()[j][0].getColor().equals(cards)
-						&& playerShelf.getShelf()[j][1].getColor().equals(cards)
-						&& playerShelf.getShelf()[j][2].getColor().equals(cards)
-						&& playerShelf.getShelf()[j][3].getColor().equals(cards))
-						&& !(playerShelf.getShelf()[j + 1][0].getColor().equals(cards)
-								&& playerShelf.getShelf()[j + 1][1].getColor().equals(cards)
-								&& playerShelf.getShelf()[j + 1][2].getColor().equals(cards)
-								&& playerShelf.getShelf()[j + 1][3].getColor().equals(cards)))
-						|| ((playerShelf.getShelf()[j][1].getColor().equals(cards)
-								&& playerShelf.getShelf()[j][2].getColor().equals(cards)
-								&& playerShelf.getShelf()[j][3].getColor().equals(cards)
-								&& playerShelf.getShelf()[j][4].getColor().equals(cards))
-								&& !(playerShelf.getShelf()[j + 1][1].getColor().equals(cards)
-										&& playerShelf.getShelf()[j + 1][2].getColor().equals(cards)
-										&& playerShelf.getShelf()[j + 1][3].getColor().equals(cards)
-										&& playerShelf.getShelf()[j + 1][4].getColor().equals(cards)))) {
-					group++;
-				}
-				}
-				else if((playerShelf.getShelf()[rows-1][0].getColor().equals(cards)
-						&& playerShelf.getShelf()[rows-1][1].getColor().equals(cards)
-						&& playerShelf.getShelf()[rows-1][2].getColor().equals(cards)
-						&& playerShelf.getShelf()[rows-1][3].getColor().equals(cards))
-						|| (playerShelf.getShelf()[rows-1][1].getColor().equals(cards)
-								&& playerShelf.getShelf()[rows-1][2].getColor().equals(cards)
-								&& playerShelf.getShelf()[rows-1][3].getColor().equals(cards)
-								&& playerShelf.getShelf()[rows-1][4].getColor().equals(cards))){
-					group++;
+					if (group.size() >= 4) {
+						// System.out.println(count);
+						count++;
+					}
 				}
 			}
 		}
-		if (group >= 4) {
+
+		if (count >= 4) {
 			return true;
 		}
 		return false;
-	}*/
-	
+	}
+
+	public void findAdjacentTiles(Shelf playerShelf, boolean[][] visited, int row, int col, Tile tile,
+			List<Tile> group) {
+		if (row < 0 || row >= rows || col < 0 || col >= columns || visited[row][col]
+				|| playerShelf.getValueOfTileAt(row, col).getColor() != tile.getColor()) {
+			return;
+		}
+
+		visited[row][col] = true;
+		group.add(playerShelf.getValueOfTileAt(row, col));
+
+		// Ricerca ricorsiva nelle quattro direzioni adiacenti
+		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Sopra
+		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Sotto
+		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Sinistra
+		findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Destra
+	}
+
 	/**
 	 * Controller for Common Goal 4
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
 	public boolean controlGoal4(Shelf playerShelf) {
-		int couple = 0;
-		for (ColorTile cards : ColorTile.values()) {
-			if (cards == ColorTile.EMPTY) {
-				break;
-			}
-			for (int i = 0; i < columns; ++i) {
-				for (int j = 0; j < rows; ++j) {
-					if (i < columns - 1 && j < rows - 1) {
-						if (playerShelf.getShelf()[j][i].getColor() == cards
-								&& (playerShelf.getShelf()[j][i + 1].getColor() == cards
-										^ playerShelf.getShelf()[j + 1][i].getColor() == cards)) {
-							couple++;
-						}
-					} else {
-						if (playerShelf.getShelf()[rows - 1][columns - 1].getColor() == cards
-								&& (playerShelf.getShelf()[rows - 1][columns - 2].getColor() == cards
-										^ playerShelf.getShelf()[rows - 2][columns - 1].getColor() == cards)) {
-							couple++;
-						}
-					}
+		int count = 0;
+		boolean[][] visited = new boolean[rows][columns];
 
-					if (couple >= 6) {
-						return true;
-					}
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+				if (!visited[row][col] && playerShelf.getValueOfTileAt(row, col).getColor() != ColorTile.EMPTY) {
+					Tile tile = playerShelf.getValueOfTileAt(row, col);
+					List<Tile> group = new ArrayList<>();
+					findAdjacentTiles(playerShelf, visited, row, col, tile, group);
 
+					if (group.size() >= 2) {
+						// System.out.println(count);
+						count++;
+					}
 				}
 			}
 		}
+
+		if (count >= 6) {
+			return true;
+		}
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 5
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -396,16 +311,15 @@ public class CommonGoal {
 			for (ColorTile cards : ColorTile.values()) {
 				if (cards == ColorTile.EMPTY) {
 					break;
-				}
-				else {
-				counter = countColorInColumn(cards, i, playerShelf.getShelf());
+				} else {
+					counter = countColorInColumn(cards, i, playerShelf.getShelf());
 					if (counter > 0) {
 						controller.add(cards);
 					}
 				}
 			}
-			//System.out.println(controller.toString());
-			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isColumnFull(i)) {	
+			// System.out.println(controller.toString());
+			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isColumnFull(i)) {
 				column++;
 			}
 			controller.clear();
@@ -418,8 +332,9 @@ public class CommonGoal {
 
 	/**
 	 * Used to count how many times a color is present in a column
+	 * 
 	 * @param color indicate the reference color
-	 * @param c indicate the number of the column that has to be controlled
+	 * @param c     indicate the number of the column that has to be controlled
 	 * @param tiles import all the shelf like a matrix of Tile
 	 * @return the number of how many times the color is present in the column (int)
 	 */
@@ -435,14 +350,15 @@ public class CommonGoal {
 		for (int i = 0; i < tiles.length; i++) {
 			if (color == array[i]) {
 				cont++;
-				//System.out.println("cont" + cont);
+				// System.out.println("cont" + cont);
 			}
 		}
 		return cont;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 6
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -465,11 +381,12 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Used to control if a color is present in a row
-	 * @param tile indicate the reference tile
-	 * @param r indicate the number of the rows that has to be controlled
+	 * 
+	 * @param tile  indicate the reference tile
+	 * @param r     indicate the number of the rows that has to be controlled
 	 * @param tiles import all the shelf like a matrix of Tile
 	 * @return true if the color is present only one time in the row
 	 */
@@ -477,7 +394,7 @@ public class CommonGoal {
 		if (tile.getColor() == ColorTile.EMPTY) {
 			return false;
 		}
-		
+
 		for (int i = 0; i < 5; ++i) {
 			arrayR[i] = tiles[r][i].getColor();
 		}
@@ -486,8 +403,8 @@ public class CommonGoal {
 		for (int i = 0; i < tiles[r].length; i++) {
 			if (tile.getColor() == arrayR[i]) {
 				cont++;
-				for (int x=0; x < arrayR.length; x++) {
-					arrayR[x]=null;
+				for (int x = 0; x < arrayR.length; x++) {
+					arrayR[x] = null;
 				}
 			}
 		}
@@ -496,9 +413,10 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 7
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -509,33 +427,33 @@ public class CommonGoal {
 			for (ColorTile card : ColorTile.values()) {
 				if (card == ColorTile.EMPTY) {
 					break;
-				}
-				else {
-				counter = countColorInRow(card, i, playerShelf.getShelf());
-				if (counter > 0) {
-					controller.add(card);
-				}
+				} else {
+					counter = countColorInRow(card, i, playerShelf.getShelf());
+					if (counter > 0) {
+						controller.add(card);
+					}
 				}
 			}
-			
-			//System.out.println(controller.toString());
+
+			// System.out.println(controller.toString());
 			if (controller.size() < 4 && controller.size() > 0 && playerShelf.isRowFull(i)) {
-				//System.out.println("OK");
+				// System.out.println("OK");
 				row++;
 			}
 			controller.clear();
 		}
-		
+
 		if (row >= 4) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Used to count how many times a color is present in a row
+	 * 
 	 * @param color indicate the reference color
-	 * @param r indicate the number of the row that has to be controlled
+	 * @param r     indicate the number of the row that has to be controlled
 	 * @param tiles import all the shelf like a matrix of Tile
 	 * @return the number of how many times the color is present in the row (int)
 	 */
@@ -556,12 +474,13 @@ public class CommonGoal {
 		}
 		return cont;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 8
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
-	 */	
+	 */
 	public boolean controlGoal8(Shelf playerShelf) {
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
@@ -575,9 +494,10 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 9
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -602,9 +522,10 @@ public class CommonGoal {
 		// System.out.println(cells);
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 10
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -627,9 +548,10 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 11
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
@@ -669,9 +591,10 @@ public class CommonGoal {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Controller for Common Goal 12
+	 * 
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
