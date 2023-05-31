@@ -2,6 +2,7 @@ package model;
 
 import java.awt.PageAttributes.ColorType;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -214,7 +215,47 @@ public class CommonGoal {
 	 * @param playerShelf player shelf that has to be controlled
 	 * @return true if the goal is correct in the shelf
 	 */
-	public boolean controlGoal3(Shelf playerShelf) {
+	 public boolean controlGoal3(Shelf playerShelf) {
+	        int count = 0;
+	        boolean[][] visited = new boolean[rows][columns];
+
+	        for (int row = 0; row < rows; row++) {
+	            for (int col = 0; col < columns; col++) {
+	                if (!visited[row][col] && playerShelf.getValueOfTileAt(row, col).getColor()!=ColorTile.EMPTY) {
+	                    Tile tile = playerShelf.getValueOfTileAt(row, col);
+	                    List<Tile> group = new ArrayList<>();
+	                    findAdjacentTiles(playerShelf, visited, row, col, tile, group);
+
+	                    if (group.size() >= 4) {
+	                    	//System.out.println(count);
+	                        count++;
+	                    }
+	                }
+	            }
+	        }
+
+	        if( count>=4) {
+	        	return true;
+	        }
+	        return false;
+	    }
+
+	    public void findAdjacentTiles(Shelf playerShelf, boolean[][] visited, int row, int col, Tile tile, List<Tile> group) {
+	        if (row < 0 || row >= rows || col < 0 || col >= columns || visited[row][col] || playerShelf.getValueOfTileAt(row, col).getColor()!=tile.getColor()) {
+	            return;
+	        }
+
+	        visited[row][col] = true;
+	        group.add(playerShelf.getValueOfTileAt(row, col));
+
+	        // Ricerca ricorsiva nelle quattro direzioni adiacenti
+	        findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Sopra
+	        findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Sotto
+	        findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Sinistra
+	        findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Destra
+	    }
+	
+/*	public boolean controlGoal3(Shelf playerShelf) {
 		int group = 0;
 		for (ColorTile cards : ColorTile.values()) {
 			if (cards == ColorTile.EMPTY) {
@@ -303,7 +344,7 @@ public class CommonGoal {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	
 	/**
 	 * Controller for Common Goal 4

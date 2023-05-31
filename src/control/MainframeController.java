@@ -257,7 +257,7 @@ public class MainframeController {
 														.setText("Tile selezionata: " + row + " - " + column);
 											} else {
 												System.out.println("Le tiles devono essere allineate");
-
+												showMessageError("Le tiles devono essere allineate");
 											}
 
 										} else {

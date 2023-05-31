@@ -47,6 +47,21 @@ public class Shelf extends AbstractTableModel {
 				shelf[i][j] = new Tile(ColorTile.EMPTY);
 			}
 		}
+		
+	/*	for (int i = 5; i > 1; i--) {
+			for (int j = 0; j < shelf[i].length; ++j) {
+				if(j==0)
+					shelf[i][j] = new Tile(ColorTile.PINK);
+				if(j==1)
+					shelf[i][j] = new Tile(ColorTile.YELLOW);
+				if(j==2)
+					shelf[i][j] = new Tile(ColorTile.GREEN);
+				if(j==3)
+					shelf[i][j] = new Tile(ColorTile.PINK);
+				
+			}
+		}
+		shelf[2][3] = new Tile(ColorTile.EMPTY);*/
 	}
 	
 	/**
