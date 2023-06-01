@@ -93,6 +93,11 @@ public class PlayerController {
 
 		int col = chooseCol();
 
+		if(colIsAvailable) {
+			
+		}
+		
+		
 		this.tilesChoosen = tilesChoosen;
 		ArrayList<Integer> positions = new ArrayList<>();
 
@@ -199,10 +204,9 @@ public class PlayerController {
 						System.out.println("funziona");
 						
 						FinalFrame finalFrame = new FinalFrame(players);
-						finalFrame.setVisible(true);
+						//finalFrame.setVisible(true);
 						finalFrame.pack();
-						finalFrame.setLocationRelativeTo(null);
-						finalFrame.setResizable(false);
+					
 						finalFrame.setSize(600, 531 + (players.size() * 80));
 					}
 
@@ -269,4 +273,8 @@ public class PlayerController {
 		pane.showMessageDialog(frame, message);
 	}
 
+	public void colIsAvailable(List<Tile>tiles) {
+	
+	}
+	
 }
