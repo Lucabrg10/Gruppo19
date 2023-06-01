@@ -72,6 +72,27 @@ public class Shelf extends AbstractTableModel {
 	 * @return false Si possono inserire
 	 */
 
+	public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
+
+		int free = 0;
+		boolean control = false;
+		for (int i = 5; i < columns; i--) {
+			if (shelf[i][columnSelection].getColor() == ColorTile.EMPTY) {
+				free = i;
+				break;
+			}
+		}
+	/*	System.out.println("va");
+		System.out.println((free+1));*/
+
+		if (numberOfCards <= (free+1)) {
+			control = true;
+		//	System.out.println("va1");
+		}
+		return control;
+	}
+
+
 	/**
 	 * Add the card in the column setted
 	 * 

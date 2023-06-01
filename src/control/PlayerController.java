@@ -45,6 +45,7 @@ public class PlayerController {
 	private int cont1 = 0;
 	private ArrayList<Integer> commonGoalPoints2 = new ArrayList<>();
 	private int cont2 = 0;
+	private JButton button = new JButton("Passa!");
 	boolean endGame = false;
 	boolean showFinalFrame = false;
 	boolean finalPoint = true;
@@ -89,162 +90,171 @@ public class PlayerController {
 	 * 
 	 */
 	public JDialog selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext, List<CommonGoal> commonGoalsList,
-			int cont, List<Player> players) {
+			int[] cont, List<Player> players) {
 
 		int col = chooseCol();
+		button.setEnabled(false);
+		if (player.getShelf().ControlFreeCells(col, tilesChoosen.size())) {
 
-		if(colIsAvailable) {
-			
-		}
-		
-		
-		this.tilesChoosen = tilesChoosen;
-		ArrayList<Integer> positions = new ArrayList<>();
+			this.tilesChoosen = tilesChoosen;
+			ArrayList<Integer> positions = new ArrayList<>();
 
-		JDialog Jframe = new JDialog(new JFrame(), "Scegli l'ordine delle carte");
-		Jframe.setMinimumSize(new Dimension(300, 80));
-		JPanel panelLabel = new JPanel(new FlowLayout());
+			JDialog Jframe = new JDialog(new JFrame(), "Scegli l'ordine delle carte");
+			Jframe.setMinimumSize(new Dimension(300, 80));
+			JPanel panelLabel = new JPanel(new FlowLayout());
 
-		for (int i = 0; i < tilesChoosen.size(); i++) {
-			LabelTile label = new LabelTile(tilesChoosen.get(i));
-			// System.out.println(tilesChoosen.get(i));
-			label.setIcon(tilesChoosen.get(i).getImg());
-			label.addMouseListener(new MouseAdapter() {
-				/**
-				 * al click del mouse su una label si aggiunge una tile alla shelf e la si
-				 * rimuove dalla board
-				 */
-				public void mousePressed(MouseEvent e) {
-					boolean aggiunto;
-					Tile tile1 = new Tile(label.getTile().getColor(), label.getTile().getImg());
-					// System.out.println(tile1.getColor());
-					aggiunto = player.addTile(tile1, col);
-					if (aggiunto) {
-						Container container = label.getParent();
-						container.remove(label);
-						container.validate();
-						container.repaint();
-						// player.getShelf().print();
-						board.getBoard().removeTile(label.getTile());
-						// System.out.println(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
-						player.addPointsPersonalGoal(
-								player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
-						// System.out.println("Punteggio "+player.getPlayerName()+" :
-						// "+player.getPoints());
-						if (commonGoalsList.get(0).controlGoal(player.getShelf())) {
-
-							// System.out.println("prova0 "+commonGoalPoints1.get(0));
-							try {
-								if (player.addPoints(commonGoalPoints1.get(0), 0))
-								{
-									commonGoalPoints1.remove(0);
-									showMessageError("Complimenti! Hai completato un obiettivo comune!");
-									
-								}
-									
-							} catch (Exception e2) {
+			for (int i = 0; i < tilesChoosen.size(); i++) {
+				LabelTile label = new LabelTile(tilesChoosen.get(i));
+				// System.out.println(tilesChoosen.get(i));
+				label.setIcon(tilesChoosen.get(i).getImg());
+				label.addMouseListener(new MouseAdapter() {
+					/**
+					 * al click del mouse su una label si aggiunge una tile alla shelf e la si
+					 * rimuove dalla board
+					 */
+					public void mousePressed(MouseEvent e) {
+						boolean aggiunto;
+						Tile tile1 = new Tile(label.getTile().getColor(), label.getTile().getImg());
+						// System.out.println(tile1.getColor());
+						aggiunto = player.addTile(tile1, col);
+						if (aggiunto) {
+							tilesChoosen.remove(label.getTile());
+							if (tilesChoosen.size() == 0) {
+								button.setEnabled(true);
 							}
+							Container container = label.getParent();
+							container.remove(label);
+							container.validate();
+							container.repaint();
+							// player.getShelf().print();
+							board.getBoard().removeTile(label.getTile());
+							// System.out.println(player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
+							player.addPointsPersonalGoal(
+									player.getPersonalGoal().counterPersonalGoalPoint(player.getShelf()));
+							// System.out.println("Punteggio "+player.getPlayerName()+" :
+							// "+player.getPoints());
+							if (commonGoalsList.get(0).controlGoal(player.getShelf())) {
 
-							// System.out.println("Punti del player " + player.getPoints());
-							// System.out.println(commonGoalPoints1.get(0));
+								// System.out.println("prova0 "+commonGoalPoints1.get(0));
+								try {
+									if (player.addPoints(commonGoalPoints1.get(0), 0)) {
+										commonGoalPoints1.remove(0);
+										showMessageError("Complimenti! Hai completato un obiettivo comune!");
+
+									}
+
+								} catch (Exception e2) {
+								}
+
+								// System.out.println("Punti del player " + player.getPoints());
+								// System.out.println(commonGoalPoints1.get(0));
+							}
+							if (commonGoalsList.get(1).controlGoal(player.getShelf())) {
+								// System.out.println("prova1 "+commonGoalPoints2.get(0));
+								try {
+									if (player.addPoints(commonGoalPoints2.get(0), 1)) {
+										commonGoalPoints2.remove(0);
+										showMessageError("Complimenti! Hai completato un obiettivo comune!");
+
+									}
+
+								} catch (Exception e2) {
+								}
+							}
+							frame.getLbPoints()
+									.setText("Punteggio di " + player.getPlayerName() + ": " + player.getPoints());
+
 						}
-						if (commonGoalsList.get(1).controlGoal(player.getShelf())) {
-							// System.out.println("prova1 "+commonGoalPoints2.get(0));
-							try {
-								if (player.addPoints(commonGoalPoints2.get(0), 1))
-								{
-									commonGoalPoints2.remove(0);
-									showMessageError("Complimenti! Hai completato un obiettivo comune!");
-									
-								}
-									
-							} catch (Exception e2) {
-							}
+
+						else {
+							JOptionPane errore = new JOptionPane();
+							errore.showMessageDialog(label, "La colonna è piena");
+						}
+
+					}
+
+				});
+				panelLabel.add(label);
+			}
+
+			/**
+			 * Al click sul button si passa al giocatore successivo
+			 */
+
+		//	System.out.println(tilesChoosen);
+
+			// System.out.println(button.isVisible());
+
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					if (player.getShelf().isShelfFull()) {
+						endGame = true;
+						if (finalPoint) {
+							player.addPoints(1);
+							finalPoint = false;
+						}
+						// System.out.println("finito1");
+					}
+					if (endGame) {
+						if (cont[0] == 0) {
+							// System.out.println("finito2");
+							showFinalFrame = true;
+							Jframe.setVisible(false);
+							frame.setVisible(false);
+							System.out.println("funziona");
+
+							FinalFrame finalFrame = new FinalFrame(players);
+							// finalFrame.setVisible(true);
+							finalFrame.pack();
+
+							finalFrame.setSize(600, 531 + (players.size() * 80));
+						}
+
+					}
+
+					if (!showFinalFrame) {
+						setPlayer(playerNext);
+						Jframe.setVisible(false);
+						frame.setVisible(true);
+						frame.getShelfTable().setModel(player.getShelf());
+						if (board.getBoard().checkForRefill()) {
+							board.getBoard().refillBoard();
+
 						}
 						frame.getLbPoints()
 								.setText("Punteggio di " + player.getPlayerName() + ": " + player.getPoints());
-
-					}
-
-					else {
-						JOptionPane errore = new JOptionPane();
-						errore.showMessageDialog(label, "La colonna è piena");
 					}
 
 				}
-
 			});
-			panelLabel.add(label);
-		}
 
-		/**
-		 * Al click sul button si passa al giocatore successivo
-		 */
-		JButton button = new JButton("Passa!");
-		// System.out.println(button.isVisible());
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if (player.getShelf().isShelfFull()) {
-					endGame = true;
-					if (finalPoint) {
-						player.addPoints(1);
-						finalPoint = false;
-					}
-					// System.out.println("finito1");
+			panelLabel.add(button);
+			Jframe.setModal(true);
+			Jframe.add(panelLabel);
+			Jframe.pack();
+			Jframe.setLocationRelativeTo(null);
+			Jframe.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			Jframe.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					// Display a message to indicate that the window can only be closed using the
+					// button
+					JOptionPane.showMessageDialog(frame, "Premi passa per passare il turno.");
 				}
-				if (endGame) {
-					if (cont == 0) {
-						// System.out.println("finito2");
-						showFinalFrame = true;
-						Jframe.setVisible(false);
-						frame.setVisible(false);
-						System.out.println("funziona");
-						
-						FinalFrame finalFrame = new FinalFrame(players);
-						//finalFrame.setVisible(true);
-						finalFrame.pack();
-					
-						finalFrame.setSize(600, 531 + (players.size() * 80));
-					}
+			});
 
-				}
-
-				if (!showFinalFrame) {
-					setPlayer(playerNext);
-					Jframe.setVisible(false);
-					frame.setVisible(true);
-					frame.getShelfTable().setModel(player.getShelf());
-					if (board.getBoard().checkForRefill()) {
-						board.getBoard().refillBoard();
-
-					}
-					frame.getLbPoints().setText("Punteggio di " + player.getPlayerName() + ": " + player.getPoints());
-				}
-
+			if (showFinalFrame) {
+				return null;
 			}
-		});
-		panelLabel.add(button);
-		Jframe.setModal(true);
-		Jframe.add(panelLabel);
-		Jframe.pack();
-		Jframe.setLocationRelativeTo(null);
-		Jframe.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		Jframe.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// Display a message to indicate that the window can only be closed using the
-				// button
-				JOptionPane.showMessageDialog(frame, "Premi passa per passare il turno.");
-			}
-		});
-
-		if (showFinalFrame) {
-			return null;
+			return Jframe;
+		} else {
+			cont[0]--;
+			showMessageError("Hai selezionato troppe tiles per la colonna! Ripesca");
 		}
-		return Jframe;
+		return null;
 	}
 
 	public int chooseCol() {
@@ -266,15 +276,9 @@ public class PlayerController {
 		return col;
 	}
 
-	
-
 	public void showMessageError(String message) {
 		JOptionPane pane = new JOptionPane();
 		pane.showMessageDialog(frame, message);
 	}
 
-	public void colIsAvailable(List<Tile>tiles) {
-	
-	}
-	
 }

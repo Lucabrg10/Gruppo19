@@ -173,7 +173,6 @@ public class CommonGoal {
 				}
 			}
 			if (bool) {
-				System.out.println("colonne" + column);
 				column++;
 				for (int x = 0; x < arrayC.length; x++) {
 					arrayC[x] = null;
@@ -200,7 +199,6 @@ public class CommonGoal {
 		}
 		for (int i = 0; i < 6; ++i) {
 			arrayC[i] = tiles[i][c].getColor();
-			System.out.println("array" + arrayC[i]);
 		}
 		int cont = 0;
 		for (int i = 0; i < tiles.length; i++) {

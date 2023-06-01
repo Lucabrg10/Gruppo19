@@ -42,7 +42,7 @@ public class MainframeController {
 	private Board board;
 	int prevRow;
 	int prevCol;
-	int cont = 0;
+	int cont[] = { 0 };
 
 	public MainframeController(MainFrame frame, BoardController boardC, PlayerController player, Board board,
 			ArrayList<Player> players, List<CommonGoal> commonGoalsList) {
@@ -54,7 +54,6 @@ public class MainframeController {
 		this.playerC.setPlayer(players.get(0));
 		this.shelfTable = frame.getShelfTable();
 		this.commonGoalsList = commonGoalsList;
-
 
 		shelfTable.setModel(players.get(0).getShelf());
 		frame.getLbPoints()
@@ -72,15 +71,15 @@ public class MainframeController {
 
 	private void assignBtnDeselctTilesController() {
 		frame.getBtnDeselectTiles().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tilesChoosen.clear();
 				showMessageError("Le tiles sono state deselezionate! Puoi sceglierne altre");
-				
+
 			}
 		});
-		
+
 	}
 
 	private void assignBtnCommonGoalController() {
@@ -135,18 +134,15 @@ public class MainframeController {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if (tilesChoosen.size() > 0) {
-					cont++;
-					cont = (cont) % board.getNumOfPlayers();
-					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont),commonGoalsList,cont, players);
-	
-				
-						tilesChoosen.clear();
-						// playerC.getPlayer().getShelf().fireTableDataChanged();
-						/*
-						 * if(board.checkForRefill()) { board.refillBoard(); }
-						 */
+					cont[0]++;
+					cont[0] = (cont[0]) % board.getNumOfPlayers();
+					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont[0]), commonGoalsList,
+							cont, players);
+					if(jframe!=null) {
 						jframe.setVisible(true);
-					
+					}
+					tilesChoosen.clear();
+
 				} else {
 					showMessageError("Devi pescare almeno una tile!");
 				}
@@ -164,7 +160,7 @@ public class MainframeController {
 					JTable target = (JTable) e.getSource();
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
-				//	System.out.println(shelfTable.getValueAt(row, column));
+					// System.out.println(shelfTable.getValueAt(row, column));
 				}
 			}
 		});
@@ -210,8 +206,6 @@ public class MainframeController {
 		return false;
 	}
 
-	
-	
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
