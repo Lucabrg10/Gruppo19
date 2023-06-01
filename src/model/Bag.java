@@ -7,9 +7,11 @@ import java.util.List;
 public class Bag {
 
 	List<Tile> tiles = new ArrayList<Tile>();
-
+	
+	/**
+	 * Constructor of Bag: initialize Tiles
+	 */
 	public Bag() {
-
 		int numberOfTiles = 132;
 		HashMap<ColorTile, Integer> tilesCardColor = new HashMap<ColorTile, Integer>();
 		tilesCardColor.put(ColorTile.BLUE, 22);
@@ -18,7 +20,6 @@ public class Bag {
 		tilesCardColor.put(ColorTile.PINK, 22);
 		tilesCardColor.put(ColorTile.WHITE, 22);
 		tilesCardColor.put(ColorTile.YELLOW, 22);
-
 		for (int i = 0; i < numberOfTiles; i++) {
 			Tile tile = new Tile(ColorTile.random());
 			if (tilesCardColor.get(tile.getColor()) > 0) {
@@ -26,10 +27,11 @@ public class Bag {
 				tilesCardColor.put(tile.getColor(), tilesCardColor.get(tile.getColor()) + 1);
 			}
 		}
-		//printBag();
-
 	}
 
+	/**
+	 * Print all the contents in bag
+	 */
 	public void printBag() {
 		for (Tile tile : tiles) {
 			System.out.println(" " + tile.getColor());
