@@ -6,6 +6,10 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * This class represent the own shelf of a player,
+ * it extends AbstractTableModel because in the graphic part is shown like a table 
+ */
 public class Shelf extends AbstractTableModel {
 	private final int rows = 6;
 	private final int columns = 5;
@@ -44,15 +48,13 @@ public class Shelf extends AbstractTableModel {
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				shelf[i][j] = new Tile(ColorTile.EMPTY);
+				shelf[i][j] = new Tile(ColorTile.PINK);
 			}
 		}
-		
+		shelf[0][0] = new Tile(ColorTile.EMPTY);
+
 	}
 
-	/**
-	 * Print all shelf
-	 */
 	public void print() {
 		System.out.println("Shelf Print");
 		for (int i = 0; i < shelf.length; ++i) {
@@ -64,12 +66,13 @@ public class Shelf extends AbstractTableModel {
 	}
 
 	/**
-	 * Controlla se in una colonna è possibile inserire un certo numero di carte
 	 * 
-	 * @param columnSelection colonna da controllare se è libera
-	 * @param numberOfCards   numero di carte che devo inserire
-	 * @return true Non si può inserire
-	 * @return false Si possono inserire
+	 * Control if in a column is possible to insert a specific number of tiles
+	 * 
+	 * @param columnSelection Controlled column
+	 * @param numberOfCards   number of card to insert
+	 * @return true Can't insert tiles
+	 * @return false Can insert tiles
 	 */
 
 	public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
@@ -95,8 +98,6 @@ public class Shelf extends AbstractTableModel {
 	 * @param Tile            Type of Tile to insert
 	 */
 	public boolean addCard(int columnSelection, Tile card) {
-		// System.out.println(card.getClass() + " " + card.getColor() + " " +
-		// card.getImg());
 		boolean aggiunto = false;
 		int i;
 		for (i = 5; i >= 0; i--) {
@@ -107,21 +108,14 @@ public class Shelf extends AbstractTableModel {
 				break;
 			}
 		}
-
-		// print();
 		fireTableDataChanged();
 		return aggiunto;
 	}
 
 	@Override
 	public int getRowCount() {
-
 		return rows;
 	}
-
-	/*
-	 * @Override public int getColumnCount() { return columns; }
-	 */
 
 	@Override
 	public ImageIcon getValueAt(int rowIndex, int columnIndex) {
@@ -188,6 +182,11 @@ public class Shelf extends AbstractTableModel {
 		return true;
 	}
 
+	/**
+	 * Used to count the points at the end of the game of the Board goals
+	 * 
+	 * @return the total points of the board goals
+	 */
 	public int countPointsOfAlignedTiles() {
 		boolean[][] visited = new boolean[rows][columns];
 		int points = 0;
@@ -231,6 +230,16 @@ public class Shelf extends AbstractTableModel {
 
 	}
 
+	/**
+	 * Used to find the adjacent tiles recursively
+	 * 
+	 * @param playerShelf
+	 * @param visited matrix of visited tile
+	 * @param row
+	 * @param col
+	 * @param tile
+	 * @param group the group of adjacent tiles
+	 */
 	public void findAdjacentTiles(Tile[][] playerShelf, boolean[][] visited, int row, int col, Tile tile,
 			List<Tile> group) {
 		if (row < 0 || row >= rows || col < 0 || col >= columns || visited[row][col]
@@ -241,11 +250,10 @@ public class Shelf extends AbstractTableModel {
 		visited[row][col] = true;
 		group.add(shelf[row][col]);
 
-		// Ricerca ricorsiva nelle quattro direzioni adiacenti
-		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Sopra
-		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Sotto
-		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Sinistra
-		findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Destra
+		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group);
+		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group);
+		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group);
+		findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group);
 	}
 
 }

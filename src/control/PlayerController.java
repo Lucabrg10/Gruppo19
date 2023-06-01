@@ -34,6 +34,12 @@ import view.FinalFrame;
 import view.LabelTile;
 import view.MainFrame;
 
+/**
+ * 
+ * This class manage the player class and some logic of the application
+ *
+ */
+
 public class PlayerController {
 
 	private MainFrame frame;
@@ -79,16 +85,19 @@ public class PlayerController {
 		this.frame.setVisible(true);
 	}
 
-	/**
-	 * 
-	 * @param tilesChoosen Lista delle tessere scelte
-	 * 
-	 *                     Il metodo crea un jframe che permette di vedere le carte
-	 *                     scelte e cliccando su esse si sceglie l'ordine. Le carte
-	 *                     in ordine vengono inserite in tilesSorted e inviate al
-	 *                     player che le aggiungerà nella colonna desiderata
-	 * 
-	 */
+/**
+ * This method manage the logic of the application.
+ * It controls and insert the tiles into the shelf.
+ * It removes the tiles from the board.
+ * It switches the turn after an user click on button Passa.
+ * 
+ * @param tilesChoosen this is the list of the tiles choosen
+ * @param playerNext	this is the next player that have to play the turn
+ * @param commonGoalsList
+ * @param cont this is the counter of the player
+ * @param players this is the list of the players
+ * @return
+ */
 	public JDialog selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext, List<CommonGoal> commonGoalsList,
 			int[] cont, List<Player> players) {
 		 this.button= new JButton("Passa!");
@@ -97,7 +106,7 @@ public class PlayerController {
 		if (player.getShelf().ControlFreeCells(col, tilesChoosen.size())) {
 
 			this.tilesChoosen = tilesChoosen;
-			ArrayList<Integer> positions = new ArrayList<>();
+			//ArrayList<Integer> positions = new ArrayList<>();
 
 			JDialog Jframe = new JDialog(new JFrame(), "Scegli l'ordine delle carte");
 			Jframe.setMinimumSize(new Dimension(300, 80));
@@ -180,20 +189,12 @@ public class PlayerController {
 			/**
 			 * Al click sul button si passa al giocatore successivo
 			 */
-
-		//	System.out.println(tilesChoosen);
-
-			// System.out.println(button.isVisible());
 			
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-				//	System.out.println(endGame);
-				//	System.out.println("prova");
-					System.out.println(playerNext.getPlayerName());
-					System.out.println("---------------");
+				
 					if (player.getShelf().isShelfFull()) {
 						endGame = true;
 						if (finalPoint) {

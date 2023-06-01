@@ -28,13 +28,18 @@ import view.FinalFrame;
 import view.MainFrame;
 import model.CommonGoal;
 
+/**
+ * 
+ * This class manage all the controller of the main frame and it allows the user
+ * to click on the buttons and click on the board and trigger event
+ *
+ */
 public class MainframeController {
 
 	private MainFrame frame;
 	private JTable table;
 	private JTable shelfTable;
 	private List<CommonGoal> commonGoalsList;
-	// private BoardController boardC;
 	private PlayerController playerC;
 	private ArrayList<Tile> tilesChoosen = new ArrayList<>();
 	private ArrayList<Player> players;
@@ -59,16 +64,17 @@ public class MainframeController {
 		frame.getLbPoints()
 				.setText("Punteggio di " + player.getPlayer().getPlayerName() + ": " + playerC.getPlayer().getPoints());
 		frame.getLbTileClicked().setText("");
-		// assegno un listener alla tabella e al pulsante "prova"
 		assignTableController();
 		assignBtnChooseController();
-		assignShelfTableController();
 		assignBtnPersonalGoalController();
 		assignBtnCommonGoalController();
 		assignBtnDeselctTilesController();
-		// assignBtnShelfController();
 	}
 
+	/**
+	 * assign to the button BtnDeselctTiles method that allows an user to deselect
+	 * the tiles that him choose
+	 */
 	private void assignBtnDeselctTilesController() {
 		frame.getBtnDeselectTiles().addActionListener(new ActionListener() {
 
@@ -82,6 +88,10 @@ public class MainframeController {
 
 	}
 
+	/**
+	 * assign to the button BtnCommonGoal method that show to an user the common
+	 * goals
+	 */
 	private void assignBtnCommonGoalController() {
 		frame.getBtnCommonGoal().addActionListener(new ActionListener() {
 
@@ -106,6 +116,10 @@ public class MainframeController {
 
 	}
 
+	/**
+	 * assign to the button BtnDeselctTiles method that show to an user the personal
+	 * goals
+	 */
 	private void assignBtnPersonalGoalController() {
 
 		frame.getBtnPersonalGoal().addActionListener(new ActionListener() {
@@ -126,6 +140,10 @@ public class MainframeController {
 		});
 	}
 
+	/**
+	 * assign to the button BtnDeselctTiles method that allows an user to deselect
+	 * the tiles that him choose
+	 */
 	private void assignBtnChooseController() {
 		// TODO Auto-generated method stub
 		frame.getBtnChooseTiles().addActionListener(new ActionListener() {
@@ -138,7 +156,7 @@ public class MainframeController {
 					cont[0] = (cont[0]) % board.getNumOfPlayers();
 					JDialog jframe = playerC.selectOrderOfTiles(tilesChoosen, players.get(cont[0]), commonGoalsList,
 							cont, players);
-					if(jframe!=null) {
+					if (jframe != null) {
 						jframe.setVisible(true);
 					}
 					tilesChoosen.clear();
@@ -153,24 +171,20 @@ public class MainframeController {
 
 	}
 
-	public void assignShelfTableController() {
-		shelfTable.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 1) {
-					JTable target = (JTable) e.getSource();
-					int row = target.getSelectedRow();
-					int column = target.getSelectedColumn();
-					// System.out.println(shelfTable.getValueAt(row, column));
-				}
-			}
-		});
-	}
-
 	public void showMessageError(String message) {
 		JOptionPane pane = new JOptionPane();
 		pane.showMessageDialog(frame, message);
 	}
 
+	/**
+	 * method that allows to check if the tiles are aligned before take them from
+	 * the board
+	 * 
+	 * @param isRow  boolean that show if the user choose a row or column
+	 * @param row
+	 * @param column
+	 * @return
+	 */
 	public boolean checkIfIsNext(boolean isRow, int row, int column) {
 
 		if (isRow) {
@@ -206,6 +220,10 @@ public class MainframeController {
 		return false;
 	}
 
+	/**
+	 * assign a controller to the Table method that allows an user to select the
+	 * tiles that him choose from the board
+	 */
 	public void assignTableController() {
 		table.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -214,12 +232,9 @@ public class MainframeController {
 					int row = target.getSelectedRow();
 					int column = target.getSelectedColumn();
 					boolean isRow = true;
-					// do some action if appropriate column
 					if (!board.isTileEmpty(row, column)) {
 						if (board.isTileAvailable(row, column)) {
 							if (tilesChoosen.size() < 3) {
-
-								// check if the tiles are aligned on the same column or row
 								if (tilesChoosen.size() == 0) {
 									prevRow = row;
 									prevCol = column;
@@ -229,8 +244,6 @@ public class MainframeController {
 									if (!tileIsInTiles(board.getValueOfTileAt(row, column))) {
 										if (row == prevRow && isRow) {
 											if (checkIfIsNext(isRow, row, column)) {
-												// prevRow = row;
-												// prevCol = column;
 												isRow = true;
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 												frame.getLbTileClicked()
@@ -243,9 +256,6 @@ public class MainframeController {
 										} else if (column == prevCol) {
 											isRow = false;
 											if (checkIfIsNext(isRow, row, column)) {
-												// prevCol = column;
-												// prevRow = row;
-
 												tilesChoosen.add(board.getValueOfTileAt(row, column));
 												frame.getLbTileClicked()
 														.setText("Tile selezionata: " + row + " - " + column);
@@ -276,8 +286,6 @@ public class MainframeController {
 						System.out.println("error");
 						showMessageError("La cella \u00E8 vuota");
 					}
-
-					// System.out.println();
 				}
 			}
 		});

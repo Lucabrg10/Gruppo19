@@ -41,6 +41,11 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ *
+ * This is the main frame of the application
+ *
+ */
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;

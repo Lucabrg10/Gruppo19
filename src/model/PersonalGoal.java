@@ -2,6 +2,10 @@ package model;
 
 import javax.swing.ImageIcon;
 
+/**
+ * This class is used to control the personal goal.
+ * it's selected with random number.
+ */
 public class PersonalGoal {
 	private int numOfGoal;
 	private ImageIcon imgGoal;
@@ -29,7 +33,11 @@ public class PersonalGoal {
 			{ 20, 53, 32, 44, 02, 11 }, 
 			{ 44, 33, 22, 50, 11, 02 } 
 			};
-
+	
+	/**
+	 * Assign at a personal goal its image
+	 * @param numOfGoal
+	 */
 	public PersonalGoal(int numOfGoal) {
 		this.numOfGoal = numOfGoal;
 		this.imgGoal = new ImageIcon("./assets/myshelfie/pers_goal/Personal_Goals" + (numOfGoal + 1) + ".png");
@@ -40,7 +48,6 @@ public class PersonalGoal {
 	 * @param playerShelf     personal player shelf
 	 * @return number of tile in the correct position
 	 */
-
 	public int counterPersonalGoalPoint(Shelf playerShelf) {
 		int cardsOk = 0;
 		if (playerShelf.getValueOfTileAt((pGoalArray[numOfGoal][0]) / 10, (pGoalArray[numOfGoal][0]) % 10)
@@ -67,9 +74,6 @@ public class PersonalGoal {
 				.getColor() == ColorTile.WHITE) {
 			cardsOk++;
 		}
-
-		//playerShelf.print();
-	//	System.out.println(cardsOk);
 		return cardsOk;
 	}
 

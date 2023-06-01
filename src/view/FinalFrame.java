@@ -35,6 +35,12 @@ import model.ColorTile;
 import model.Player;
 import model.Tile;
 
+/**
+ * 
+ * This is the frame that appear on the screen at the end of the game
+ *
+ */
+
 public class FinalFrame extends JFrame {
 
 	private List<Player> players;

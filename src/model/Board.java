@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * This class represents the board of the game.
  * it contains every method to interact 
- *
+ * it extends AbstractTableModel because in the graphic part is shown like a table 
  */
 public class Board extends AbstractTableModel {
 
