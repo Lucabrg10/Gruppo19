@@ -48,11 +48,9 @@ public class Shelf extends AbstractTableModel {
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				shelf[i][j] = new Tile(ColorTile.PINK);
+				shelf[i][j] = new Tile(ColorTile.EMPTY);
 			}
 		}
-		shelf[0][0] = new Tile(ColorTile.EMPTY);
-
 	}
 
 	public void print() {
@@ -76,7 +74,6 @@ public class Shelf extends AbstractTableModel {
 	 */
 
 	public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
-
 		int free = 0;
 		boolean control = false;
 		for (int i = 5; i >= 0; i--) {
@@ -246,10 +243,8 @@ public class Shelf extends AbstractTableModel {
 				|| shelf[row][col].getColor() != tile.getColor()) {
 			return;
 		}
-
 		visited[row][col] = true;
 		group.add(shelf[row][col]);
-
 		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group);
 		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group);
 		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group);
