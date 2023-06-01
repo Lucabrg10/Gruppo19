@@ -4,6 +4,8 @@ import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Board extends AbstractTableModel {
@@ -258,6 +260,7 @@ public class Board extends AbstractTableModel {
 		// if no tile is available, the refill is needed (return true)
 		return true;
 	}
+	
 
 }
 

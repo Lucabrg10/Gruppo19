@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -33,6 +35,10 @@ public class FinalFrame extends JFrame {
 
 		this.players = players;
 
+		for (Player player : players) {
+			player.addPoints(player.getShelf().countPointsOfAlignedTiles());
+		}
+		rankPlayers(players);
 		setTitle("Classifica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -84,6 +90,9 @@ public class FinalFrame extends JFrame {
 			e.printStackTrace();
 		}*/
 
+	}
+	public void rankPlayers(List<Player> players) {
+		Collections.sort(players, Comparator.comparingInt(Player::getPoints).reversed());
 	}
 
 }

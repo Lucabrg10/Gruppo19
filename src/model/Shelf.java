@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
@@ -10,14 +13,13 @@ public class Shelf extends AbstractTableModel {
 
 	private final String[] columnNames = { "0", "1", "2", "3", "4" };
 
-
 	public Shelf() {
 		// player number
 		this.shelf = new Tile[rows][columns];
 		initialize();
 		fireTableDataChanged();
 	}
-	
+
 	@Override
 	public int getColumnCount() {
 		return columnNames.length;
@@ -28,7 +30,6 @@ public class Shelf extends AbstractTableModel {
 		return columnNames[columnIndex];
 	}
 
-
 	public Tile[][] getShelf() {
 		return shelf;
 	}
@@ -36,7 +37,6 @@ public class Shelf extends AbstractTableModel {
 	public void setShelf(Tile[][] shelf) {
 		this.shelf = shelf;
 	}
-
 
 	/**
 	 * Set all shelf cell to empty
@@ -47,23 +47,8 @@ public class Shelf extends AbstractTableModel {
 				shelf[i][j] = new Tile(ColorTile.EMPTY);
 			}
 		}
-		
-	/*	for (int i = 5; i > 1; i--) {
-			for (int j = 0; j < shelf[i].length; ++j) {
-				if(j==0)
-					shelf[i][j] = new Tile(ColorTile.PINK);
-				if(j==1)
-					shelf[i][j] = new Tile(ColorTile.YELLOW);
-				if(j==2)
-					shelf[i][j] = new Tile(ColorTile.GREEN);
-				if(j==3)
-					shelf[i][j] = new Tile(ColorTile.PINK);
-				
-			}
-		}
-		shelf[2][3] = new Tile(ColorTile.EMPTY);*/
 	}
-	
+
 	/**
 	 * Print all shelf
 	 */
@@ -86,27 +71,9 @@ public class Shelf extends AbstractTableModel {
 	 * @return false Si possono inserire
 	 */
 
-	/*public boolean ControlFreeCells(int columnSelection, int numberOfCards) {
-
-		int notFree = 0;
-		boolean control = false;
-		for (int i = 0; i < shelf[columnSelection].length; i++) {
-			if (shelf[columnSelection][i] == null) {
-				notFree = i - 1;
-			} else {
-				control = true;
-				return control;
-			}
-		}
-
-		if (numberOfCards > (columns - notFree)) {
-			control = true;
-		}
-		return control;
-	}*/
-
 	/**
 	 * Add the card in the column setted
+	 * 
 	 * @param columnSelection Column selected
 	 * @param Tile            Type of Tile to insert
 	 */
@@ -131,13 +98,12 @@ public class Shelf extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		
+
 		return rows;
 	}
 
 	/*
-	 * @Override public int getColumnCount() { 
-	 * return columns; }
+	 * @Override public int getColumnCount() { return columns; }
 	 */
 
 	@Override
@@ -148,60 +114,121 @@ public class Shelf extends AbstractTableModel {
 		return null;
 
 	}
+
 	public Tile getValueOfTileAt(int rowIndex, int columnIndex) {
 		return shelf[rowIndex][columnIndex];
 	}
-	
 
 	@Override
 	public Class getColumnClass(int col) {
 		return ImageIcon.class;
 	}
-	
+
 	/**
 	 * Used to check if the shelf is full
+	 * 
 	 * @return true if the row is full
 	 */
 	public boolean isShelfFull() {
 		boolean full = true;
-		for(int i = 0; i< rows; i++) {
-			for(int j = 0; j < columns; j++) {
-				if(this.getValueOfTileAt(i,j).getColor() == ColorTile.EMPTY) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (this.getValueOfTileAt(i, j).getColor() == ColorTile.EMPTY) {
 					full = false;
 				}
 			}
 		}
 		return full;
 	}
-	
+
 	/**
 	 * Used to check if a Row is full
+	 * 
 	 * @param r indicate the row to control
 	 * @return true if the row is full
 	 */
 	public boolean isRowFull(int r) {
-		for (int i=0; i<columns; i++)
-		{
-			if (shelf[r][i].getColor()==ColorTile.EMPTY) {
+		for (int i = 0; i < columns; i++) {
+			if (shelf[r][i].getColor() == ColorTile.EMPTY) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Used to check if a Column is full
+	 * 
 	 * @param c indicate the column to control
 	 * @return true if the column is full
 	 */
 	public boolean isColumnFull(int c) {
-		for (int i=0; i<rows; i++)
-		{
-			if (shelf[i][c].getColor()==ColorTile.EMPTY) {
+		for (int i = 0; i < rows; i++) {
+			if (shelf[i][c].getColor() == ColorTile.EMPTY) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	public int countPointsOfAlignedTiles() {
+		boolean[][] visited = new boolean[rows][columns];
+		int points = 0;
+
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+				if (!visited[row][col] && this.shelf[row][col].getColor() != ColorTile.EMPTY) {
+					Tile tile = this.shelf[row][col];
+					List<Tile> group = new ArrayList<>();
+					findAdjacentTiles(this.shelf, visited, row, col, tile, group);
+
+					switch (group.size()) {
+					case 3: {
+						points += 2;
+					}
+						break;
+					case 4: {
+						points += 3;
+					}
+						break;
+					case 5: {
+						points += 5;
+					}
+						break;
+					case 6: {
+						points += 8;
+					}
+						break;
+
+					default: {
+						if (group.size() > 6) {
+							points += 8;
+						}
+					}
+						break;
+					}
+				}
+			}
+		}
+		return points;
+
+	}
+
+	public void findAdjacentTiles(Tile[][] playerShelf, boolean[][] visited, int row, int col, Tile tile,
+			List<Tile> group) {
+		if (row < 0 || row >= rows || col < 0 || col >= columns || visited[row][col]
+				|| shelf[row][col].getColor() != tile.getColor()) {
+			return;
+		}
+
+		visited[row][col] = true;
+		group.add(shelf[row][col]);
+
+		// Ricerca ricorsiva nelle quattro direzioni adiacenti
+		findAdjacentTiles(playerShelf, visited, row - 1, col, tile, group); // Sopra
+		findAdjacentTiles(playerShelf, visited, row + 1, col, tile, group); // Sotto
+		findAdjacentTiles(playerShelf, visited, row, col - 1, tile, group); // Sinistra
+		findAdjacentTiles(playerShelf, visited, row, col + 1, tile, group); // Destra
 	}
 
 }
