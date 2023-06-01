@@ -4,7 +4,11 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
+/**
+ * this class represents a player.
+ * every player has an ID, a name, its points, its shelf, its personal goal.
+ *
+ */
 public class Player {
 	private int playerId;
 	private String playerName;
@@ -46,9 +50,7 @@ public class Player {
 
 	
 	
-	/*public void setPoints(int points) {
-		this.points = points;
-	}*/ 
+	
 
 	public Shelf getShelf() {
 		return shelf;
@@ -73,17 +75,27 @@ public class Player {
 	public void addPoints(int points) {
 		this.points += points;
 	}
+	
+	/**
+	 * add points for achieving a common goal
+	 * @param points
+	 * @param numOfCommonGoal
+	 */
 	public boolean addPoints(int points, int numOfCommonGoal) {
-		//System.out.println("va");
 		if(commonGoalListCheck[numOfCommonGoal]==false ) {
 			this.points += points;
-		//	System.out.println("dentro");
 			this.commonGoalListCheck[numOfCommonGoal]=true;
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * adds tile in player's shelf
+	 * @param tile
+	 * @param col
+	 * @return true if the tile is added correctly
+	 */
 	public boolean addTile(Tile tile, int col) {
 		boolean aggiunto = false;
 
@@ -91,6 +103,11 @@ public class Player {
 		return aggiunto;
 
 	}
+	
+	/**
+	 * add points for achieving personalGoal
+	 * @param correctCards number of correct cards added in player's shelf
+	 */
 	public void addPointsPersonalGoal(int correctCards) {
 		this.points+=array[correctCards];
 		array[correctCards]=0;

@@ -5,6 +5,10 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+/**
+ * This class represents a tile.
+ * every tile has an ID, a color (picked from ColorTile enum) and an image
+ */
 public class Tile {
 
 	private static int ID;
