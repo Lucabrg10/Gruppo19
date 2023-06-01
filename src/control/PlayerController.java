@@ -45,7 +45,7 @@ public class PlayerController {
 	private int cont1 = 0;
 	private ArrayList<Integer> commonGoalPoints2 = new ArrayList<>();
 	private int cont2 = 0;
-	private JButton button = new JButton("Passa!");
+	private JButton button;
 	boolean endGame = false;
 	boolean showFinalFrame = false;
 	boolean finalPoint = true;
@@ -91,7 +91,7 @@ public class PlayerController {
 	 */
 	public JDialog selectOrderOfTiles(ArrayList<Tile> tilesChoosen, Player playerNext, List<CommonGoal> commonGoalsList,
 			int[] cont, List<Player> players) {
-
+		 this.button= new JButton("Passa!");
 		int col = chooseCol();
 		button.setEnabled(false);
 		if (player.getShelf().ControlFreeCells(col, tilesChoosen.size())) {
@@ -184,12 +184,16 @@ public class PlayerController {
 		//	System.out.println(tilesChoosen);
 
 			// System.out.println(button.isVisible());
-
+			
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+				//	System.out.println(endGame);
+				//	System.out.println("prova");
+					System.out.println(playerNext.getPlayerName());
+					System.out.println("---------------");
 					if (player.getShelf().isShelfFull()) {
 						endGame = true;
 						if (finalPoint) {

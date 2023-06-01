@@ -44,10 +44,10 @@ public class Shelf extends AbstractTableModel {
 	public void initialize() {
 		for (int i = 0; i < shelf.length; ++i) {
 			for (int j = 0; j < shelf[i].length; ++j) {
-				shelf[i][j] = new Tile(ColorTile.PINK);
+				shelf[i][j] = new Tile(ColorTile.EMPTY);
 			}
 		}
-		shelf[0][0]=new Tile(ColorTile.EMPTY);
+		
 	}
 
 	/**
@@ -76,22 +76,17 @@ public class Shelf extends AbstractTableModel {
 
 		int free = 0;
 		boolean control = false;
-		for (int i = 5; i < columns; i--) {
+		for (int i = 5; i >= 0; i--) {
 			if (shelf[i][columnSelection].getColor() == ColorTile.EMPTY) {
-				free = i;
+				free = i + 1;
 				break;
 			}
 		}
-	/*	System.out.println("va");
-		System.out.println((free+1));*/
-
-		if (numberOfCards <= (free+1)) {
+		if (numberOfCards <= (free)) {
 			control = true;
-		//	System.out.println("va1");
 		}
 		return control;
 	}
-
 
 	/**
 	 * Add the card in the column setted

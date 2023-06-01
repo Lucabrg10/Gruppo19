@@ -100,10 +100,10 @@ public class MainController {
 
 		frame.getShelfTable().getTableHeader().setReorderingAllowed(false);
 		frame.getTableBoard().getTableHeader().setReorderingAllowed(false);
-		frame.getShelfTable().setRowHeight(70);
-		frame.getTableBoard().setRowHeight(70);
+		frame.getShelfTable().setRowHeight(50);
+		frame.getTableBoard().setRowHeight(50);
 		frame.getTableBoard().setCellSelectionEnabled(true);
-		frame.setSize(1020, 890);
+		frame.setSize(745, 710);
 		frame.setResizable(false);
 
 	}

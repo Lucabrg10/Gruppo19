@@ -28,27 +28,27 @@ public class Tile {
 
 		switch (color) {
 		case BLUE: {
-			this.img = new ImageIcon("assets/myshelfie/item_tiles/Cornici1." + RandomizeImages() + ".png");
+			this.img = new ImageIcon("assets/myshelfie/item_tiles/50x50/Cornici1." + RandomizeImages() + ".png");
 		}
 			break;
 		case CYAN: {
-			this.img = new ImageIcon( "assets/myshelfie/item_tiles/Trofei1." + RandomizeImages() + ".png");
+			this.img = new ImageIcon( "assets/myshelfie/item_tiles/50x50/Trofei1." + RandomizeImages() + ".png");
 		}
 			break;
 		case GREEN: {
-			this.img = new ImageIcon("assets/myshelfie/item_tiles/Gatti1." + RandomizeImages() + ".png");
+			this.img = new ImageIcon("assets/myshelfie/item_tiles/50x50/Gatti1." + RandomizeImages() + ".png");
 		}
 			break;
 		case PINK: {
-			this.img = new ImageIcon("assets/myshelfie/item_tiles/Piante1." + RandomizeImages() + ".png");
+			this.img = new ImageIcon("assets/myshelfie/item_tiles/50x50/Piante1." + RandomizeImages() + ".png");
 		}
 			break;
 		case WHITE: {
-			this.img = new ImageIcon( "assets/myshelfie/item_tiles/Libri1." + RandomizeImages() + ".png");
+			this.img = new ImageIcon( "assets/myshelfie/item_tiles/50x50/Libri1." + RandomizeImages() + ".png");
 		}
 			break;
 		case YELLOW: {
-			this.img = new ImageIcon("assets/myshelfie/item_tiles/Giochi1." + RandomizeImages() + ".png");
+			this.img = new ImageIcon("assets/myshelfie/item_tiles/50x50/Giochi1." + RandomizeImages() + ".png");
 		}
 			break;
 

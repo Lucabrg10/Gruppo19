@@ -136,7 +136,7 @@ public class MainFrame extends JFrame {
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		getContentPane().add(contentPane, BorderLayout.CENTER);
-		Dimension dim = new Dimension(200, 400);
+		
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();
@@ -172,19 +172,19 @@ public class MainFrame extends JFrame {
 		panel_1.add(splitPane_1);
 
 		lbBoard = new JLabel("BOARD");
-		lbBoard.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lbBoard.setFont(new Font("Tahoma", Font.BOLD, 23));
 		lbBoard.setForeground(Color.WHITE);
 		lbBoard.setBackground(Color.DARK_GRAY);
 		lbBoard.setHorizontalAlignment(SwingConstants.CENTER);
 		splitPane_1.setRightComponent(lbBoard);
 
 		lbPlayer = new JLabel("");
-		lbPlayer.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lbPlayer.setFont(new Font("Tahoma", Font.BOLD, 23));
 		lbPlayer.setForeground(Color.WHITE);
 		lbPlayer.setBackground(Color.DARK_GRAY);
 		splitPane_1.setLeftComponent(lbPlayer);
 		lbPlayer.setHorizontalAlignment(SwingConstants.CENTER);
-		splitPane_1.setDividerLocation(350);
+		splitPane_1.setDividerLocation(255);
 
 		splitPane_1.setEnabled(false);
 		shelfPanel = new JPanel();
@@ -197,7 +197,7 @@ public class MainFrame extends JFrame {
 
 		splitPane = new JSplitPane();
 
-		splitPane.setDividerLocation(350);
+		splitPane.setDividerLocation(255);
 		shelfPanel.add(splitPane);
 		splitPane.setEnabled(false);
 
@@ -237,9 +237,9 @@ public class MainFrame extends JFrame {
 		lbPoints = new JLabel("");
 		lbPoints.setForeground(Color.BLACK);
 		lbPoints.setBackground(Color.WHITE);
-		lbPoints.setBorder(new EmptyBorder(20, 10, 10, 0));
+		lbPoints.setBorder(new EmptyBorder(20, 5, 15, 0));
 		panel_4.add(lbPoints);
-		lbPoints.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lbPoints.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
 		lbBoardGoal = new JLabel();
 		lbBoardGoal.setBorder(new EmptyBorder(0, 0, 10, 0));
