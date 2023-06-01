@@ -20,7 +20,7 @@ public class Tile {
 	}
 	
 	/**
-	 * Constructor of Tile: assign every color its own image
+	 * Constructor of Tile: assigns every color its own image
 	 * @param color Enum with color
 	 */
 	public Tile(ColorTile color) {
