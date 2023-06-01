@@ -6,6 +6,10 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * This class represent the own shelf of a player,
+ * it extends AbstractTableModel because in the graphic part is shown like a table 
+ */
 public class Shelf extends AbstractTableModel {
 	private final int rows = 6;
 	private final int columns = 5;

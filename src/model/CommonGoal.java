@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+/**
+ * This class is used to control all the common goal.
+ * Only two of them are selected with random number.
+ */
 public class CommonGoal {
 	private final int columns = 5;
 	private final int rows = 6;
@@ -16,7 +20,7 @@ public class CommonGoal {
 	ColorTile[] arrayR = new ColorTile[5];
 
 	/**
-	 * 
+	 * Assign at a common goal its image
 	 * @param goalNumber
 	 */
 	public CommonGoal(int goalNumber) {
