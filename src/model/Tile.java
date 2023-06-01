@@ -18,14 +18,17 @@ public class Tile {
 	public void setImg(ImageIcon img) {
 		this.img = img;
 	}
-
+	
+	/**
+	 * 
+	 * @param color
+	 */
 	public Tile(ColorTile color) {
 		this.color = color;
 
 		switch (color) {
 		case BLUE: {
 			this.img = new ImageIcon("assets/myshelfie/item_tiles/Cornici1." + RandomizeImages() + ".png");
-
 		}
 			break;
 		case CYAN: {
@@ -56,6 +59,7 @@ public class Tile {
 		
 		this.ID++;
 	}
+	
 	public Tile( ColorTile color2, ImageIcon img2) {
 		this.color=color2;
 		this.img=img2;
@@ -68,9 +72,12 @@ public class Tile {
 	public void setColor(ColorTile color) {
 		this.color = color;
 	}
-
+	
+	/**
+	 * Used to get random number to set an Image of a Tile
+	 * @return random number from 1 to 3 (int)
+	 */
 	private int RandomizeImages() {
-
 		Random rnd = new Random();
 		int val = rnd.nextInt(3) +1;
 		return val;
