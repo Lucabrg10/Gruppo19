@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * This class represents the board of the game.
+ * it contains every method to interact 
+ * it extends AbstractTableModel because in the graphic part is shown like a table 
+ */
 public class Board extends AbstractTableModel {
 
 	private int numOfPlayers;
@@ -26,6 +31,10 @@ public class Board extends AbstractTableModel {
 			{ 8, 4 }, { 8, 7 }, { 8, 8 }, { 8, 9 }, { 9, 1 }, { 9, 2 }, { 9, 3 }, { 9, 4 }, { 9, 5 }, { 9, 6 },
 			{ 9, 7 }, { 9, 8 }, { 9, 9 }, };
 
+	/**
+	 * Board constructor for creating the board
+	 * @param numOfPlayers: number of players for the game, must be 
+	 */
 	public Board(int numOfPlayers) {
 		if (numOfPlayers < 2 || numOfPlayers > 4) {
 			throw new IllegalArgumentException("Il numero di giocatori deve essere compreso tra 2 e 4.");
@@ -35,9 +44,6 @@ public class Board extends AbstractTableModel {
 
 		this.bag = new Bag();
 		randomFillBoard(numOfPlayers);
-
-		// printBoard();
-		// randomFillBoard();
 	}
 
 	public int getNumOfPlayers() {
@@ -78,7 +84,9 @@ public class Board extends AbstractTableModel {
 		return board[rowIndex][columnIndex];
 	}
 
-	// print board on screen
+	/**
+	 * prints board on console (only for debug purposes)
+	 */
 	public void printBoard() {
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
@@ -92,14 +100,18 @@ public class Board extends AbstractTableModel {
 		}
 	}
 
-	// randomly fills the board, based on the number of players
+	/**
+	 * randomly fills the board, based on the number of players
+	 * used only at the beginning, just the first time the board is filled.
+	 * always empty tiles are set to null.
+	 * @param numOfPlayers
+	 */
 	public void randomFillBoard(int numOfPlayers) {
 
 		// sets every tile to EMPTY
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
 				board[i][j] = new Tile(ColorTile.EMPTY);
-				// tile.setImg(null);
 			}
 		}
 
@@ -138,6 +150,9 @@ public class Board extends AbstractTableModel {
 
 	}
 
+	/**
+	 * refills the board when needed.
+	 */
 	public void refillBoard() {
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
@@ -149,14 +164,21 @@ public class Board extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	// returns random TileType (not empty)
+
+	/**
+	 * returns random tile taken from the bag.
+	 * @return
+	 */
 	public Tile getRandomTile() {
 		Tile tile = bag.tiles.get(c);
 		c++;
 		return tile;
 	}
 
-	// remove tile with the specific tile
+	/**
+	 * removed tile specified in param tile1
+	 * @param tile1
+	 */
 	public void removeTile(Tile tile1) {
 
 		for (Tile[] tiles : board) {
@@ -168,17 +190,24 @@ public class Board extends AbstractTableModel {
 			}
 
 		}
-		// this.printBoard();
-
 		fireTableDataChanged();
 	}
 
-	// sets the given tile to EMPTY
+	/**
+	 * sets the given tile to empty
+	 * @param rowIndex
+	 * @param columnIndex
+	 */
 	public void removeTile(int rowIndex, int columnIndex) {
 		this.board[rowIndex][columnIndex] = new Tile(ColorTile.EMPTY);
 	}
 
-	// returns true if the tile is EMPTY
+	/**
+	 * returns true if the tile is EMPTY
+	 * @param rowIndex
+	 * @param columnIndex
+	 * @return true if the given tile is empty
+	 */
 	public boolean isTileEmpty(int rowIndex, int columnIndex) {
 		if (this.board[rowIndex][columnIndex] == null) {
 			return true;
@@ -188,18 +217,17 @@ public class Board extends AbstractTableModel {
 		return false;
 	}
 
-	// checks if the tile is available (has at least one free side and a max of 3
-	// free sides)
+	/**
+	 * checks if the tile is available for picking (has at least one free side and a max of 3 free sides)
+	 * @param rowIndex
+	 * @param columnIndex
+	 * @return true if the given tile is available
+	 */
 	public boolean isTileAvailable(int rowIndex, int columnIndex) {
-		/// aggiungere controllo su 4 lati: se tutti empty, la carta non è prendibilide:
-		/// return false (all'inizio)
-
-		// freeSides conta il numero di lati liberi (deve essere >0 e <4)
 		int freeSides = 0;
 
 		if (this.board[rowIndex][columnIndex] != null
 				&& this.board[rowIndex][columnIndex].getColor() != ColorTile.EMPTY) {
-			// System.out.println(this.board[rowIndex][columnIndex].getColor());
 			// check upper tile
 			if (rowIndex > 0) {
 				if (isTileEmpty(rowIndex - 1, columnIndex)) {
@@ -236,8 +264,6 @@ public class Board extends AbstractTableModel {
 				freeSides++;
 			}
 		}
-		// System.out.println("Lati liberi: "+freeSides+" (at "+rowIndex+" -
-		// "+columnIndex+")");
 
 		if (freeSides > 0 && freeSides < 4) {
 			return true;
@@ -245,6 +271,10 @@ public class Board extends AbstractTableModel {
 		return false;
 	}
 
+	/**
+	 * checks if the board needs to be refilled
+	 * @return true if the board needs to be refilled
+	 */
 	public boolean checkForRefill() {
 		for (int i = 0; i < rowLen; i++) {
 			for (int j = 0; j < columnLen; j++) {
@@ -260,8 +290,6 @@ public class Board extends AbstractTableModel {
 		// if no tile is available, the refill is needed (return true)
 		return true;
 	}
-	
-
 }
 
 
